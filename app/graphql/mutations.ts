@@ -14,12 +14,12 @@ export const createVote = /* GraphQL */ `mutation CreateVote(
 ) {
   createVote(input: $input, condition: $condition) {
     id
-    votee {
+    voters {
       nextToken
       __typename
     }
     dareID
-    voters
+    votee
     createdAt
     updatedAt
     __typename
@@ -35,12 +35,12 @@ export const updateVote = /* GraphQL */ `mutation UpdateVote(
 ) {
   updateVote(input: $input, condition: $condition) {
     id
-    votee {
+    voters {
       nextToken
       __typename
     }
     dareID
-    voters
+    votee
     createdAt
     updatedAt
     __typename
@@ -56,12 +56,12 @@ export const deleteVote = /* GraphQL */ `mutation DeleteVote(
 ) {
   deleteVote(input: $input, condition: $condition) {
     id
-    votee {
+    voters {
       nextToken
       __typename
     }
     dareID
-    voters
+    votee
     createdAt
     updatedAt
     __typename
@@ -283,7 +283,7 @@ export const createUserVote = /* GraphQL */ `mutation CreateUserVote(
     vote {
       id
       dareID
-      voters
+      votee
       createdAt
       updatedAt
       __typename
@@ -318,7 +318,7 @@ export const updateUserVote = /* GraphQL */ `mutation UpdateUserVote(
     vote {
       id
       dareID
-      voters
+      votee
       createdAt
       updatedAt
       __typename
@@ -353,7 +353,7 @@ export const deleteUserVote = /* GraphQL */ `mutation DeleteUserVote(
     vote {
       id
       dareID
-      voters
+      votee
       createdAt
       updatedAt
       __typename

@@ -11,12 +11,12 @@ type GeneratedQuery<InputType, OutputType> = string & {
 export const getVote = /* GraphQL */ `query GetVote($id: ID!) {
   getVote(id: $id) {
     id
-    votee {
+    voters {
       nextToken
       __typename
     }
     dareID
-    voters
+    votee
     createdAt
     updatedAt
     __typename
@@ -32,7 +32,7 @@ export const listVotes = /* GraphQL */ `query ListVotes(
     items {
       id
       dareID
-      voters
+      votee
       createdAt
       updatedAt
       __typename
@@ -59,7 +59,7 @@ export const votesByDareID = /* GraphQL */ `query VotesByDareID(
     items {
       id
       dareID
-      voters
+      votee
       createdAt
       updatedAt
       __typename
@@ -72,15 +72,15 @@ export const votesByDareID = /* GraphQL */ `query VotesByDareID(
   APITypes.VotesByDareIDQueryVariables,
   APITypes.VotesByDareIDQuery
 >;
-export const votesByVoters = /* GraphQL */ `query VotesByVoters(
-  $voters: ID!
+export const votesByVotee = /* GraphQL */ `query VotesByVotee(
+  $votee: ID!
   $sortDirection: ModelSortDirection
   $filter: ModelVoteFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  votesByVoters(
-    voters: $voters
+  votesByVotee(
+    votee: $votee
     sortDirection: $sortDirection
     filter: $filter
     limit: $limit
@@ -89,7 +89,7 @@ export const votesByVoters = /* GraphQL */ `query VotesByVoters(
     items {
       id
       dareID
-      voters
+      votee
       createdAt
       updatedAt
       __typename
@@ -99,8 +99,8 @@ export const votesByVoters = /* GraphQL */ `query VotesByVoters(
   }
 }
 ` as GeneratedQuery<
-  APITypes.VotesByVotersQueryVariables,
-  APITypes.VotesByVotersQuery
+  APITypes.VotesByVoteeQueryVariables,
+  APITypes.VotesByVoteeQuery
 >;
 export const getDare = /* GraphQL */ `query GetDare($id: ID!) {
   getDare(id: $id) {
@@ -211,6 +211,38 @@ export const listUsers = /* GraphQL */ `query ListUsers(
   }
 }
 ` as GeneratedQuery<APITypes.ListUsersQueryVariables, APITypes.ListUsersQuery>;
+export const usersByPhoneNumber = /* GraphQL */ `query UsersByPhoneNumber(
+  $phoneNumber: AWSPhone!
+  $sortDirection: ModelSortDirection
+  $filter: ModelUserFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  usersByPhoneNumber(
+    phoneNumber: $phoneNumber
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      firstName
+      lastName
+      phoneNumber
+      groupID
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.UsersByPhoneNumberQueryVariables,
+  APITypes.UsersByPhoneNumberQuery
+>;
 export const usersByGroupID = /* GraphQL */ `query UsersByGroupID(
   $groupID: ID!
   $sortDirection: ModelSortDirection
@@ -251,7 +283,7 @@ export const getUserVote = /* GraphQL */ `query GetUserVote($id: ID!) {
     vote {
       id
       dareID
-      voters
+      votee
       createdAt
       updatedAt
       __typename

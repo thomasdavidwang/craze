@@ -3,22 +3,26 @@
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { API, Auth } from "aws-amplify";
-import { useState } from "react";
+import { API } from "aws-amplify";
+import { useContext, useState } from "react";
 import * as mutations from "../graphql/mutations";
 import { GraphQLQuery } from "@aws-amplify/api";
-import { CreateDareInput, CreateDareMutation, CreateVoteInput } from "../API";
+import {
+  CreateDareInput,
+  CreateDareMutation,
+  CreateUserVoteInput,
+  CreateVoteInput,
+} from "../API";
+import { context } from "../components/ContextProvider";
 
 type dareParameters = {
   recipient: string;
   description: string;
+  userID: string;
 };
 
-async function createDare({ recipient, description }: dareParameters) {
+async function createDare({ recipient, description, userID }: dareParameters) {
   try {
-    const user = await Auth.currentAuthenticatedUser();
-    console.log(user);
-
     const dareDetails: CreateDareInput = {
       description: description,
     };
@@ -30,8 +34,25 @@ async function createDare({ recipient, description }: dareParameters) {
 
     const voteDetails: CreateVoteInput = {
       dareID: newDare.data?.createDare?.id,
-      voters: lastName,
+      votee: recipient,
     };
+
+    const newVote = await API.graphql<GraphQLQuery<CreateVoteInput>>({
+      query: mutations.createVote,
+      variables: { input: voteDetails },
+    });
+
+    const voterDetails: CreateUserVoteInput = {
+      voteId: newVote.data.createVote.id,
+      userId: recipient,
+    };
+
+    const newVoter = await API.graphql<GraphQLQuery<CreateUserVoteInput>>({
+      query: mutations.createUserVote,
+      variables: { input: voterDetails },
+    });
+
+    console.log(newVoter);
   } catch (error) {
     console.log("error creating dare:", error);
   }
@@ -40,6 +61,7 @@ async function createDare({ recipient, description }: dareParameters) {
 export default function Create() {
   const [description, setDescription] = useState("");
   const [recipient, setRecipient] = useState("");
+  const { userID, setUserID } = useContext(context);
 
   return (
     <div>
@@ -65,7 +87,7 @@ export default function Create() {
       />
       <Button
         variant="outlined"
-        onClick={() => createDare({ recipient, description })}
+        onClick={() => createDare({ recipient, description, userID })}
       >
         Create
       </Button>

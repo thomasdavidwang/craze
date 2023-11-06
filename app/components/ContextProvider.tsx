@@ -1,19 +1,24 @@
 "use client";
 
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
-interface contextData {
+interface ContextData {
   userID: string;
+  setUserID: (id: string) => void;
 }
 
-const context = createContext({ userID: "" });
+export const context = createContext<ContextData | null>(null);
 
 export default function ContextProvider(props: LayoutProps) {
-  const [context, setContextData] = useState({ userID: "" });
+  const [userID, setUserID] = useState("");
 
-  return <context.Provider value={context}>{props.children}</context.Provider>;
+  return (
+    <context.Provider value={{ userID, setUserID }}>
+      {props.children}
+    </context.Provider>
+  );
 }

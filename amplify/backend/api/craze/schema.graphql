@@ -1,8 +1,8 @@
 type Vote @model @auth(rules: [{ allow: public }]) {
   id: ID!
-  votee: [User!] @manyToMany(relationName: "UserVote")
+  voters: [User!]! @manyToMany(relationName: "UserVote")
   dareID: ID! @index(name: "byDare")
-  voters: ID! @index(name: "byUser")
+  votee: ID! @index(name: "byUser")
 }
 
 type Dare @model @auth(rules: [{ allow: public }]) {
@@ -21,7 +21,7 @@ type User @model @auth(rules: [{ allow: public }]) {
   id: ID!
   firstName: String!
   lastName: String!
-  phoneNumber: AWSPhone!
+  phoneNumber: AWSPhone! @index(name: "byPhoneNumber")
   groupID: ID @index(name: "byGroup")
   votesGiven: [Vote] @hasMany(indexName: "byUser", fields: ["id"])
   votesReceived: [Vote] @manyToMany(relationName: "UserVote")

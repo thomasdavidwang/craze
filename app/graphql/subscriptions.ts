@@ -11,12 +11,12 @@ type GeneratedSubscription<InputType, OutputType> = string & {
 export const onCreateVote = /* GraphQL */ `subscription OnCreateVote($filter: ModelSubscriptionVoteFilterInput) {
   onCreateVote(filter: $filter) {
     id
-    votee {
+    voters {
       nextToken
       __typename
     }
     dareID
-    voters
+    votee
     createdAt
     updatedAt
     __typename
@@ -29,12 +29,12 @@ export const onCreateVote = /* GraphQL */ `subscription OnCreateVote($filter: Mo
 export const onUpdateVote = /* GraphQL */ `subscription OnUpdateVote($filter: ModelSubscriptionVoteFilterInput) {
   onUpdateVote(filter: $filter) {
     id
-    votee {
+    voters {
       nextToken
       __typename
     }
     dareID
-    voters
+    votee
     createdAt
     updatedAt
     __typename
@@ -47,12 +47,12 @@ export const onUpdateVote = /* GraphQL */ `subscription OnUpdateVote($filter: Mo
 export const onDeleteVote = /* GraphQL */ `subscription OnDeleteVote($filter: ModelSubscriptionVoteFilterInput) {
   onDeleteVote(filter: $filter) {
     id
-    votee {
+    voters {
       nextToken
       __typename
     }
     dareID
-    voters
+    votee
     createdAt
     updatedAt
     __typename
@@ -244,7 +244,7 @@ export const onCreateUserVote = /* GraphQL */ `subscription OnCreateUserVote($fi
     vote {
       id
       dareID
-      voters
+      votee
       createdAt
       updatedAt
       __typename
@@ -276,7 +276,7 @@ export const onUpdateUserVote = /* GraphQL */ `subscription OnUpdateUserVote($fi
     vote {
       id
       dareID
-      voters
+      votee
       createdAt
       updatedAt
       __typename
@@ -308,7 +308,7 @@ export const onDeleteUserVote = /* GraphQL */ `subscription OnDeleteUserVote($fi
     vote {
       id
       dareID
-      voters
+      votee
       createdAt
       updatedAt
       __typename

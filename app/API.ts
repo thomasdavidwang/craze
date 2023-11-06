@@ -5,12 +5,12 @@
 export type CreateVoteInput = {
   id?: string | null,
   dareID: string,
-  voters: string,
+  votee: string,
 };
 
 export type ModelVoteConditionInput = {
   dareID?: ModelIDInput | null,
-  voters?: ModelIDInput | null,
+  votee?: ModelIDInput | null,
   and?: Array< ModelVoteConditionInput | null > | null,
   or?: Array< ModelVoteConditionInput | null > | null,
   not?: ModelVoteConditionInput | null,
@@ -59,9 +59,9 @@ export type ModelSizeInput = {
 export type Vote = {
   __typename: "Vote",
   id: string,
-  votee?: ModelUserVoteConnection | null,
+  voters?: ModelUserVoteConnection | null,
   dareID: string,
-  voters: string,
+  votee: string,
   createdAt: string,
   updatedAt: string,
 };
@@ -105,7 +105,7 @@ export type ModelVoteConnection = {
 export type UpdateVoteInput = {
   id: string,
   dareID?: string | null,
-  voters?: string | null,
+  votee?: string | null,
 };
 
 export type DeleteVoteInput = {
@@ -251,7 +251,7 @@ export type DeleteUserVoteInput = {
 export type ModelVoteFilterInput = {
   id?: ModelIDInput | null,
   dareID?: ModelIDInput | null,
-  voters?: ModelIDInput | null,
+  votee?: ModelIDInput | null,
   and?: Array< ModelVoteFilterInput | null > | null,
   or?: Array< ModelVoteFilterInput | null > | null,
   not?: ModelVoteFilterInput | null,
@@ -314,7 +314,7 @@ export type ModelUserVoteFilterInput = {
 export type ModelSubscriptionVoteFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   dareID?: ModelSubscriptionIDInput | null,
-  voters?: ModelSubscriptionIDInput | null,
+  votee?: ModelSubscriptionIDInput | null,
   and?: Array< ModelSubscriptionVoteFilterInput | null > | null,
   or?: Array< ModelSubscriptionVoteFilterInput | null > | null,
 };
@@ -390,12 +390,12 @@ export type CreateVoteMutation = {
   createVote?:  {
     __typename: "Vote",
     id: string,
-    votee?:  {
+    voters?:  {
       __typename: "ModelUserVoteConnection",
       nextToken?: string | null,
     } | null,
     dareID: string,
-    voters: string,
+    votee: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -410,12 +410,12 @@ export type UpdateVoteMutation = {
   updateVote?:  {
     __typename: "Vote",
     id: string,
-    votee?:  {
+    voters?:  {
       __typename: "ModelUserVoteConnection",
       nextToken?: string | null,
     } | null,
     dareID: string,
-    voters: string,
+    votee: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -430,12 +430,12 @@ export type DeleteVoteMutation = {
   deleteVote?:  {
     __typename: "Vote",
     id: string,
-    votee?:  {
+    voters?:  {
       __typename: "ModelUserVoteConnection",
       nextToken?: string | null,
     } | null,
     dareID: string,
-    voters: string,
+    votee: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -648,7 +648,7 @@ export type CreateUserVoteMutation = {
       __typename: "Vote",
       id: string,
       dareID: string,
-      voters: string,
+      votee: string,
       createdAt: string,
       updatedAt: string,
     },
@@ -682,7 +682,7 @@ export type UpdateUserVoteMutation = {
       __typename: "Vote",
       id: string,
       dareID: string,
-      voters: string,
+      votee: string,
       createdAt: string,
       updatedAt: string,
     },
@@ -716,7 +716,7 @@ export type DeleteUserVoteMutation = {
       __typename: "Vote",
       id: string,
       dareID: string,
-      voters: string,
+      votee: string,
       createdAt: string,
       updatedAt: string,
     },
@@ -743,12 +743,12 @@ export type GetVoteQuery = {
   getVote?:  {
     __typename: "Vote",
     id: string,
-    votee?:  {
+    voters?:  {
       __typename: "ModelUserVoteConnection",
       nextToken?: string | null,
     } | null,
     dareID: string,
-    voters: string,
+    votee: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -767,7 +767,7 @@ export type ListVotesQuery = {
       __typename: "Vote",
       id: string,
       dareID: string,
-      voters: string,
+      votee: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -790,7 +790,7 @@ export type VotesByDareIDQuery = {
       __typename: "Vote",
       id: string,
       dareID: string,
-      voters: string,
+      votee: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -798,22 +798,22 @@ export type VotesByDareIDQuery = {
   } | null,
 };
 
-export type VotesByVotersQueryVariables = {
-  voters: string,
+export type VotesByVoteeQueryVariables = {
+  votee: string,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelVoteFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type VotesByVotersQuery = {
-  votesByVoters?:  {
+export type VotesByVoteeQuery = {
+  votesByVotee?:  {
     __typename: "ModelVoteConnection",
     items:  Array< {
       __typename: "Vote",
       id: string,
       dareID: string,
-      voters: string,
+      votee: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -945,6 +945,31 @@ export type ListUsersQuery = {
   } | null,
 };
 
+export type UsersByPhoneNumberQueryVariables = {
+  phoneNumber: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelUserFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type UsersByPhoneNumberQuery = {
+  usersByPhoneNumber?:  {
+    __typename: "ModelUserConnection",
+    items:  Array< {
+      __typename: "User",
+      id: string,
+      firstName: string,
+      lastName: string,
+      phoneNumber: string,
+      groupID?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type UsersByGroupIDQueryVariables = {
   groupID: string,
   sortDirection?: ModelSortDirection | null,
@@ -984,7 +1009,7 @@ export type GetUserVoteQuery = {
       __typename: "Vote",
       id: string,
       dareID: string,
-      voters: string,
+      votee: string,
       createdAt: string,
       updatedAt: string,
     },
@@ -1078,12 +1103,12 @@ export type OnCreateVoteSubscription = {
   onCreateVote?:  {
     __typename: "Vote",
     id: string,
-    votee?:  {
+    voters?:  {
       __typename: "ModelUserVoteConnection",
       nextToken?: string | null,
     } | null,
     dareID: string,
-    voters: string,
+    votee: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1097,12 +1122,12 @@ export type OnUpdateVoteSubscription = {
   onUpdateVote?:  {
     __typename: "Vote",
     id: string,
-    votee?:  {
+    voters?:  {
       __typename: "ModelUserVoteConnection",
       nextToken?: string | null,
     } | null,
     dareID: string,
-    voters: string,
+    votee: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1116,12 +1141,12 @@ export type OnDeleteVoteSubscription = {
   onDeleteVote?:  {
     __typename: "Vote",
     id: string,
-    votee?:  {
+    voters?:  {
       __typename: "ModelUserVoteConnection",
       nextToken?: string | null,
     } | null,
     dareID: string,
-    voters: string,
+    votee: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -1324,7 +1349,7 @@ export type OnCreateUserVoteSubscription = {
       __typename: "Vote",
       id: string,
       dareID: string,
-      voters: string,
+      votee: string,
       createdAt: string,
       updatedAt: string,
     },
@@ -1357,7 +1382,7 @@ export type OnUpdateUserVoteSubscription = {
       __typename: "Vote",
       id: string,
       dareID: string,
-      voters: string,
+      votee: string,
       createdAt: string,
       updatedAt: string,
     },
@@ -1390,7 +1415,7 @@ export type OnDeleteUserVoteSubscription = {
       __typename: "Vote",
       id: string,
       dareID: string,
-      voters: string,
+      votee: string,
       createdAt: string,
       updatedAt: string,
     },

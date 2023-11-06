@@ -1,13 +1,14 @@
 "use client";
 
 import TextField from "@mui/material/TextField";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Button } from "@mui/material";
 import { Auth } from "aws-amplify";
 import { API } from "aws-amplify";
 import * as mutations from "../graphql/mutations";
 import { GraphQLQuery } from "@aws-amplify/api";
 import { CreateUserInput, CreateUserMutation } from "../API";
+import { context } from "../components/ContextProvider";
 
 type SignUpParameters = {
   firstName: string;
@@ -21,6 +22,7 @@ export default function SignUp() {
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
+  const { userID, setUserID } = useContext(context);
 
   async function signUp({
     firstName,
@@ -52,7 +54,8 @@ export default function SignUp() {
         query: mutations.createUser,
         variables: { input: userDetails },
       });
-      console.log(newUser);
+
+      setUserID(newUser.data.createUser.id);
     } catch (error) {
       console.log("error signing up:", error);
     }
