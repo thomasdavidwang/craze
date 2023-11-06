@@ -3,33 +3,29 @@
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import { Button } from "@mui/material";
-import { Amplify, Auth } from "aws-amplify";
-import awsconfig from "../aws-exports";
-
-Amplify.configure(awsconfig);
-Auth.configure(awsconfig);
-
+import { Auth } from "aws-amplify";
 type SignUpParameters = {
   firstName: string;
   lastName: string;
   phoneNumber: string;
+  password: string;
 };
 
 export async function signUp({
   firstName,
   lastName,
   phoneNumber,
+  password,
 }: SignUpParameters) {
   try {
     const { user } = await Auth.signUp({
       username: phoneNumber,
-      password: "password",
+      password: password,
       attributes: {
         given_name: firstName,
         family_name: lastName,
       },
       autoSignIn: {
-        // optional - enables auto sign in after user is confirmed
         enabled: true,
       },
     });
@@ -43,13 +39,13 @@ export default function SignUp() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [confirmationCode, setConfirmationCode] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
     <div>
       <TextField
         id="outlined-basic"
-        label="Outlined"
+        label="First Name"
         variant="outlined"
         value={firstName}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,7 +54,7 @@ export default function SignUp() {
       />
       <TextField
         id="outlined-basic"
-        label="Outlined"
+        label="Last Name"
         variant="outlined"
         value={lastName}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,16 +63,25 @@ export default function SignUp() {
       />
       <TextField
         id="outlined-basic"
-        label="Outlined"
+        label="Phone Number"
         variant="outlined"
         value={phoneNumber}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
           setPhoneNumber(event.target.value);
         }}
       />
+      <TextField
+        id="outlined-basic"
+        label="Password"
+        variant="outlined"
+        value={password}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          setPassword(event.target.value);
+        }}
+      />
       <Button
         variant="outlined"
-        onClick={() => signUp({ firstName, lastName, phoneNumber })}
+        onClick={() => signUp({ firstName, lastName, phoneNumber, password })}
       >
         Sign Up
       </Button>
