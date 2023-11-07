@@ -6,11 +6,13 @@ import Typography from "@mui/material/Typography";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import IconButton from "@mui/material/IconButton";
 import * as mutations from "../../graphql/mutations";
+import * as queries from "../../graphql/queries";
 import { GraphQLQuery } from "@aws-amplify/api";
 import { GetUserQuery } from "../../API";
 import { API } from "aws-amplify";
 import { useContext, useEffect, useState } from "react";
 import { context } from "@/app/components/ContextProvider";
+import Link from "next/link";
 
 type DareCardProps = {
   dare: Dare;
@@ -80,7 +82,9 @@ export default function DareCard({ dare: dare }: DareCardProps) {
 
   return (
     <Card variant="outlined">
-      <Typography variant="h3">{dare.description}</Typography>
+      <Link href={"/feed/" + dare.Votes.items[0].id}>
+        <Typography variant="h3">{dare.description}</Typography>
+      </Link>
       {votee && (
         <Typography variant="h3">
           {votee.firstName + " " + votee.lastName}

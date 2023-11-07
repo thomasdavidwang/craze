@@ -1,7 +1,7 @@
 "use client";
 
 import { useContext, useEffect, useState } from "react";
-import { context } from "../components/ContextProvider";
+import { context } from "../../components/ContextProvider";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { Auth, Storage } from "aws-amplify";

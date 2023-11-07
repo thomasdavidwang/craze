@@ -5,15 +5,15 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { API } from "aws-amplify";
 import { useContext, useState } from "react";
-import * as mutations from "../graphql/mutations";
+import * as mutations from "../../graphql/mutations";
 import { GraphQLQuery } from "@aws-amplify/api";
 import {
   CreateDareInput,
   CreateDareMutation,
   CreateUserVoteInput,
   CreateVoteInput,
-} from "../API";
-import { ContextData, context } from "../components/ContextProvider";
+} from "../../API";
+import { ContextData, context } from "../../components/ContextProvider";
 
 type dareParameters = {
   recipient: string;
