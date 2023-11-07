@@ -3,7 +3,7 @@
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { useContext, useState } from "react";
-import { API, Auth } from "aws-amplify";
+import { API, Auth, Storage } from "aws-amplify";
 import * as queries from "../graphql/queries";
 import { GraphQLQuery } from "@aws-amplify/api";
 import { context } from "../components/ContextProvider";
@@ -30,10 +30,15 @@ export default function SignIn() {
         variables: { phoneNumber: phoneNumber },
       });
 
+      const pic = await Storage.get(
+        user.data.usersByPhoneNumber.items[0].id + ".png"
+      );
+
       setContextData({
         userID: user.data.usersByPhoneNumber.items[0].id,
         firstName: user.data.usersByPhoneNumber.items[0].firstName,
         lastName: user.data.usersByPhoneNumber.items[0].lastName,
+        pic: pic,
       });
 
       router.push("/feed");

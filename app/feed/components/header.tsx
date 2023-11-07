@@ -3,6 +3,7 @@
 import { context } from "@/app/components/ContextProvider";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Link from "next/link";
 import { useContext } from "react";
 
 export default function Header() {
@@ -12,7 +13,7 @@ export default function Header() {
     <Box>
       <Typography>Nerve</Typography>
       {contextData.firstName && (
-        <Typography>{contextData.firstName}</Typography>
+        <Link href="/profile">{contextData.firstName}</Link>
       )}
     </Box>
   );
