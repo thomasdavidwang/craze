@@ -13,7 +13,7 @@ import {
   CreateUserVoteInput,
   CreateVoteInput,
 } from "../API";
-import { context } from "../components/ContextProvider";
+import { ContextData, context } from "../components/ContextProvider";
 
 type dareParameters = {
   recipient: string;
@@ -44,7 +44,7 @@ async function createDare({ recipient, description, userID }: dareParameters) {
 
     const voterDetails: CreateUserVoteInput = {
       voteId: newVote.data.createVote.id,
-      userId: recipient,
+      userId: userID,
     };
 
     const newVoter = await API.graphql<GraphQLQuery<CreateUserVoteInput>>({
@@ -64,7 +64,7 @@ export default function Create() {
   const { contextData, setContextData } = useContext(context);
 
   return (
-    <div>
+    <>
       <Typography>I dare</Typography>
       <TextField
         id="outlined-basic"
@@ -87,10 +87,13 @@ export default function Create() {
       />
       <Button
         variant="outlined"
-        onClick={() => createDare({ recipient, description, contextData.userID })}
+        onClick={() => {
+          const userID: string = contextData.userID;
+          createDare({ recipient, description, userID });
+        }}
       >
         Create
       </Button>
-    </div>
+    </>
   );
 }

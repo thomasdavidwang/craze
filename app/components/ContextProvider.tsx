@@ -6,7 +6,7 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
-type ContextData = {
+export type ContextData = {
   userID: string | null;
   firstName: string | null;
   lastName: string | null;

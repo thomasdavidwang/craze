@@ -21,6 +21,18 @@ export const createVote = /* GraphQL */ `mutation CreateVote(
         userId
         vote {
           id
+          voters {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
           dareID
           votee
           createdAt
@@ -34,6 +46,30 @@ export const createVote = /* GraphQL */ `mutation CreateVote(
           profilePicKey
           phoneNumber
           groupID
+          votesReceived {
+            items {
+              id
+              dareID
+              votee
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          votesGiven {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -69,6 +105,18 @@ export const updateVote = /* GraphQL */ `mutation UpdateVote(
         userId
         vote {
           id
+          voters {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
           dareID
           votee
           createdAt
@@ -82,6 +130,30 @@ export const updateVote = /* GraphQL */ `mutation UpdateVote(
           profilePicKey
           phoneNumber
           groupID
+          votesReceived {
+            items {
+              id
+              dareID
+              votee
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          votesGiven {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -117,6 +189,18 @@ export const deleteVote = /* GraphQL */ `mutation DeleteVote(
         userId
         vote {
           id
+          voters {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
           dareID
           votee
           createdAt
@@ -130,6 +214,30 @@ export const deleteVote = /* GraphQL */ `mutation DeleteVote(
           profilePicKey
           phoneNumber
           groupID
+          votesReceived {
+            items {
+              id
+              dareID
+              votee
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          votesGiven {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -164,6 +272,33 @@ export const createDare = /* GraphQL */ `mutation CreateDare(
       items {
         id
         voters {
+          items {
+            id
+            voteId
+            userId
+            vote {
+              id
+              dareID
+              votee
+              createdAt
+              updatedAt
+              __typename
+            }
+            user {
+              id
+              firstName
+              lastName
+              profilePicKey
+              phoneNumber
+              groupID
+              createdAt
+              updatedAt
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           nextToken
           __typename
         }
@@ -197,6 +332,33 @@ export const updateDare = /* GraphQL */ `mutation UpdateDare(
       items {
         id
         voters {
+          items {
+            id
+            voteId
+            userId
+            vote {
+              id
+              dareID
+              votee
+              createdAt
+              updatedAt
+              __typename
+            }
+            user {
+              id
+              firstName
+              lastName
+              profilePicKey
+              phoneNumber
+              groupID
+              createdAt
+              updatedAt
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           nextToken
           __typename
         }
@@ -230,6 +392,33 @@ export const deleteDare = /* GraphQL */ `mutation DeleteDare(
       items {
         id
         voters {
+          items {
+            id
+            voteId
+            userId
+            vote {
+              id
+              dareID
+              votee
+              createdAt
+              updatedAt
+              __typename
+            }
+            user {
+              id
+              firstName
+              lastName
+              profilePicKey
+              phoneNumber
+              groupID
+              createdAt
+              updatedAt
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           nextToken
           __typename
         }
@@ -265,11 +454,50 @@ export const createGroup = /* GraphQL */ `mutation CreateGroup(
         profilePicKey
         phoneNumber
         groupID
-        votesGiven {
+        votesReceived {
+          items {
+            id
+            voters {
+              nextToken
+              __typename
+            }
+            dareID
+            votee
+            createdAt
+            updatedAt
+            __typename
+          }
           nextToken
           __typename
         }
-        votesReceived {
+        votesGiven {
+          items {
+            id
+            voteId
+            userId
+            vote {
+              id
+              dareID
+              votee
+              createdAt
+              updatedAt
+              __typename
+            }
+            user {
+              id
+              firstName
+              lastName
+              profilePicKey
+              phoneNumber
+              groupID
+              createdAt
+              updatedAt
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           nextToken
           __typename
         }
@@ -303,11 +531,50 @@ export const updateGroup = /* GraphQL */ `mutation UpdateGroup(
         profilePicKey
         phoneNumber
         groupID
-        votesGiven {
+        votesReceived {
+          items {
+            id
+            voters {
+              nextToken
+              __typename
+            }
+            dareID
+            votee
+            createdAt
+            updatedAt
+            __typename
+          }
           nextToken
           __typename
         }
-        votesReceived {
+        votesGiven {
+          items {
+            id
+            voteId
+            userId
+            vote {
+              id
+              dareID
+              votee
+              createdAt
+              updatedAt
+              __typename
+            }
+            user {
+              id
+              firstName
+              lastName
+              profilePicKey
+              phoneNumber
+              groupID
+              createdAt
+              updatedAt
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           nextToken
           __typename
         }
@@ -341,11 +608,50 @@ export const deleteGroup = /* GraphQL */ `mutation DeleteGroup(
         profilePicKey
         phoneNumber
         groupID
-        votesGiven {
+        votesReceived {
+          items {
+            id
+            voters {
+              nextToken
+              __typename
+            }
+            dareID
+            votee
+            createdAt
+            updatedAt
+            __typename
+          }
           nextToken
           __typename
         }
-        votesReceived {
+        votesGiven {
+          items {
+            id
+            voteId
+            userId
+            vote {
+              id
+              dareID
+              votee
+              createdAt
+              updatedAt
+              __typename
+            }
+            user {
+              id
+              firstName
+              lastName
+              profilePicKey
+              phoneNumber
+              groupID
+              createdAt
+              updatedAt
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           nextToken
           __typename
         }
@@ -376,10 +682,37 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
     profilePicKey
     phoneNumber
     groupID
-    votesGiven {
+    votesReceived {
       items {
         id
         voters {
+          items {
+            id
+            voteId
+            userId
+            vote {
+              id
+              dareID
+              votee
+              createdAt
+              updatedAt
+              __typename
+            }
+            user {
+              id
+              firstName
+              lastName
+              profilePicKey
+              phoneNumber
+              groupID
+              createdAt
+              updatedAt
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           nextToken
           __typename
         }
@@ -392,13 +725,25 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
       nextToken
       __typename
     }
-    votesReceived {
+    votesGiven {
       items {
         id
         voteId
         userId
         vote {
           id
+          voters {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
           dareID
           votee
           createdAt
@@ -412,6 +757,30 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
           profilePicKey
           phoneNumber
           groupID
+          votesReceived {
+            items {
+              id
+              dareID
+              votee
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          votesGiven {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -443,10 +812,37 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
     profilePicKey
     phoneNumber
     groupID
-    votesGiven {
+    votesReceived {
       items {
         id
         voters {
+          items {
+            id
+            voteId
+            userId
+            vote {
+              id
+              dareID
+              votee
+              createdAt
+              updatedAt
+              __typename
+            }
+            user {
+              id
+              firstName
+              lastName
+              profilePicKey
+              phoneNumber
+              groupID
+              createdAt
+              updatedAt
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           nextToken
           __typename
         }
@@ -459,13 +855,25 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
       nextToken
       __typename
     }
-    votesReceived {
+    votesGiven {
       items {
         id
         voteId
         userId
         vote {
           id
+          voters {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
           dareID
           votee
           createdAt
@@ -479,6 +887,30 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
           profilePicKey
           phoneNumber
           groupID
+          votesReceived {
+            items {
+              id
+              dareID
+              votee
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          votesGiven {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -510,10 +942,37 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
     profilePicKey
     phoneNumber
     groupID
-    votesGiven {
+    votesReceived {
       items {
         id
         voters {
+          items {
+            id
+            voteId
+            userId
+            vote {
+              id
+              dareID
+              votee
+              createdAt
+              updatedAt
+              __typename
+            }
+            user {
+              id
+              firstName
+              lastName
+              profilePicKey
+              phoneNumber
+              groupID
+              createdAt
+              updatedAt
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           nextToken
           __typename
         }
@@ -526,13 +985,25 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
       nextToken
       __typename
     }
-    votesReceived {
+    votesGiven {
       items {
         id
         voteId
         userId
         vote {
           id
+          voters {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
           dareID
           votee
           createdAt
@@ -546,6 +1017,30 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
           profilePicKey
           phoneNumber
           groupID
+          votesReceived {
+            items {
+              id
+              dareID
+              votee
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          votesGiven {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -581,6 +1076,37 @@ export const createUserVote = /* GraphQL */ `mutation CreateUserVote(
           id
           voteId
           userId
+          vote {
+            id
+            voters {
+              nextToken
+              __typename
+            }
+            dareID
+            votee
+            createdAt
+            updatedAt
+            __typename
+          }
+          user {
+            id
+            firstName
+            lastName
+            profilePicKey
+            phoneNumber
+            groupID
+            votesReceived {
+              nextToken
+              __typename
+            }
+            votesGiven {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -601,9 +1127,21 @@ export const createUserVote = /* GraphQL */ `mutation CreateUserVote(
       profilePicKey
       phoneNumber
       groupID
-      votesGiven {
+      votesReceived {
         items {
           id
+          voters {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
           dareID
           votee
           createdAt
@@ -613,11 +1151,42 @@ export const createUserVote = /* GraphQL */ `mutation CreateUserVote(
         nextToken
         __typename
       }
-      votesReceived {
+      votesGiven {
         items {
           id
           voteId
           userId
+          vote {
+            id
+            voters {
+              nextToken
+              __typename
+            }
+            dareID
+            votee
+            createdAt
+            updatedAt
+            __typename
+          }
+          user {
+            id
+            firstName
+            lastName
+            profilePicKey
+            phoneNumber
+            groupID
+            votesReceived {
+              nextToken
+              __typename
+            }
+            votesGiven {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -653,6 +1222,37 @@ export const updateUserVote = /* GraphQL */ `mutation UpdateUserVote(
           id
           voteId
           userId
+          vote {
+            id
+            voters {
+              nextToken
+              __typename
+            }
+            dareID
+            votee
+            createdAt
+            updatedAt
+            __typename
+          }
+          user {
+            id
+            firstName
+            lastName
+            profilePicKey
+            phoneNumber
+            groupID
+            votesReceived {
+              nextToken
+              __typename
+            }
+            votesGiven {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -673,9 +1273,21 @@ export const updateUserVote = /* GraphQL */ `mutation UpdateUserVote(
       profilePicKey
       phoneNumber
       groupID
-      votesGiven {
+      votesReceived {
         items {
           id
+          voters {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
           dareID
           votee
           createdAt
@@ -685,11 +1297,42 @@ export const updateUserVote = /* GraphQL */ `mutation UpdateUserVote(
         nextToken
         __typename
       }
-      votesReceived {
+      votesGiven {
         items {
           id
           voteId
           userId
+          vote {
+            id
+            voters {
+              nextToken
+              __typename
+            }
+            dareID
+            votee
+            createdAt
+            updatedAt
+            __typename
+          }
+          user {
+            id
+            firstName
+            lastName
+            profilePicKey
+            phoneNumber
+            groupID
+            votesReceived {
+              nextToken
+              __typename
+            }
+            votesGiven {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -725,6 +1368,37 @@ export const deleteUserVote = /* GraphQL */ `mutation DeleteUserVote(
           id
           voteId
           userId
+          vote {
+            id
+            voters {
+              nextToken
+              __typename
+            }
+            dareID
+            votee
+            createdAt
+            updatedAt
+            __typename
+          }
+          user {
+            id
+            firstName
+            lastName
+            profilePicKey
+            phoneNumber
+            groupID
+            votesReceived {
+              nextToken
+              __typename
+            }
+            votesGiven {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -745,9 +1419,21 @@ export const deleteUserVote = /* GraphQL */ `mutation DeleteUserVote(
       profilePicKey
       phoneNumber
       groupID
-      votesGiven {
+      votesReceived {
         items {
           id
+          voters {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
           dareID
           votee
           createdAt
@@ -757,11 +1443,42 @@ export const deleteUserVote = /* GraphQL */ `mutation DeleteUserVote(
         nextToken
         __typename
       }
-      votesReceived {
+      votesGiven {
         items {
           id
           voteId
           userId
+          vote {
+            id
+            voters {
+              nextToken
+              __typename
+            }
+            dareID
+            votee
+            createdAt
+            updatedAt
+            __typename
+          }
+          user {
+            id
+            firstName
+            lastName
+            profilePicKey
+            phoneNumber
+            groupID
+            votesReceived {
+              nextToken
+              __typename
+            }
+            votesGiven {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           createdAt
           updatedAt
           __typename

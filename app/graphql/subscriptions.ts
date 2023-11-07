@@ -18,6 +18,18 @@ export const onCreateVote = /* GraphQL */ `subscription OnCreateVote($filter: Mo
         userId
         vote {
           id
+          voters {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
           dareID
           votee
           createdAt
@@ -31,6 +43,30 @@ export const onCreateVote = /* GraphQL */ `subscription OnCreateVote($filter: Mo
           profilePicKey
           phoneNumber
           groupID
+          votesReceived {
+            items {
+              id
+              dareID
+              votee
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          votesGiven {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -63,6 +99,18 @@ export const onUpdateVote = /* GraphQL */ `subscription OnUpdateVote($filter: Mo
         userId
         vote {
           id
+          voters {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
           dareID
           votee
           createdAt
@@ -76,6 +124,30 @@ export const onUpdateVote = /* GraphQL */ `subscription OnUpdateVote($filter: Mo
           profilePicKey
           phoneNumber
           groupID
+          votesReceived {
+            items {
+              id
+              dareID
+              votee
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          votesGiven {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -108,6 +180,18 @@ export const onDeleteVote = /* GraphQL */ `subscription OnDeleteVote($filter: Mo
         userId
         vote {
           id
+          voters {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
           dareID
           votee
           createdAt
@@ -121,6 +205,30 @@ export const onDeleteVote = /* GraphQL */ `subscription OnDeleteVote($filter: Mo
           profilePicKey
           phoneNumber
           groupID
+          votesReceived {
+            items {
+              id
+              dareID
+              votee
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          votesGiven {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -152,6 +260,33 @@ export const onCreateDare = /* GraphQL */ `subscription OnCreateDare($filter: Mo
       items {
         id
         voters {
+          items {
+            id
+            voteId
+            userId
+            vote {
+              id
+              dareID
+              votee
+              createdAt
+              updatedAt
+              __typename
+            }
+            user {
+              id
+              firstName
+              lastName
+              profilePicKey
+              phoneNumber
+              groupID
+              createdAt
+              updatedAt
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           nextToken
           __typename
         }
@@ -182,6 +317,33 @@ export const onUpdateDare = /* GraphQL */ `subscription OnUpdateDare($filter: Mo
       items {
         id
         voters {
+          items {
+            id
+            voteId
+            userId
+            vote {
+              id
+              dareID
+              votee
+              createdAt
+              updatedAt
+              __typename
+            }
+            user {
+              id
+              firstName
+              lastName
+              profilePicKey
+              phoneNumber
+              groupID
+              createdAt
+              updatedAt
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           nextToken
           __typename
         }
@@ -212,6 +374,33 @@ export const onDeleteDare = /* GraphQL */ `subscription OnDeleteDare($filter: Mo
       items {
         id
         voters {
+          items {
+            id
+            voteId
+            userId
+            vote {
+              id
+              dareID
+              votee
+              createdAt
+              updatedAt
+              __typename
+            }
+            user {
+              id
+              firstName
+              lastName
+              profilePicKey
+              phoneNumber
+              groupID
+              createdAt
+              updatedAt
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           nextToken
           __typename
         }
@@ -244,11 +433,50 @@ export const onCreateGroup = /* GraphQL */ `subscription OnCreateGroup($filter: 
         profilePicKey
         phoneNumber
         groupID
-        votesGiven {
+        votesReceived {
+          items {
+            id
+            voters {
+              nextToken
+              __typename
+            }
+            dareID
+            votee
+            createdAt
+            updatedAt
+            __typename
+          }
           nextToken
           __typename
         }
-        votesReceived {
+        votesGiven {
+          items {
+            id
+            voteId
+            userId
+            vote {
+              id
+              dareID
+              votee
+              createdAt
+              updatedAt
+              __typename
+            }
+            user {
+              id
+              firstName
+              lastName
+              profilePicKey
+              phoneNumber
+              groupID
+              createdAt
+              updatedAt
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           nextToken
           __typename
         }
@@ -279,11 +507,50 @@ export const onUpdateGroup = /* GraphQL */ `subscription OnUpdateGroup($filter: 
         profilePicKey
         phoneNumber
         groupID
-        votesGiven {
+        votesReceived {
+          items {
+            id
+            voters {
+              nextToken
+              __typename
+            }
+            dareID
+            votee
+            createdAt
+            updatedAt
+            __typename
+          }
           nextToken
           __typename
         }
-        votesReceived {
+        votesGiven {
+          items {
+            id
+            voteId
+            userId
+            vote {
+              id
+              dareID
+              votee
+              createdAt
+              updatedAt
+              __typename
+            }
+            user {
+              id
+              firstName
+              lastName
+              profilePicKey
+              phoneNumber
+              groupID
+              createdAt
+              updatedAt
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           nextToken
           __typename
         }
@@ -314,11 +581,50 @@ export const onDeleteGroup = /* GraphQL */ `subscription OnDeleteGroup($filter: 
         profilePicKey
         phoneNumber
         groupID
-        votesGiven {
+        votesReceived {
+          items {
+            id
+            voters {
+              nextToken
+              __typename
+            }
+            dareID
+            votee
+            createdAt
+            updatedAt
+            __typename
+          }
           nextToken
           __typename
         }
-        votesReceived {
+        votesGiven {
+          items {
+            id
+            voteId
+            userId
+            vote {
+              id
+              dareID
+              votee
+              createdAt
+              updatedAt
+              __typename
+            }
+            user {
+              id
+              firstName
+              lastName
+              profilePicKey
+              phoneNumber
+              groupID
+              createdAt
+              updatedAt
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           nextToken
           __typename
         }
@@ -346,10 +652,37 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
     profilePicKey
     phoneNumber
     groupID
-    votesGiven {
+    votesReceived {
       items {
         id
         voters {
+          items {
+            id
+            voteId
+            userId
+            vote {
+              id
+              dareID
+              votee
+              createdAt
+              updatedAt
+              __typename
+            }
+            user {
+              id
+              firstName
+              lastName
+              profilePicKey
+              phoneNumber
+              groupID
+              createdAt
+              updatedAt
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           nextToken
           __typename
         }
@@ -362,13 +695,25 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
       nextToken
       __typename
     }
-    votesReceived {
+    votesGiven {
       items {
         id
         voteId
         userId
         vote {
           id
+          voters {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
           dareID
           votee
           createdAt
@@ -382,6 +727,30 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
           profilePicKey
           phoneNumber
           groupID
+          votesReceived {
+            items {
+              id
+              dareID
+              votee
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          votesGiven {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -410,10 +779,37 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
     profilePicKey
     phoneNumber
     groupID
-    votesGiven {
+    votesReceived {
       items {
         id
         voters {
+          items {
+            id
+            voteId
+            userId
+            vote {
+              id
+              dareID
+              votee
+              createdAt
+              updatedAt
+              __typename
+            }
+            user {
+              id
+              firstName
+              lastName
+              profilePicKey
+              phoneNumber
+              groupID
+              createdAt
+              updatedAt
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           nextToken
           __typename
         }
@@ -426,13 +822,25 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
       nextToken
       __typename
     }
-    votesReceived {
+    votesGiven {
       items {
         id
         voteId
         userId
         vote {
           id
+          voters {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
           dareID
           votee
           createdAt
@@ -446,6 +854,30 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
           profilePicKey
           phoneNumber
           groupID
+          votesReceived {
+            items {
+              id
+              dareID
+              votee
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          votesGiven {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -474,10 +906,37 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
     profilePicKey
     phoneNumber
     groupID
-    votesGiven {
+    votesReceived {
       items {
         id
         voters {
+          items {
+            id
+            voteId
+            userId
+            vote {
+              id
+              dareID
+              votee
+              createdAt
+              updatedAt
+              __typename
+            }
+            user {
+              id
+              firstName
+              lastName
+              profilePicKey
+              phoneNumber
+              groupID
+              createdAt
+              updatedAt
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           nextToken
           __typename
         }
@@ -490,13 +949,25 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
       nextToken
       __typename
     }
-    votesReceived {
+    votesGiven {
       items {
         id
         voteId
         userId
         vote {
           id
+          voters {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
           dareID
           votee
           createdAt
@@ -510,6 +981,30 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
           profilePicKey
           phoneNumber
           groupID
+          votesReceived {
+            items {
+              id
+              dareID
+              votee
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          votesGiven {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -542,6 +1037,37 @@ export const onCreateUserVote = /* GraphQL */ `subscription OnCreateUserVote($fi
           id
           voteId
           userId
+          vote {
+            id
+            voters {
+              nextToken
+              __typename
+            }
+            dareID
+            votee
+            createdAt
+            updatedAt
+            __typename
+          }
+          user {
+            id
+            firstName
+            lastName
+            profilePicKey
+            phoneNumber
+            groupID
+            votesReceived {
+              nextToken
+              __typename
+            }
+            votesGiven {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -562,9 +1088,21 @@ export const onCreateUserVote = /* GraphQL */ `subscription OnCreateUserVote($fi
       profilePicKey
       phoneNumber
       groupID
-      votesGiven {
+      votesReceived {
         items {
           id
+          voters {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
           dareID
           votee
           createdAt
@@ -574,11 +1112,42 @@ export const onCreateUserVote = /* GraphQL */ `subscription OnCreateUserVote($fi
         nextToken
         __typename
       }
-      votesReceived {
+      votesGiven {
         items {
           id
           voteId
           userId
+          vote {
+            id
+            voters {
+              nextToken
+              __typename
+            }
+            dareID
+            votee
+            createdAt
+            updatedAt
+            __typename
+          }
+          user {
+            id
+            firstName
+            lastName
+            profilePicKey
+            phoneNumber
+            groupID
+            votesReceived {
+              nextToken
+              __typename
+            }
+            votesGiven {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -611,6 +1180,37 @@ export const onUpdateUserVote = /* GraphQL */ `subscription OnUpdateUserVote($fi
           id
           voteId
           userId
+          vote {
+            id
+            voters {
+              nextToken
+              __typename
+            }
+            dareID
+            votee
+            createdAt
+            updatedAt
+            __typename
+          }
+          user {
+            id
+            firstName
+            lastName
+            profilePicKey
+            phoneNumber
+            groupID
+            votesReceived {
+              nextToken
+              __typename
+            }
+            votesGiven {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -631,9 +1231,21 @@ export const onUpdateUserVote = /* GraphQL */ `subscription OnUpdateUserVote($fi
       profilePicKey
       phoneNumber
       groupID
-      votesGiven {
+      votesReceived {
         items {
           id
+          voters {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
           dareID
           votee
           createdAt
@@ -643,11 +1255,42 @@ export const onUpdateUserVote = /* GraphQL */ `subscription OnUpdateUserVote($fi
         nextToken
         __typename
       }
-      votesReceived {
+      votesGiven {
         items {
           id
           voteId
           userId
+          vote {
+            id
+            voters {
+              nextToken
+              __typename
+            }
+            dareID
+            votee
+            createdAt
+            updatedAt
+            __typename
+          }
+          user {
+            id
+            firstName
+            lastName
+            profilePicKey
+            phoneNumber
+            groupID
+            votesReceived {
+              nextToken
+              __typename
+            }
+            votesGiven {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -680,6 +1323,37 @@ export const onDeleteUserVote = /* GraphQL */ `subscription OnDeleteUserVote($fi
           id
           voteId
           userId
+          vote {
+            id
+            voters {
+              nextToken
+              __typename
+            }
+            dareID
+            votee
+            createdAt
+            updatedAt
+            __typename
+          }
+          user {
+            id
+            firstName
+            lastName
+            profilePicKey
+            phoneNumber
+            groupID
+            votesReceived {
+              nextToken
+              __typename
+            }
+            votesGiven {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           createdAt
           updatedAt
           __typename
@@ -700,9 +1374,21 @@ export const onDeleteUserVote = /* GraphQL */ `subscription OnDeleteUserVote($fi
       profilePicKey
       phoneNumber
       groupID
-      votesGiven {
+      votesReceived {
         items {
           id
+          voters {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
           dareID
           votee
           createdAt
@@ -712,11 +1398,42 @@ export const onDeleteUserVote = /* GraphQL */ `subscription OnDeleteUserVote($fi
         nextToken
         __typename
       }
-      votesReceived {
+      votesGiven {
         items {
           id
           voteId
           userId
+          vote {
+            id
+            voters {
+              nextToken
+              __typename
+            }
+            dareID
+            votee
+            createdAt
+            updatedAt
+            __typename
+          }
+          user {
+            id
+            firstName
+            lastName
+            profilePicKey
+            phoneNumber
+            groupID
+            votesReceived {
+              nextToken
+              __typename
+            }
+            votesGiven {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
           createdAt
           updatedAt
           __typename

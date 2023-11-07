@@ -1,6 +1,6 @@
 type Vote @model @auth(rules: [{ allow: public }]) {
   id: ID!
-  voters: [User!]! @manyToMany(relationName: "UserVote")
+  voters: [User] @manyToMany(relationName: "UserVote")
   dareID: ID! @index(name: "byDare")
   votee: ID! @index(name: "byUser")
 }
@@ -24,6 +24,6 @@ type User @model @auth(rules: [{ allow: public }]) {
   profilePicKey: String
   phoneNumber: AWSPhone! @index(name: "byPhoneNumber")
   groupID: ID @index(name: "byGroup")
-  votesGiven: [Vote] @hasMany(indexName: "byUser", fields: ["id"])
-  votesReceived: [Vote] @manyToMany(relationName: "UserVote")
+  votesReceived: [Vote] @hasMany(indexName: "byUser", fields: ["id"])
+  votesGiven: [Vote] @manyToMany(relationName: "UserVote")
 }
