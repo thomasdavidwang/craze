@@ -14,6 +14,8 @@ import {
   CreateVoteInput,
 } from "../../API";
 import { ContextData, context } from "../../components/ContextProvider";
+import { People } from "@mui/icons-material";
+import PeopleSearch from "../components/peopleSearch";
 
 type dareParameters = {
   recipient: string;
@@ -66,15 +68,16 @@ export default function Create() {
   return (
     <>
       <Typography>I dare</Typography>
-      <TextField
+      {/**<TextField
         id="outlined-basic"
-        label="person"
+        label="Dare"
         variant="outlined"
         value={recipient}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
           setRecipient(event.target.value);
         }}
-      />
+      />**/}
+      <PeopleSearch value={recipient} setValue={setRecipient} />
       <Typography>to</Typography>
       <TextField
         id="outlined-basic"

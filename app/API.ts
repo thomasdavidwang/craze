@@ -307,6 +307,137 @@ export type ModelUserFilterInput = {
   not?: ModelUserFilterInput | null,
 };
 
+export type SearchableUserFilterInput = {
+  id?: SearchableIDFilterInput | null,
+  firstName?: SearchableStringFilterInput | null,
+  lastName?: SearchableStringFilterInput | null,
+  profilePicKey?: SearchableStringFilterInput | null,
+  phoneNumber?: SearchableStringFilterInput | null,
+  groupID?: SearchableIDFilterInput | null,
+  createdAt?: SearchableStringFilterInput | null,
+  updatedAt?: SearchableStringFilterInput | null,
+  and?: Array< SearchableUserFilterInput | null > | null,
+  or?: Array< SearchableUserFilterInput | null > | null,
+  not?: SearchableUserFilterInput | null,
+};
+
+export type SearchableIDFilterInput = {
+  ne?: string | null,
+  gt?: string | null,
+  lt?: string | null,
+  gte?: string | null,
+  lte?: string | null,
+  eq?: string | null,
+  match?: string | null,
+  matchPhrase?: string | null,
+  matchPhrasePrefix?: string | null,
+  multiMatch?: string | null,
+  exists?: boolean | null,
+  wildcard?: string | null,
+  regexp?: string | null,
+  range?: Array< string | null > | null,
+};
+
+export type SearchableStringFilterInput = {
+  ne?: string | null,
+  gt?: string | null,
+  lt?: string | null,
+  gte?: string | null,
+  lte?: string | null,
+  eq?: string | null,
+  match?: string | null,
+  matchPhrase?: string | null,
+  matchPhrasePrefix?: string | null,
+  multiMatch?: string | null,
+  exists?: boolean | null,
+  wildcard?: string | null,
+  regexp?: string | null,
+  range?: Array< string | null > | null,
+};
+
+export type SearchableUserSortInput = {
+  field?: SearchableUserSortableFields | null,
+  direction?: SearchableSortDirection | null,
+};
+
+export enum SearchableUserSortableFields {
+  id = "id",
+  firstName = "firstName",
+  lastName = "lastName",
+  profilePicKey = "profilePicKey",
+  phoneNumber = "phoneNumber",
+  groupID = "groupID",
+  createdAt = "createdAt",
+  updatedAt = "updatedAt",
+}
+
+
+export enum SearchableSortDirection {
+  asc = "asc",
+  desc = "desc",
+}
+
+
+export type SearchableUserAggregationInput = {
+  name: string,
+  type: SearchableAggregateType,
+  field: SearchableUserAggregateField,
+};
+
+export enum SearchableAggregateType {
+  terms = "terms",
+  avg = "avg",
+  min = "min",
+  max = "max",
+  sum = "sum",
+}
+
+
+export enum SearchableUserAggregateField {
+  id = "id",
+  firstName = "firstName",
+  lastName = "lastName",
+  profilePicKey = "profilePicKey",
+  phoneNumber = "phoneNumber",
+  groupID = "groupID",
+  createdAt = "createdAt",
+  updatedAt = "updatedAt",
+}
+
+
+export type SearchableUserConnection = {
+  __typename: "SearchableUserConnection",
+  items:  Array<User | null >,
+  nextToken?: string | null,
+  total?: number | null,
+  aggregateItems:  Array<SearchableAggregateResult | null >,
+};
+
+export type SearchableAggregateResult = {
+  __typename: "SearchableAggregateResult",
+  name: string,
+  result?: SearchableAggregateGenericResult | null,
+};
+
+export type SearchableAggregateGenericResult = SearchableAggregateScalarResult | SearchableAggregateBucketResult
+
+
+export type SearchableAggregateScalarResult = {
+  __typename: "SearchableAggregateScalarResult",
+  value: number,
+};
+
+export type SearchableAggregateBucketResult = {
+  __typename: "SearchableAggregateBucketResult",
+  buckets?:  Array<SearchableAggregateBucketResultItem | null > | null,
+};
+
+export type SearchableAggregateBucketResultItem = {
+  __typename: "SearchableAggregateBucketResultItem",
+  key: string,
+  doc_count: number,
+};
+
 export type ModelUserVoteFilterInput = {
   id?: ModelIDInput | null,
   voteId?: ModelIDInput | null,
@@ -2779,6 +2910,117 @@ export type UsersByGroupIDQuery = {
       updatedAt: string,
     } | null >,
     nextToken?: string | null,
+  } | null,
+};
+
+export type SearchUsersQueryVariables = {
+  filter?: SearchableUserFilterInput | null,
+  sort?: Array< SearchableUserSortInput | null > | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  from?: number | null,
+  aggregates?: Array< SearchableUserAggregationInput | null > | null,
+};
+
+export type SearchUsersQuery = {
+  searchUsers?:  {
+    __typename: "SearchableUserConnection",
+    items:  Array< {
+      __typename: "User",
+      id: string,
+      firstName: string,
+      lastName: string,
+      profilePicKey?: string | null,
+      phoneNumber: string,
+      groupID?: string | null,
+      votesReceived?:  {
+        __typename: "ModelVoteConnection",
+        items:  Array< {
+          __typename: "Vote",
+          id: string,
+          voters?:  {
+            __typename: "ModelUserVoteConnection",
+            items:  Array< {
+              __typename: "UserVote",
+              id: string,
+              voteId: string,
+              userId: string,
+              createdAt: string,
+              updatedAt: string,
+            } | null >,
+            nextToken?: string | null,
+          } | null,
+          dareID: string,
+          votee: string,
+          createdAt: string,
+          updatedAt: string,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      votesGiven?:  {
+        __typename: "ModelUserVoteConnection",
+        items:  Array< {
+          __typename: "UserVote",
+          id: string,
+          voteId: string,
+          userId: string,
+          vote:  {
+            __typename: "Vote",
+            id: string,
+            voters?:  {
+              __typename: "ModelUserVoteConnection",
+              nextToken?: string | null,
+            } | null,
+            dareID: string,
+            votee: string,
+            createdAt: string,
+            updatedAt: string,
+          },
+          user:  {
+            __typename: "User",
+            id: string,
+            firstName: string,
+            lastName: string,
+            profilePicKey?: string | null,
+            phoneNumber: string,
+            groupID?: string | null,
+            votesReceived?:  {
+              __typename: "ModelVoteConnection",
+              nextToken?: string | null,
+            } | null,
+            votesGiven?:  {
+              __typename: "ModelUserVoteConnection",
+              nextToken?: string | null,
+            } | null,
+            createdAt: string,
+            updatedAt: string,
+          },
+          createdAt: string,
+          updatedAt: string,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+    total?: number | null,
+    aggregateItems:  Array< {
+      __typename: "SearchableAggregateResult",
+      name: string,
+      result: ( {
+          __typename: "SearchableAggregateScalarResult",
+          value: number,
+        } | {
+          __typename: "SearchableAggregateBucketResult",
+          buckets?:  Array< {
+            __typename: string,
+            key: string,
+            doc_count: number,
+          } | null > | null,
+        }
+      ) | null,
+    } | null >,
   } | null,
 };
 

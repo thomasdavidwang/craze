@@ -934,6 +934,125 @@ export const usersByGroupID = /* GraphQL */ `query UsersByGroupID(
   APITypes.UsersByGroupIDQueryVariables,
   APITypes.UsersByGroupIDQuery
 >;
+export const searchUsers = /* GraphQL */ `query SearchUsers(
+  $filter: SearchableUserFilterInput
+  $sort: [SearchableUserSortInput]
+  $limit: Int
+  $nextToken: String
+  $from: Int
+  $aggregates: [SearchableUserAggregationInput]
+) {
+  searchUsers(
+    filter: $filter
+    sort: $sort
+    limit: $limit
+    nextToken: $nextToken
+    from: $from
+    aggregates: $aggregates
+  ) {
+    items {
+      id
+      firstName
+      lastName
+      profilePicKey
+      phoneNumber
+      groupID
+      votesReceived {
+        items {
+          id
+          voters {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          dareID
+          votee
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      votesGiven {
+        items {
+          id
+          voteId
+          userId
+          vote {
+            id
+            voters {
+              nextToken
+              __typename
+            }
+            dareID
+            votee
+            createdAt
+            updatedAt
+            __typename
+          }
+          user {
+            id
+            firstName
+            lastName
+            profilePicKey
+            phoneNumber
+            groupID
+            votesReceived {
+              nextToken
+              __typename
+            }
+            votesGiven {
+              nextToken
+              __typename
+            }
+            createdAt
+            updatedAt
+            __typename
+          }
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    total
+    aggregateItems {
+      name
+      result {
+        ... on SearchableAggregateScalarResult {
+          value
+        }
+        ... on SearchableAggregateBucketResult {
+          buckets {
+            key
+            doc_count
+            __typename
+          }
+        }
+      }
+      __typename
+    }
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.SearchUsersQueryVariables,
+  APITypes.SearchUsersQuery
+>;
 export const getUserVote = /* GraphQL */ `query GetUserVote($id: ID!) {
   getUserVote(id: $id) {
     id
