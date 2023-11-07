@@ -1,15 +1,16 @@
 "use client";
 
-import { Dare } from "@/app/API";
+import { CreateUserVoteInput, CreateUserVoteMutation, Dare } from "@/app/API";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import IconButton from "@mui/material/IconButton";
-import * as queries from "../../graphql/queries";
+import * as mutations from "../../graphql/mutations";
 import { GraphQLQuery } from "@aws-amplify/api";
 import { GetUserQuery } from "../../API";
 import { API } from "aws-amplify";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { context } from "@/app/components/ContextProvider";
 
 type DareCardProps = {
   dare: Dare;
@@ -24,6 +25,7 @@ type Votee = {
 export default function DareCard({ dare: dare }: DareCardProps) {
   const [votee, setVotee] = useState<Votee>();
   const [voteCount, setVoteCount] = useState(0);
+  const { contextData, setContextData } = useContext(context);
 
   async function getVotee() {
     try {
@@ -48,7 +50,26 @@ export default function DareCard({ dare: dare }: DareCardProps) {
     setVoteCount(dare.Votes.items[0].voters.items.length);
   }
 
-  async function vote() {}
+  async function vote() {
+    try {
+      const userVoteDetails: CreateUserVoteInput = {
+        voteId: dare.Votes.items[0].id,
+        userId: contextData.userID,
+      };
+
+      console.log(userVoteDetails);
+
+      const vote = await API.graphql<GraphQLQuery<CreateUserVoteMutation>>({
+        query: mutations.createUserVote,
+        variables: { input: userVoteDetails },
+      });
+
+      console.log(vote);
+      setVoteCount((prev) => prev + 1);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   useEffect(() => {
     getVotee();
