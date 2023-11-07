@@ -2,7 +2,7 @@
   "version": "1",
   "cognitoConfig": {
     "identityPoolName": "craze01d15676_identitypool_01d15676",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "craze01d15676",
     "userPoolName": "craze01d15676_userpool_01d15676",
     "autoVerifiedAttributes": [
@@ -83,6 +83,8 @@
       "Ref": "AWS::StackId"
     },
     "permissions": [],
-    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"PreSignUp\",\n    \"lambdaFunctionName\": \"craze01d15676PreSignup\"\n  }\n]"
+    "authTriggerConnections": [
+      "{\"triggerType\":\"PreSignUp\",\"lambdaFunctionName\":\"craze01d15676PreSignup\"}"
+    ]
   }
 }

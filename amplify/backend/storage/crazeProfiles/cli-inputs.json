@@ -1,0 +1,16 @@
+{
+  "resourceName": "crazeProfiles",
+  "policyUUID": "a7030603",
+  "bucketName": "crazeb76557f6f8834017a26f1cf7f76dc9a4",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

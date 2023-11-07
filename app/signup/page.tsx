@@ -22,7 +22,7 @@ export default function SignUp() {
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
-  const { userID, setUserID } = useContext(context);
+  const { contextData, setContextData } = useContext(context);
 
   async function signUp({
     firstName,
@@ -55,7 +55,11 @@ export default function SignUp() {
         variables: { input: userDetails },
       });
 
-      setUserID(newUser.data.createUser.id);
+      setContextData({
+        userID: newUser.data.createUser.id,
+        firstName: firstName,
+        lastName: lastName,
+      });
     } catch (error) {
       console.log("error signing up:", error);
     }

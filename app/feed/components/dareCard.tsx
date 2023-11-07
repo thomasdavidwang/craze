@@ -1,8 +1,15 @@
+import { Dare } from "@/app/API";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 
-export default function DareCard(props) {
-  <Card variant="outlined">
-    <Typography variant="h3">{props}</Typography>
-  </Card>;
+type DareCardProps = {
+  dare: Dare;
+};
+
+export default function DareCard({ dare: dare }: DareCardProps) {
+  return (
+    <Card variant="outlined">
+      <Typography variant="h3">{dare.description}</Typography>
+    </Card>
+  );
 }

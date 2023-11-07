@@ -6,18 +6,20 @@ interface LayoutProps {
   children: React.ReactNode;
 }
 
-interface ContextData {
-  userID: string;
-  setUserID: (id: string) => void;
-}
+type ContextData = {
+  userID: string | null;
+  firstName: string | null;
+  lastName: string | null;
+  pic: string | null;
+};
 
-export const context = createContext<ContextData | null>(null);
+export const context = createContext(null);
 
 export default function ContextProvider(props: LayoutProps) {
-  const [userID, setUserID] = useState("");
+  const [contextData, setContextData] = useState<ContextData>();
 
   return (
-    <context.Provider value={{ userID, setUserID }}>
+    <context.Provider value={{ contextData, setContextData }}>
       {props.children}
     </context.Provider>
   );

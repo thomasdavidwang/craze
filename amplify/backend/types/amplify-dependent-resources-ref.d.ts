@@ -26,5 +26,11 @@ export type AmplifyDependentResourcesAttributes = {
       "Name": "string",
       "Region": "string"
     }
+  },
+  "storage": {
+    "crazeProfiles": {
+      "BucketName": "string",
+      "Region": "string"
+    }
   }
 }

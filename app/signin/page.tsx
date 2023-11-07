@@ -8,16 +8,18 @@ import * as queries from "../graphql/queries";
 import { GraphQLQuery } from "@aws-amplify/api";
 import { context } from "../components/ContextProvider";
 import { UsersByPhoneNumberQuery } from "../API";
+import { useRouter } from "next/navigation";
 
 type SignInParameters = {
   phoneNumber: string;
   password: string;
 };
 
-export default function LogIn() {
+export default function SignIn() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
-  const { userID, setUserID } = useContext(context);
+  const { contextData, setContextData } = useContext(context);
+  const router = useRouter();
 
   async function signIn({ phoneNumber, password }: SignInParameters) {
     try {
@@ -28,7 +30,13 @@ export default function LogIn() {
         variables: { phoneNumber: phoneNumber },
       });
 
-      setUserID(user.data.usersByPhoneNumber.items[0].id);
+      setContextData({
+        userID: user.data.usersByPhoneNumber.items[0].id,
+        firstName: user.data.usersByPhoneNumber.items[0].firstName,
+        lastName: user.data.usersByPhoneNumber.items[0].lastName,
+      });
+
+      router.push("/feed");
     } catch (error) {
       console.log("error signing in", error);
     }

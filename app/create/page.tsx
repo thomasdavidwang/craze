@@ -61,7 +61,7 @@ async function createDare({ recipient, description, userID }: dareParameters) {
 export default function Create() {
   const [description, setDescription] = useState("");
   const [recipient, setRecipient] = useState("");
-  const { userID, setUserID } = useContext(context);
+  const { contextData, setContextData } = useContext(context);
 
   return (
     <div>
@@ -87,7 +87,7 @@ export default function Create() {
       />
       <Button
         variant="outlined"
-        onClick={() => createDare({ recipient, description, userID })}
+        onClick={() => createDare({ recipient, description, contextData.userID })}
       >
         Create
       </Button>

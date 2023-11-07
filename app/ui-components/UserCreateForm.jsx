@@ -24,10 +24,14 @@ export default function UserCreateForm(props) {
   const initialValues = {
     firstName: "",
     lastName: "",
+    profilePicKey: "",
     phoneNumber: "",
   };
   const [firstName, setFirstName] = React.useState(initialValues.firstName);
   const [lastName, setLastName] = React.useState(initialValues.lastName);
+  const [profilePicKey, setProfilePicKey] = React.useState(
+    initialValues.profilePicKey
+  );
   const [phoneNumber, setPhoneNumber] = React.useState(
     initialValues.phoneNumber
   );
@@ -35,12 +39,14 @@ export default function UserCreateForm(props) {
   const resetStateValues = () => {
     setFirstName(initialValues.firstName);
     setLastName(initialValues.lastName);
+    setProfilePicKey(initialValues.profilePicKey);
     setPhoneNumber(initialValues.phoneNumber);
     setErrors({});
   };
   const validations = {
     firstName: [{ type: "Required" }],
     lastName: [{ type: "Required" }],
+    profilePicKey: [],
     phoneNumber: [{ type: "Required" }, { type: "Phone" }],
   };
   const runValidationTasks = async (
@@ -71,6 +77,7 @@ export default function UserCreateForm(props) {
         let modelFields = {
           firstName,
           lastName,
+          profilePicKey,
           phoneNumber,
         };
         const validationResponses = await Promise.all(
@@ -136,6 +143,7 @@ export default function UserCreateForm(props) {
             const modelFields = {
               firstName: value,
               lastName,
+              profilePicKey,
               phoneNumber,
             };
             const result = onChange(modelFields);
@@ -162,6 +170,7 @@ export default function UserCreateForm(props) {
             const modelFields = {
               firstName,
               lastName: value,
+              profilePicKey,
               phoneNumber,
             };
             const result = onChange(modelFields);
@@ -178,6 +187,33 @@ export default function UserCreateForm(props) {
         {...getOverrideProps(overrides, "lastName")}
       ></TextField>
       <TextField
+        label="Profile pic key"
+        isRequired={false}
+        isReadOnly={false}
+        value={profilePicKey}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              firstName,
+              lastName,
+              profilePicKey: value,
+              phoneNumber,
+            };
+            const result = onChange(modelFields);
+            value = result?.profilePicKey ?? value;
+          }
+          if (errors.profilePicKey?.hasError) {
+            runValidationTasks("profilePicKey", value);
+          }
+          setProfilePicKey(value);
+        }}
+        onBlur={() => runValidationTasks("profilePicKey", profilePicKey)}
+        errorMessage={errors.profilePicKey?.errorMessage}
+        hasError={errors.profilePicKey?.hasError}
+        {...getOverrideProps(overrides, "profilePicKey")}
+      ></TextField>
+      <TextField
         label="Phone number"
         isRequired={true}
         isReadOnly={false}
@@ -189,6 +225,7 @@ export default function UserCreateForm(props) {
             const modelFields = {
               firstName,
               lastName,
+              profilePicKey,
               phoneNumber: value,
             };
             const result = onChange(modelFields);

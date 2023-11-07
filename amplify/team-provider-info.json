@@ -24,6 +24,9 @@
           "deploymentBucketName": "amplify-amplifybaf655fedb444-staging-35113-deployment",
           "s3Key": "amplify-builds/craze01d15676PreSignup-547a30584e3269486d65-build.zip"
         }
+      },
+      "storage": {
+        "crazeProfiles": {}
       }
     }
   }

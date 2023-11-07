@@ -12,6 +12,33 @@ export const getVote = /* GraphQL */ `query GetVote($id: ID!) {
   getVote(id: $id) {
     id
     voters {
+      items {
+        id
+        voteId
+        userId
+        vote {
+          id
+          dareID
+          votee
+          createdAt
+          updatedAt
+          __typename
+        }
+        user {
+          id
+          firstName
+          lastName
+          profilePicKey
+          phoneNumber
+          groupID
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       nextToken
       __typename
     }
@@ -31,6 +58,18 @@ export const listVotes = /* GraphQL */ `query ListVotes(
   listVotes(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      voters {
+        items {
+          id
+          voteId
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       dareID
       votee
       createdAt
@@ -58,6 +97,18 @@ export const votesByDareID = /* GraphQL */ `query VotesByDareID(
   ) {
     items {
       id
+      voters {
+        items {
+          id
+          voteId
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       dareID
       votee
       createdAt
@@ -88,6 +139,18 @@ export const votesByVotee = /* GraphQL */ `query VotesByVotee(
   ) {
     items {
       id
+      voters {
+        items {
+          id
+          voteId
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       dareID
       votee
       createdAt
@@ -108,6 +171,18 @@ export const getDare = /* GraphQL */ `query GetDare($id: ID!) {
     description
     emoji
     Votes {
+      items {
+        id
+        voters {
+          nextToken
+          __typename
+        }
+        dareID
+        votee
+        createdAt
+        updatedAt
+        __typename
+      }
       nextToken
       __typename
     }
@@ -127,6 +202,18 @@ export const listDares = /* GraphQL */ `query ListDares(
       id
       description
       emoji
+      Votes {
+        items {
+          id
+          dareID
+          votee
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -140,6 +227,25 @@ export const getGroup = /* GraphQL */ `query GetGroup($id: ID!) {
   getGroup(id: $id) {
     id
     Users {
+      items {
+        id
+        firstName
+        lastName
+        profilePicKey
+        phoneNumber
+        groupID
+        votesGiven {
+          nextToken
+          __typename
+        }
+        votesReceived {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       nextToken
       __typename
     }
@@ -157,6 +263,21 @@ export const listGroups = /* GraphQL */ `query ListGroups(
   listGroups(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      Users {
+        items {
+          id
+          firstName
+          lastName
+          profilePicKey
+          phoneNumber
+          groupID
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -174,13 +295,53 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
     id
     firstName
     lastName
+    profilePicKey
     phoneNumber
     groupID
     votesGiven {
+      items {
+        id
+        voters {
+          nextToken
+          __typename
+        }
+        dareID
+        votee
+        createdAt
+        updatedAt
+        __typename
+      }
       nextToken
       __typename
     }
     votesReceived {
+      items {
+        id
+        voteId
+        userId
+        vote {
+          id
+          dareID
+          votee
+          createdAt
+          updatedAt
+          __typename
+        }
+        user {
+          id
+          firstName
+          lastName
+          profilePicKey
+          phoneNumber
+          groupID
+          createdAt
+          updatedAt
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       nextToken
       __typename
     }
@@ -200,8 +361,33 @@ export const listUsers = /* GraphQL */ `query ListUsers(
       id
       firstName
       lastName
+      profilePicKey
       phoneNumber
       groupID
+      votesGiven {
+        items {
+          id
+          dareID
+          votee
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      votesReceived {
+        items {
+          id
+          voteId
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -229,8 +415,33 @@ export const usersByPhoneNumber = /* GraphQL */ `query UsersByPhoneNumber(
       id
       firstName
       lastName
+      profilePicKey
       phoneNumber
       groupID
+      votesGiven {
+        items {
+          id
+          dareID
+          votee
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      votesReceived {
+        items {
+          id
+          voteId
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -261,8 +472,33 @@ export const usersByGroupID = /* GraphQL */ `query UsersByGroupID(
       id
       firstName
       lastName
+      profilePicKey
       phoneNumber
       groupID
+      votesGiven {
+        items {
+          id
+          dareID
+          votee
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      votesReceived {
+        items {
+          id
+          voteId
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -282,6 +518,18 @@ export const getUserVote = /* GraphQL */ `query GetUserVote($id: ID!) {
     userId
     vote {
       id
+      voters {
+        items {
+          id
+          voteId
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       dareID
       votee
       createdAt
@@ -292,8 +540,33 @@ export const getUserVote = /* GraphQL */ `query GetUserVote($id: ID!) {
       id
       firstName
       lastName
+      profilePicKey
       phoneNumber
       groupID
+      votesGiven {
+        items {
+          id
+          dareID
+          votee
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      votesReceived {
+        items {
+          id
+          voteId
+          userId
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -317,6 +590,37 @@ export const listUserVotes = /* GraphQL */ `query ListUserVotes(
       id
       voteId
       userId
+      vote {
+        id
+        voters {
+          nextToken
+          __typename
+        }
+        dareID
+        votee
+        createdAt
+        updatedAt
+        __typename
+      }
+      user {
+        id
+        firstName
+        lastName
+        profilePicKey
+        phoneNumber
+        groupID
+        votesGiven {
+          nextToken
+          __typename
+        }
+        votesReceived {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -347,6 +651,37 @@ export const userVotesByVoteId = /* GraphQL */ `query UserVotesByVoteId(
       id
       voteId
       userId
+      vote {
+        id
+        voters {
+          nextToken
+          __typename
+        }
+        dareID
+        votee
+        createdAt
+        updatedAt
+        __typename
+      }
+      user {
+        id
+        firstName
+        lastName
+        profilePicKey
+        phoneNumber
+        groupID
+        votesGiven {
+          nextToken
+          __typename
+        }
+        votesReceived {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -377,6 +712,37 @@ export const userVotesByUserId = /* GraphQL */ `query UserVotesByUserId(
       id
       voteId
       userId
+      vote {
+        id
+        voters {
+          nextToken
+          __typename
+        }
+        dareID
+        votee
+        createdAt
+        updatedAt
+        __typename
+      }
+      user {
+        id
+        firstName
+        lastName
+        profilePicKey
+        phoneNumber
+        groupID
+        votesGiven {
+          nextToken
+          __typename
+        }
+        votesReceived {
+          nextToken
+          __typename
+        }
+        createdAt
+        updatedAt
+        __typename
+      }
       createdAt
       updatedAt
       __typename
