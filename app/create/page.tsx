@@ -120,7 +120,8 @@ export default function Create() {
         sx={{
           width: 1,
           justifyContent: "space-between",
-          my: 2,
+          py: 2,
+          mb: 1,
           px: 2,
           borderBottom: 1,
           borderColor: "grey.500",
