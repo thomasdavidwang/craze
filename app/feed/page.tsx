@@ -6,6 +6,7 @@ import { Dare, ListDaresQuery, ListDaresQueryVariables } from "../API";
 import { API } from "aws-amplify";
 import { GraphQLQuery } from "@aws-amplify/api";
 import DareCard from "./components/dareCard";
+import Stack from "@mui/material/Stack";
 
 export default function Feed() {
   const [dares, setDares] = useState<Dare[]>([]);
@@ -25,9 +26,10 @@ export default function Feed() {
 
     const { items: items, nextToken } = res.data?.listDares;
 
-    if (items.length !== 0){
+    if (items.length !== 0) {
       variables.nextToken = nextToken;
 
+      // @ts-ignore: lol i still hate setState
       setDares((prevstate: Dare[]) => {
         return [...prevstate, ...items];
       });
@@ -42,7 +44,7 @@ export default function Feed() {
   }, []);
 
   return (
-    <div>
+    <Stack alignItems="center" spacing={2}>
       {dares.map((dare, idx) => {
         console.log(dare);
         return (
@@ -51,6 +53,6 @@ export default function Feed() {
           </div>
         );
       })}
-    </div>
+    </Stack>
   );
 }

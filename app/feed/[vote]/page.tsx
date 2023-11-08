@@ -60,6 +60,7 @@ export default function DarePage({ params }: { params: { vote: string } }) {
 
   useEffect(() => {
     getVote();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -1,26 +1,17 @@
 "use client";
 
-import { context } from "@/app/components/ContextProvider";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import Link from "next/link";
-import { useContext } from "react";
-import AddIcon from "@mui/icons-material/Add";
+import Container from "@mui/material/Container";
+import Stack from "@mui/material/Stack";
 
 export default function Header() {
-  const { contextData, setContextData } = useContext(context);
-
   return (
-    <Box>
-      <Link href="/feed">Nerve @ Yale</Link>
-      {contextData.firstName && (
-        <>
-          <Link href="/feed/profile">{contextData.firstName}</Link>
-          <Link href="/feed/create">
-            <AddIcon />
-          </Link>
-        </>
-      )}
-    </Box>
+    <Container sx={{ width: 1, my: 2 }}>
+      <Stack spacing={2} alignItems="center">
+        <Link href="/feed" className="text-base font-bold">
+          Nerve @ Yale
+        </Link>
+      </Stack>
+    </Container>
   );
 }

@@ -13,6 +13,8 @@ import { API, Storage } from "aws-amplify";
 import { useContext, useEffect, useState } from "react";
 import { context } from "@/app/components/ContextProvider";
 import Link from "next/link";
+import Stack from "@mui/material/Stack";
+import Image from "next/image";
 
 type DareCardProps = {
   dare: Dare;
@@ -88,22 +90,30 @@ export default function DareCard({ dare: dare }: DareCardProps) {
   console.log(dare);
 
   return (
-    <Card variant="outlined">
-      <Link href={"/feed/" + dare.Votes.items[0].id}>
-        <Typography variant="h3">{dare.description}</Typography>
-      </Link>
-      {votee && (
-        <>
-          <Typography variant="h3">
-            {votee.firstName + " " + votee.lastName}
-          </Typography>
-          <img src={pic} alt="profile pic" width={50} height={50} />
-        </>
-      )}
-      <Typography variant="h3">{voteCount}</Typography>
-      <IconButton onClick={vote}>
-        <ArrowUpwardIcon />
-      </IconButton>
+    <Card variant="outlined" sx={{ minWidth: 500, maxWidth: 500 }}>
+      <Stack direction="row" spacing={2}>
+        {votee && (
+          <>
+            <div>
+              <Typography variant="h2">
+                {votee.firstName + " " + votee.lastName}
+              </Typography>
+              <Image src={pic} alt="profile pic" width={50} height={50} />
+            </div>
+            <Typography>should</Typography>
+          </>
+        )}
+        <Link href={"/feed/" + dare.Votes.items[0].id}>
+          <Typography variant="h3">{dare.description}</Typography>
+        </Link>
+
+        <Stack>
+          <Typography variant="h3">{voteCount}</Typography>
+          <IconButton onClick={vote}>
+            <ArrowUpwardIcon />
+          </IconButton>
+        </Stack>
+      </Stack>
     </Card>
   );
 }

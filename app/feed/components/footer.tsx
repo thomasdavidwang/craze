@@ -1,10 +1,10 @@
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import { Box, Fab, Snackbar } from "@mui/material";
+import Link from "next/link";
 
 export default function Footer() {
   return (
-    <Box>
-      <Typography>Nerve</Typography>
-    </Box>
+    <Fab disableRipple variant="extended">
+      <Link href="/create">Dare a friend 😈</Link>
+    </Fab>
   );
 }
