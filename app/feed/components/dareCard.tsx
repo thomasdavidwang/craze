@@ -91,23 +91,30 @@ export default function DareCard({ dare: dare }: DareCardProps) {
 
   return (
     <Card variant="outlined" sx={{ minWidth: 500, maxWidth: 500 }}>
-      <Stack direction="row" spacing={2}>
+      <Stack
+        direction="row"
+        spacing={2}
+        justifyContent="space-between"
+        alignItems="center"
+      >
         {votee && (
           <>
             <div>
-              <Typography variant="h2">
-                {votee.firstName + " " + votee.lastName}
-              </Typography>
-              <Image src={pic} alt="profile pic" width={50} height={50} />
+              <Stack direction="row" spacing={1} alignItems="center">
+                <Image src={pic} alt="profile pic" width={50} height={50} />
+                <Stack>
+                  <Typography variant="h2">{votee.firstName}</Typography>
+                  <Typography variant="h2">{votee.lastName}</Typography>
+                </Stack>
+                <Typography variant="h4">should</Typography>
+              </Stack>
             </div>
-            <Typography>should</Typography>
           </>
         )}
         <Link href={"/feed/" + dare.Votes.items[0].id}>
           <Typography variant="h3">{dare.description}</Typography>
         </Link>
-
-        <Stack>
+        <Stack alignItems="center" sx={{ mx: 1, my: 2 }}>
           <Typography variant="h3">{voteCount}</Typography>
           <IconButton onClick={vote}>
             <ArrowUpwardIcon />

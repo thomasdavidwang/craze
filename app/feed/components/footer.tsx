@@ -1,10 +1,12 @@
-import { Box, Fab, Snackbar } from "@mui/material";
+import { Box, Fab, Snackbar, Typography } from "@mui/material";
 import Link from "next/link";
 
 export default function Footer() {
   return (
-    <Fab disableRipple variant="extended">
-      <Link href="/create">Dare a friend 😈</Link>
+    <Fab disableRipple disableFocusRipple variant="extended" color="secondary">
+      <Link href="/feed/create">
+        <Typography fontWeight="bold">Dare a friend 😈</Typography>
+      </Link>
     </Fab>
   );
 }

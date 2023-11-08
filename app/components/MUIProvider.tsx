@@ -11,11 +11,16 @@ interface LayoutProps {
 const theme = createTheme({
   palette: {
     mode: "dark",
+    secondary: {
+      main: "#D04EC4",
+    },
   },
   typography: {
     fontFamily: "Inter",
     h1: { fontSize: 16, fontWeight: 700 },
-    h2: { fontSize: 16, fontWeight: 600 },
+    h2: { fontSize: 18, fontWeight: 600 },
+    h3: { fontSize: 22, fontWeight: 500 },
+    h4: { fontSize: 12, fontWeight: 400 },
   },
 });
 
