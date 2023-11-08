@@ -5,10 +5,8 @@ import AWSProvider from "./components/AWSProvider";
 import ContextProvider from "./components/ContextProvider";
 import MUIProvider from "./components/MUIProvider";
 
-const inter = Inter({ subsets: ["latin"] });
-
 export const metadata: Metadata = {
-  title: "Craze",
+  title: "Craze @ Yale",
   description: "Dares",
 };
 
@@ -22,7 +20,7 @@ export default function RootLayout({
       <AWSProvider>
         <ContextProvider>
           <MUIProvider>
-            <body className={inter.className}>{children}</body>
+            <body>{children}</body>
           </MUIProvider>
         </ContextProvider>
       </AWSProvider>

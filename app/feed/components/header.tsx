@@ -12,7 +12,7 @@ export default function Header() {
 
   return (
     <Box>
-      <Link href="/feed">Nerve</Link>
+      <Link href="/feed">Nerve @ Yale</Link>
       {contextData.firstName && (
         <>
           <Link href="/feed/profile">{contextData.firstName}</Link>
