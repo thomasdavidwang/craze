@@ -89,14 +89,16 @@ export default function DareCard({ dare, index, setTouch, voteCount }) {
   }
 
   async function getVoters() {
-    const voterList = dare.Votes.items[0].voters.items.map((user) => user.id);
+    const voterList = dare.Votes.items[0].voters.items.map(
+      (userVotes) => userVotes.userId
+    );
 
     Promise.all(
-      voterList.map(async () => {
+      voterList.map(async (voterID) => {
         try {
           const user = await API.graphql<GraphQLQuery<GetUserQuery>>({
             query: queries.getUser,
-            variables: { id: dare.Votes.items[0].votee },
+            variables: { id: voterID },
           });
 
           const picLink = await Storage.get(
@@ -173,29 +175,30 @@ export default function DareCard({ dare, index, setTouch, voteCount }) {
                     spacing={1}
                     sx={{ borderTop: 1, borderColor: "grey.800" }}
                   >
-                    {voters.map((voter, idx) => {
-                      return (
-                        <Grid item key={idx}>
-                          <Stack
-                            direction="row"
-                            alignItems="center"
-                            key={idx}
-                            spacing={1}
-                          >
-                            <Image
-                              src={voter.pic}
-                              alt="profile pic"
-                              width={36}
-                              height={36}
-                              className="rounded-full object-cover max-h-8 max-w-8"
-                            />
-                            <Typography variant="h4">
-                              {voter.firstName + " " + voter.lastName}
-                            </Typography>
-                          </Stack>
-                        </Grid>
-                      );
-                    })}
+                    {voters.map(
+                      (voter, idx) =>
+                        voter && (
+                          <Grid item key={idx}>
+                            <Stack
+                              direction="row"
+                              alignItems="center"
+                              key={idx}
+                              spacing={1}
+                            >
+                              <Image
+                                src={voter.pic}
+                                alt="profile pic"
+                                width={36}
+                                height={36}
+                                className="rounded-full object-cover max-h-8 max-w-8"
+                              />
+                              <Typography variant="h4">
+                                {voter.firstName + " " + voter.lastName}
+                              </Typography>
+                            </Stack>
+                          </Grid>
+                        )
+                    )}
                   </Grid>
                 )
               : null}

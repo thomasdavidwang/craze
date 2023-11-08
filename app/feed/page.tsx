@@ -41,7 +41,6 @@ export default function Feed() {
   }
 
   useEffect(() => {
-    console.log(touch);
     fetchDares();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [touch]);
