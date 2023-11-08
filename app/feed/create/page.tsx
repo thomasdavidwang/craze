@@ -45,6 +45,7 @@ export default function Create() {
       });
 
       const voterDetails: CreateUserVoteInput = {
+        // @ts-ignore Property 'createVote' does not exist on type 'GraphQLQuery<CreateVoteInput>'
         voteId: newVote.data.createVote.id,
         userId: contextData.userID,
       };

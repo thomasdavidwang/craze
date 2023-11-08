@@ -2,7 +2,7 @@
 
 import TextField from "@mui/material/TextField";
 import { useContext, useState } from "react";
-import { Button, Container } from "@mui/material";
+import { Button, Container, Typography } from "@mui/material";
 import { Auth, Storage } from "aws-amplify";
 import { API } from "aws-amplify";
 import * as queries from "../graphql/queries";
@@ -54,7 +54,8 @@ export default function SignUp() {
   }
 
   return (
-    <Container>
+    <Container sx={{ width: 1 }}>
+      <Typography>Sign Up</Typography>
       <TextField
         id="outlined-basic"
         variant="outlined"

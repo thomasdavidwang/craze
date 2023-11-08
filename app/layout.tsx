@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import AWSProvider from "./components/AWSProvider";
 import ContextProvider from "./components/ContextProvider";
+import MUIProvider from "./components/MUIProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +21,9 @@ export default function RootLayout({
     <html lang="en">
       <AWSProvider>
         <ContextProvider>
-          <body className={inter.className}>{children}</body>
+          <MUIProvider>
+            <body className={inter.className}>{children}</body>
+          </MUIProvider>
         </ContextProvider>
       </AWSProvider>
     </html>
