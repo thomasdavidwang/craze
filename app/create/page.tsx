@@ -70,6 +70,7 @@ export default function Create() {
 
   useEffect(() => {
     searchUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [textLabel]);
 
   async function createDare() {
