@@ -49,7 +49,7 @@ export default function Feed() {
   return (
     <Stack alignItems="center" spacing={2} padding={2}>
       {dares.map((dare, idx) => {
-        return <DareCard dare={dare} key={idx} />;
+        return <DareCard dare={dare} index={idx} key={idx} />;
       })}
     </Stack>
   );
