@@ -100,6 +100,7 @@ export default function SignUp() {
               id="password"
               variant="outlined"
               value={password}
+              placeholder="password"
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 setPassword(event.target.value);
               }}

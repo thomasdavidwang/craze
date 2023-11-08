@@ -28,6 +28,7 @@ export default function DarePage({ params }: { params: { vote: string } }) {
 
     getVotee(vote.data.getVote.votee);
 
+    // @ts-ignore: lol i hate setState
     setVoters(vote.data.getVote.voters.items);
   }
 
