@@ -155,19 +155,14 @@ export default function Create() {
               }}
             />
             {options.map((option, index) => (
-              <Card>
+              <Card key={index}>
                 <CardActionArea>
                   <CardContent
                     onClick={() => {
                       setRecipient(option);
                     }}
                   >
-                    <Stack
-                      direction="row"
-                      key={index}
-                      alignItems="center"
-                      spacing={2}
-                    >
+                    <Stack direction="row" alignItems="center" spacing={2}>
                       <Image
                         src={pics[index]}
                         alt="profile pic"
