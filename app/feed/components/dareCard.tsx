@@ -120,6 +120,7 @@ export default function DareCard({ dare, index, setTouch, voteCount }) {
   useEffect(() => {
     getVotee();
     getVoters();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
