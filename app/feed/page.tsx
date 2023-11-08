@@ -7,7 +7,6 @@ import { API } from "aws-amplify";
 import { GraphQLQuery } from "@aws-amplify/api";
 import DareCard from "./components/dareCard";
 import Stack from "@mui/material/Stack";
-import Footer from "./components/footer";
 import Box from "@mui/material/Box";
 import Link from "next/link";
 import { Typography } from "@mui/material";
