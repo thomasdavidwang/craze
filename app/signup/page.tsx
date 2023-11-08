@@ -98,7 +98,7 @@ export default function SignUp() {
       <motion.div animate={{ x: !isPassword ? center : left }}>
         <Box sx={{ display: !isPassword ? "block" : "none" }}>
           <Typography variant="h2" sx={{ my: 2 }}>
-            What's your email?
+            What&apos;s your email?
           </Typography>
           <TextField
             id="email"
@@ -120,7 +120,7 @@ export default function SignUp() {
       <motion.div animate={{ x: !isPassword ? right : center }}>
         <Box sx={{ display: !isPassword ? "none" : "block" }}>
           <Typography variant="h2" sx={{ my: 2 }}>
-            What's your password?
+            What&apos;s your password?
           </Typography>
           <TextField
             id="password"
