@@ -17,17 +17,16 @@ export default function PeopleSearch({ selection, setSelection }) {
     getInputProps,
     getListboxProps,
     getOptionProps,
-    value,
     groupedOptions,
   } = useAutocomplete({
     id: "use-autocomplete-demo",
     options: options,
+    value: selection,
+    onChange: (event: any, newValue: string | null) => {
+      setSelection(newValue);
+    },
     getOptionLabel: (option) => option.firstName + " " + option.lastName,
   });
-
-  useEffect(() => {
-    setSelection(value);
-  }, [value]);
 
   async function searchUsers() {
     const filters: SearchableUserFilterInput[] = [];
@@ -58,6 +57,7 @@ export default function PeopleSearch({ selection, setSelection }) {
   }
 
   useEffect(() => {
+    console.log(inputValue);
     searchUsers();
   }, [inputValue]);
 
@@ -69,15 +69,17 @@ export default function PeopleSearch({ selection, setSelection }) {
       {groupedOptions.length > 0 ? (
         <ul {...getListboxProps()}>
           {groupedOptions.map((option, index) => (
-            <li {...getOptionProps({ option, index })}>
-              <p>{option.firstName + " " + option.lastName}</p>
-              <img
-                src={pics[index]}
-                alt="profile pic"
-                width={100}
-                height={100}
-              />
-            </li>
+            <div key={index}>
+              <li {...getOptionProps({ option, index })}>
+                <p>{option.firstName + " " + option.lastName}</p>
+                <img
+                  src={pics[index]}
+                  alt="profile pic"
+                  width={100}
+                  height={100}
+                />
+              </li>
+            </div>
           ))}
         </ul>
       ) : null}

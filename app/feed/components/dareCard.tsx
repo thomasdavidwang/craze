@@ -9,7 +9,7 @@ import * as mutations from "../../graphql/mutations";
 import * as queries from "../../graphql/queries";
 import { GraphQLQuery } from "@aws-amplify/api";
 import { GetUserQuery } from "../../API";
-import { API } from "aws-amplify";
+import { API, Storage } from "aws-amplify";
 import { useContext, useEffect, useState } from "react";
 import { context } from "@/app/components/ContextProvider";
 import Link from "next/link";
@@ -21,12 +21,14 @@ type DareCardProps = {
 type Votee = {
   firstName: string;
   lastName: string;
+  email: string;
   id: string;
 };
 
 export default function DareCard({ dare: dare }: DareCardProps) {
   const [votee, setVotee] = useState<Votee>();
   const [voteCount, setVoteCount] = useState(0);
+  const [pic, setPic] = useState("");
   const { contextData, setContextData } = useContext(context);
 
   async function getVotee() {
@@ -36,11 +38,16 @@ export default function DareCard({ dare: dare }: DareCardProps) {
         variables: { id: dare.Votes.items[0].votee },
       });
 
-      console.log(user);
+      const picLink = await Storage.get(
+        user.data.getUser.email.slice(0, -9) + ".png"
+      );
+
+      setPic(picLink);
 
       setVotee({
         firstName: user.data.getUser.firstName,
         lastName: user.data.getUser.lastName,
+        email: user.data.getUser.email,
         id: user.data.getUser.id,
       });
     } catch (error) {
@@ -86,9 +93,12 @@ export default function DareCard({ dare: dare }: DareCardProps) {
         <Typography variant="h3">{dare.description}</Typography>
       </Link>
       {votee && (
-        <Typography variant="h3">
-          {votee.firstName + " " + votee.lastName}
-        </Typography>
+        <>
+          <Typography variant="h3">
+            {votee.firstName + " " + votee.lastName}
+          </Typography>
+          <img src={pic} alt="profile pic" width={50} height={50} />
+        </>
       )}
       <Typography variant="h3">{voteCount}</Typography>
       <IconButton onClick={vote}>
