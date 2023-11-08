@@ -2,25 +2,24 @@
 
 import TextField from "@mui/material/TextField";
 import { useContext, useState } from "react";
-import { Button } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import { Auth, Storage } from "aws-amplify";
 import { API } from "aws-amplify";
 import * as queries from "../graphql/queries";
 import { GraphQLQuery } from "@aws-amplify/api";
 import { UsersByEmailQuery } from "../API";
 import { context } from "../components/ContextProvider";
-import { useRouter } from 'next/navigation'
-
+import { useRouter } from "next/navigation";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { contextData, setContextData } = useContext(context);
-  const router = useRouter()
+  const router = useRouter();
 
   async function signUp() {
     try {
-      const newUser  = await Auth.signUp({
+      const newUser = await Auth.signUp({
         username: email,
         password: password,
         autoSignIn: {
@@ -31,13 +30,13 @@ export default function SignUp() {
 
       const user = await API.graphql<GraphQLQuery<UsersByEmailQuery>>({
         query: queries.usersByEmail,
-        variables:  {
+        variables: {
           email: email,
-        } ,
+        },
       });
 
       const pic = await Storage.get(
-        user.data.usersByEmail.items[0].email.slice(0,-9) + ".png"
+        user.data.usersByEmail.items[0].email.slice(0, -9) + ".png"
       );
 
       setContextData({
@@ -48,14 +47,14 @@ export default function SignUp() {
         pic: pic,
       });
 
-      router.push('/feed')
+      router.push("/feed");
     } catch (error) {
       console.log("error signing up:", error);
     }
   }
 
   return (
-    <div>
+    <Container>
       <TextField
         id="outlined-basic"
         variant="outlined"
@@ -72,12 +71,9 @@ export default function SignUp() {
           setPassword(event.target.value);
         }}
       />
-      <Button
-        variant="outlined"
-        onClick={() => signUp()}
-      >
+      <Button variant="outlined" onClick={() => signUp()}>
         Sign Up
       </Button>
-    </div>
+    </Container>
   );
 }

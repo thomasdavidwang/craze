@@ -7,10 +7,16 @@ import { GraphQLQuery } from "@aws-amplify/api";
 import { API } from "aws-amplify";
 import * as queries from "../../graphql/queries";
 
+type Votee = {
+  firstName: string;
+  lastName: string;
+  id: string;
+};
+
 export default function DarePage({ params }: { params: { vote: string } }) {
-  const [dare, setDare] = useState();
-  const [votee, setVotee] = useState();
-  const [voters, setVoters] = useState();
+  const [dare, setDare] = useState("");
+  const [votee, setVotee] = useState<Votee>();
+  const [voters, setVoters] = useState([]);
 
   async function getVote() {
     const vote = await API.graphql<GraphQLQuery<GetVoteQuery>>({
