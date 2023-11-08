@@ -47,32 +47,10 @@ export default function Feed() {
   }, []);
 
   return (
-    <>
-      <Stack alignItems="center" spacing={2} padding={2}>
-        {dares.map((dare, idx) => {
-          return <DareCard dare={dare} key={idx} />;
-        })}
-      </Stack>
-      <Box
-        position="fixed"
-        sx={{
-          zIndex: "modal",
-          bottom: 10,
-          py: 1,
-          px: 10,
-          width: 1,
-        }}
-      >
-        <Link href="/create">
-          <Typography
-            fontWeight="bold"
-            align="center"
-            sx={{ bgcolor: "secondary.main", borderRadius: "9999px", p: 2 }}
-          >
-            Dare a friend 😈
-          </Typography>
-        </Link>
-      </Box>
-    </>
+    <Stack alignItems="center" spacing={2} padding={2}>
+      {dares.map((dare, idx) => {
+        return <DareCard dare={dare} key={idx} />;
+      })}
+    </Stack>
   );
 }

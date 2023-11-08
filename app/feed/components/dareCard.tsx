@@ -15,6 +15,10 @@ import { context } from "@/app/components/ContextProvider";
 import Link from "next/link";
 import Stack from "@mui/material/Stack";
 import Image from "next/image";
+import CardContent from "@mui/material/CardContent";
+import CardActionArea from "@mui/material/CardActionArea";
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 
 type DareCardProps = {
   dare: Dare;
@@ -27,11 +31,20 @@ type Votee = {
   id: string;
 };
 
+type Voter = {
+  firstName: string;
+  lastName: string;
+  pic: string;
+};
+
 export default function DareCard({ dare: dare }: DareCardProps) {
   const [votee, setVotee] = useState<Votee>();
+  const [voters, setVoters] = useState([]);
   const [voteCount, setVoteCount] = useState(0);
   const [pic, setPic] = useState("");
   const { contextData, setContextData } = useContext(context);
+  const [open, setOpen] = useState(false);
+  const router = useRouter();
 
   async function getVotee() {
     try {
@@ -68,62 +81,118 @@ export default function DareCard({ dare: dare }: DareCardProps) {
         userId: contextData.userID,
       };
 
-      console.log(userVoteDetails);
-
       const vote = await API.graphql<GraphQLQuery<CreateUserVoteMutation>>({
         query: mutations.createUserVote,
         variables: { input: userVoteDetails },
       });
-
-      console.log(vote);
-      setVoteCount((prev) => prev + 1);
     } catch (error) {
       console.log(error);
     }
   }
 
+  async function getVoters() {
+    const voterList = dare.Votes.items[0].voters.items.map((user) => user.id);
+
+    Promise.all(
+      voterList.map(async () => {
+        try {
+          const user = await API.graphql<GraphQLQuery<GetUserQuery>>({
+            query: queries.getUser,
+            variables: { id: dare.Votes.items[0].votee },
+          });
+
+          const picLink = await Storage.get(
+            user.data.getUser.email.slice(0, -9) + ".png"
+          );
+
+          return {
+            firstName: user.data.getUser.firstName,
+            lastName: user.data.getUser.lastName,
+            pic: picLink,
+          };
+        } catch (error) {
+          console.log(error);
+        }
+      })
+    ).then((votersData) => setVoters(votersData));
+  }
+
   useEffect(() => {
     getVotee();
+    getVoters();
     countVotes();
   }, []);
 
   console.log(dare);
 
   return (
-    <Card variant="outlined" sx={{ width: 1, p: 2 }}>
-      <Stack spacing={2} justifyContent="space-between" alignItems="left">
-        {votee && (
-          <Stack
-            direction="row"
-            spacing={1}
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            <Stack direction="row" spacing={1} alignItems="center">
-              <Image
-                src={pic}
-                alt="profile pic"
-                width={48}
-                height={48}
-                className="rounded-full object-cover max-h-12 max-w-12"
-              />
-              <Typography variant="h2">
-                {votee.firstName + " " + votee.lastName}
-              </Typography>
-              <Typography variant="h4">should</Typography>
-            </Stack>
-            <Stack alignItems="center" sx={{ mx: 1, my: 2 }}>
-              <Typography variant="h3">{voteCount}</Typography>
-              <IconButton onClick={vote}>
-                <ArrowUpwardIcon />
-              </IconButton>
-            </Stack>
+    <Card variant="outlined" sx={{ width: 1, p: 1 }}>
+      <CardActionArea>
+        <CardContent onClick={() => setOpen((value) => !value)}>
+          <Stack spacing={2} justifyContent="space-between" alignItems="left">
+            <div>
+              {votee && (
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  justifyContent="space-between"
+                  alignItems="center"
+                >
+                  <Stack direction="row" spacing={1} alignItems="center">
+                    <Image
+                      src={pic}
+                      alt="profile pic"
+                      width={48}
+                      height={48}
+                      className="rounded-full object-cover max-h-12 max-w-12"
+                    />
+                    <Typography variant="h2">
+                      {votee.firstName + " " + votee.lastName}
+                    </Typography>
+                    <Typography variant="h4">should</Typography>
+                  </Stack>
+                  <Stack alignItems="center" sx={{ mx: 1, my: 2 }}>
+                    <Typography variant="h3">{voteCount}</Typography>
+                    <IconButton onClick={vote}>
+                      <ArrowUpwardIcon />
+                    </IconButton>
+                  </Stack>
+                </Stack>
+              )}
+              <Typography variant="h2">{dare.description}</Typography>
+            </div>
+            <motion.div>
+              {open
+                ? voters && (
+                    <Stack spacing={1}>
+                      {voters.map((voter, idx) => {
+                        return (
+                          <Stack
+                            direction="row"
+                            alignItems="center"
+                            key={idx}
+                            spacing={1}
+                          >
+                            <Image
+                              src={voter.pic}
+                              alt="profile pic"
+                              width={36}
+                              height={36}
+                              className="rounded-full object-cover max-h-8 max-w-8"
+                            />
+                            <Typography variant="h4">
+                              {voter.firstName + " " + voter.lastName}
+                            </Typography>
+                          </Stack>
+                        );
+                      })}
+                    </Stack>
+                  )
+                : null}
+            </motion.div>
           </Stack>
-        )}
-        <Link href={"/feed/" + dare.Votes.items[0].id}>
-          <Typography variant="h2">{dare.description}</Typography>
-        </Link>
-      </Stack>
+        </CardContent>
+      </CardActionArea>
     </Card>
   );
 }

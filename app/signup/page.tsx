@@ -70,48 +70,46 @@ export default function SignUp() {
   }
 
   return (
-    <Container sx={{ width: 1, margin: 5 }}>
-      <Stack spacing={2} alignItems="center">
-        <Typography variant="h1">Sign Up</Typography>
-        <motion.div animate={{ x: !isPassword ? center : left }}>
-          <Box sx={{ display: !isPassword ? "block" : "none" }}>
-            <Typography variant="h2">What's your email?</Typography>
-            <TextField
-              id="email"
-              variant="outlined"
-              value={email}
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                setEmail(event.target.value);
-              }}
-              placeholder="first.last"
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">@yale.edu</InputAdornment>
-                ),
-              }}
-              sx={{ bgcolor: "action.hover", width: 300 }}
-            />
-          </Box>
-        </motion.div>
-        <motion.div animate={{ x: !isPassword ? right : center }}>
-          <Box sx={{ display: !isPassword ? "none" : "block" }}>
-            <Typography variant="h2">What's your password?</Typography>
-            <TextField
-              id="password"
-              variant="outlined"
-              value={password}
-              placeholder="password"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                setPassword(event.target.value);
-              }}
-              sx={{ bgcolor: "action.hover", width: 300 }}
-            />
-          </Box>
-        </motion.div>
-        <Button onClick={() => signUp()}>
-          <ArrowForwardIcon />
-        </Button>
-      </Stack>
-    </Container>
+    <Stack spacing={2} sx={{ width: 1, p: 2 }} alignItems="center">
+      <Typography variant="h1">Sign Up</Typography>
+      <motion.div animate={{ x: !isPassword ? center : left }}>
+        <Box sx={{ display: !isPassword ? "block" : "none" }}>
+          <Typography variant="h2">What's your email?</Typography>
+          <TextField
+            id="email"
+            variant="outlined"
+            value={email}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              setEmail(event.target.value);
+            }}
+            placeholder="first.last"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">@yale.edu</InputAdornment>
+              ),
+            }}
+            sx={{ bgcolor: "action.hover", width: 1 }}
+          />
+        </Box>
+      </motion.div>
+      <motion.div animate={{ x: !isPassword ? right : center }}>
+        <Box sx={{ display: !isPassword ? "none" : "block" }}>
+          <Typography variant="h2">What's your password?</Typography>
+          <TextField
+            id="password"
+            variant="outlined"
+            value={password}
+            placeholder="password"
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              setPassword(event.target.value);
+            }}
+            sx={{ bgcolor: "action.hover", width: 1 }}
+          />
+        </Box>
+      </motion.div>
+      <Button onClick={() => signUp()}>
+        <ArrowForwardIcon />
+      </Button>
+    </Stack>
   );
 }
