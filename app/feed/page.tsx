@@ -7,6 +7,7 @@ import { API } from "aws-amplify";
 import { GraphQLQuery } from "@aws-amplify/api";
 import DareCard from "./components/dareCard";
 import Stack from "@mui/material/Stack";
+import Footer from "./components/footer";
 
 export default function Feed() {
   const [dares, setDares] = useState<Dare[]>([]);
@@ -44,15 +45,18 @@ export default function Feed() {
   }, []);
 
   return (
-    <Stack alignItems="center" spacing={2}>
-      {dares.map((dare, idx) => {
-        console.log(dare);
-        return (
-          <div key={idx}>
-            <DareCard dare={dare} />
-          </div>
-        );
-      })}
-    </Stack>
+    <>
+      <Stack alignItems="center" spacing={2}>
+        {dares.map((dare, idx) => {
+          console.log(dare);
+          return (
+            <div key={idx}>
+              <DareCard dare={dare} />
+            </div>
+          );
+        })}
+      </Stack>
+      <Footer />
+    </>
   );
 }

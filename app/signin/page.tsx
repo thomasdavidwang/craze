@@ -65,7 +65,9 @@ export default function SignIn() {
         <Typography variant="h1">Sign In</Typography>
         <motion.div animate={{ x: !isPassword ? center : left }}>
           <Box sx={{ display: !isPassword ? "block" : "none" }}>
-            <Typography variant="h2">What's your email?</Typography>
+            <Typography variant="h2" sx={{ my: 2 }}>
+              What's your email?
+            </Typography>
             <TextField
               id="email"
               variant="outlined"
@@ -79,13 +81,15 @@ export default function SignIn() {
                   <InputAdornment position="end">@yale.edu</InputAdornment>
                 ),
               }}
-              sx={{ bgcolor: "action.hover", width: 300 }}
+              sx={{ bgcolor: "action.hover", width: 1 }}
             />
           </Box>
         </motion.div>
         <motion.div animate={{ x: !isPassword ? right : center }}>
           <Box sx={{ display: !isPassword ? "none" : "block" }}>
-            <Typography variant="h2">What's your password?</Typography>
+            <Typography variant="h2" sx={{ my: 2 }}>
+              What's your password?
+            </Typography>
             <TextField
               id="password"
               variant="outlined"
@@ -94,7 +98,7 @@ export default function SignIn() {
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 setPassword(event.target.value);
               }}
-              sx={{ bgcolor: "action.hover", width: 300 }}
+              sx={{ bgcolor: "action.hover", width: 1 }}
             />
           </Box>
         </motion.div>
