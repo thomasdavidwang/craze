@@ -3,63 +3,52 @@
 import TextField from "@mui/material/TextField";
 import { useContext, useState } from "react";
 import { Button } from "@mui/material";
-import { Auth } from "aws-amplify";
+import { Auth, Storage } from "aws-amplify";
 import { API } from "aws-amplify";
-import * as mutations from "../graphql/mutations";
+import * as queries from "../graphql/queries";
 import { GraphQLQuery } from "@aws-amplify/api";
-import { CreateUserInput, CreateUserMutation } from "../API";
+import { UsersByEmailQuery } from "../API";
 import { context } from "../components/ContextProvider";
+import { useRouter } from 'next/navigation'
 
-type SignUpParameters = {
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  password: string;
-};
 
 export default function SignUp() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { contextData, setContextData } = useContext(context);
+  const router = useRouter()
 
-  async function signUp({
-    firstName,
-    lastName,
-    phoneNumber,
-    password,
-  }: SignUpParameters) {
+  async function signUp() {
     try {
-      const { user } = await Auth.signUp({
-        username: phoneNumber,
+      const newUser  = await Auth.signUp({
+        username: email,
         password: password,
-        attributes: {
-          given_name: firstName,
-          family_name: lastName,
-        },
         autoSignIn: {
           enabled: true,
         },
       });
-      console.log(user);
+      console.log(newUser.user);
 
-      const userDetails: CreateUserInput = {
-        firstName: firstName,
-        lastName: lastName,
-        phoneNumber: phoneNumber,
-      };
-
-      const newUser = await API.graphql<GraphQLQuery<CreateUserMutation>>({
-        query: mutations.createUser,
-        variables: { input: userDetails },
+      const user = await API.graphql<GraphQLQuery<UsersByEmailQuery>>({
+        query: queries.usersByEmail,
+        variables:  {
+          email: email,
+        } ,
       });
+
+      const pic = await Storage.get(
+        user.data.usersByEmail.items[0].email.slice(0,-9) + ".png"
+      );
 
       setContextData({
-        userID: newUser.data.createUser.id,
-        firstName: firstName,
-        lastName: lastName,
+        userID: user.data.usersByEmail.items[0].id,
+        firstName: user.data.usersByEmail.items[0].firstName,
+        lastName: user.data.usersByEmail.items[0].lastName,
+        email: email,
+        pic: pic,
       });
+
+      router.push('/feed')
     } catch (error) {
       console.log("error signing up:", error);
     }
@@ -69,34 +58,14 @@ export default function SignUp() {
     <div>
       <TextField
         id="outlined-basic"
-        label="First Name"
         variant="outlined"
-        value={firstName}
+        value={email}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-          setFirstName(event.target.value);
+          setEmail(event.target.value);
         }}
       />
       <TextField
         id="outlined-basic"
-        label="Last Name"
-        variant="outlined"
-        value={lastName}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-          setLastName(event.target.value);
-        }}
-      />
-      <TextField
-        id="outlined-basic"
-        label="Phone Number"
-        variant="outlined"
-        value={phoneNumber}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-          setPhoneNumber(event.target.value);
-        }}
-      />
-      <TextField
-        id="outlined-basic"
-        label="Password"
         variant="outlined"
         value={password}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
@@ -105,7 +74,7 @@ export default function SignUp() {
       />
       <Button
         variant="outlined"
-        onClick={() => signUp({ firstName, lastName, phoneNumber, password })}
+        onClick={() => signUp()}
       >
         Sign Up
       </Button>

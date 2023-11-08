@@ -42,6 +42,7 @@ export const getVote = /* GraphQL */ `query GetVote($id: ID!) {
           lastName
           profilePicKey
           phoneNumber
+          email
           groupID
           votesReceived {
             items {
@@ -117,6 +118,7 @@ export const listVotes = /* GraphQL */ `query ListVotes(
             lastName
             profilePicKey
             phoneNumber
+            email
             groupID
             votesReceived {
               nextToken
@@ -187,6 +189,7 @@ export const votesByDareID = /* GraphQL */ `query VotesByDareID(
             lastName
             profilePicKey
             phoneNumber
+            email
             groupID
             votesReceived {
               nextToken
@@ -260,6 +263,7 @@ export const votesByVotee = /* GraphQL */ `query VotesByVotee(
             lastName
             profilePicKey
             phoneNumber
+            email
             groupID
             votesReceived {
               nextToken
@@ -321,6 +325,7 @@ export const getDare = /* GraphQL */ `query GetDare($id: ID!) {
               lastName
               profilePicKey
               phoneNumber
+              email
               groupID
               createdAt
               updatedAt
@@ -401,6 +406,7 @@ export const getGroup = /* GraphQL */ `query GetGroup($id: ID!) {
         lastName
         profilePicKey
         phoneNumber
+        email
         groupID
         votesReceived {
           items {
@@ -437,6 +443,7 @@ export const getGroup = /* GraphQL */ `query GetGroup($id: ID!) {
               lastName
               profilePicKey
               phoneNumber
+              email
               groupID
               createdAt
               updatedAt
@@ -477,6 +484,7 @@ export const listGroups = /* GraphQL */ `query ListGroups(
           lastName
           profilePicKey
           phoneNumber
+          email
           groupID
           votesReceived {
             items {
@@ -528,6 +536,7 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
     lastName
     profilePicKey
     phoneNumber
+    email
     groupID
     votesReceived {
       items {
@@ -551,6 +560,7 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
               lastName
               profilePicKey
               phoneNumber
+              email
               groupID
               createdAt
               updatedAt
@@ -603,6 +613,7 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
           lastName
           profilePicKey
           phoneNumber
+          email
           groupID
           votesReceived {
             items {
@@ -657,6 +668,7 @@ export const listUsers = /* GraphQL */ `query ListUsers(
       lastName
       profilePicKey
       phoneNumber
+      email
       groupID
       votesReceived {
         items {
@@ -705,6 +717,7 @@ export const listUsers = /* GraphQL */ `query ListUsers(
             lastName
             profilePicKey
             phoneNumber
+            email
             groupID
             votesReceived {
               nextToken
@@ -734,15 +747,15 @@ export const listUsers = /* GraphQL */ `query ListUsers(
   }
 }
 ` as GeneratedQuery<APITypes.ListUsersQueryVariables, APITypes.ListUsersQuery>;
-export const usersByPhoneNumber = /* GraphQL */ `query UsersByPhoneNumber(
-  $phoneNumber: AWSPhone!
+export const usersByEmail = /* GraphQL */ `query UsersByEmail(
+  $email: AWSEmail!
   $sortDirection: ModelSortDirection
   $filter: ModelUserFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  usersByPhoneNumber(
-    phoneNumber: $phoneNumber
+  usersByEmail(
+    email: $email
     sortDirection: $sortDirection
     filter: $filter
     limit: $limit
@@ -754,6 +767,7 @@ export const usersByPhoneNumber = /* GraphQL */ `query UsersByPhoneNumber(
       lastName
       profilePicKey
       phoneNumber
+      email
       groupID
       votesReceived {
         items {
@@ -802,6 +816,7 @@ export const usersByPhoneNumber = /* GraphQL */ `query UsersByPhoneNumber(
             lastName
             profilePicKey
             phoneNumber
+            email
             groupID
             votesReceived {
               nextToken
@@ -831,8 +846,8 @@ export const usersByPhoneNumber = /* GraphQL */ `query UsersByPhoneNumber(
   }
 }
 ` as GeneratedQuery<
-  APITypes.UsersByPhoneNumberQueryVariables,
-  APITypes.UsersByPhoneNumberQuery
+  APITypes.UsersByEmailQueryVariables,
+  APITypes.UsersByEmailQuery
 >;
 export const usersByGroupID = /* GraphQL */ `query UsersByGroupID(
   $groupID: ID!
@@ -854,6 +869,7 @@ export const usersByGroupID = /* GraphQL */ `query UsersByGroupID(
       lastName
       profilePicKey
       phoneNumber
+      email
       groupID
       votesReceived {
         items {
@@ -902,6 +918,7 @@ export const usersByGroupID = /* GraphQL */ `query UsersByGroupID(
             lastName
             profilePicKey
             phoneNumber
+            email
             groupID
             votesReceived {
               nextToken
@@ -956,6 +973,7 @@ export const searchUsers = /* GraphQL */ `query SearchUsers(
       lastName
       profilePicKey
       phoneNumber
+      email
       groupID
       votesReceived {
         items {
@@ -1004,6 +1022,7 @@ export const searchUsers = /* GraphQL */ `query SearchUsers(
             lastName
             profilePicKey
             phoneNumber
+            email
             groupID
             votesReceived {
               nextToken
@@ -1083,6 +1102,7 @@ export const getUserVote = /* GraphQL */ `query GetUserVote($id: ID!) {
             lastName
             profilePicKey
             phoneNumber
+            email
             groupID
             votesReceived {
               nextToken
@@ -1115,6 +1135,7 @@ export const getUserVote = /* GraphQL */ `query GetUserVote($id: ID!) {
       lastName
       profilePicKey
       phoneNumber
+      email
       groupID
       votesReceived {
         items {
@@ -1163,6 +1184,7 @@ export const getUserVote = /* GraphQL */ `query GetUserVote($id: ID!) {
             lastName
             profilePicKey
             phoneNumber
+            email
             groupID
             votesReceived {
               nextToken
@@ -1227,6 +1249,7 @@ export const listUserVotes = /* GraphQL */ `query ListUserVotes(
               lastName
               profilePicKey
               phoneNumber
+              email
               groupID
               createdAt
               updatedAt
@@ -1251,6 +1274,7 @@ export const listUserVotes = /* GraphQL */ `query ListUserVotes(
         lastName
         profilePicKey
         phoneNumber
+        email
         groupID
         votesReceived {
           items {
@@ -1287,6 +1311,7 @@ export const listUserVotes = /* GraphQL */ `query ListUserVotes(
               lastName
               profilePicKey
               phoneNumber
+              email
               groupID
               createdAt
               updatedAt
@@ -1354,6 +1379,7 @@ export const userVotesByVoteId = /* GraphQL */ `query UserVotesByVoteId(
               lastName
               profilePicKey
               phoneNumber
+              email
               groupID
               createdAt
               updatedAt
@@ -1378,6 +1404,7 @@ export const userVotesByVoteId = /* GraphQL */ `query UserVotesByVoteId(
         lastName
         profilePicKey
         phoneNumber
+        email
         groupID
         votesReceived {
           items {
@@ -1414,6 +1441,7 @@ export const userVotesByVoteId = /* GraphQL */ `query UserVotesByVoteId(
               lastName
               profilePicKey
               phoneNumber
+              email
               groupID
               createdAt
               updatedAt
@@ -1481,6 +1509,7 @@ export const userVotesByUserId = /* GraphQL */ `query UserVotesByUserId(
               lastName
               profilePicKey
               phoneNumber
+              email
               groupID
               createdAt
               updatedAt
@@ -1505,6 +1534,7 @@ export const userVotesByUserId = /* GraphQL */ `query UserVotesByUserId(
         lastName
         profilePicKey
         phoneNumber
+        email
         groupID
         votesReceived {
           items {
@@ -1541,6 +1571,7 @@ export const userVotesByUserId = /* GraphQL */ `query UserVotesByUserId(
               lastName
               profilePicKey
               phoneNumber
+              email
               groupID
               createdAt
               updatedAt

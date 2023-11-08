@@ -45,6 +45,7 @@ export const createVote = /* GraphQL */ `mutation CreateVote(
           lastName
           profilePicKey
           phoneNumber
+          email
           groupID
           votesReceived {
             items {
@@ -129,6 +130,7 @@ export const updateVote = /* GraphQL */ `mutation UpdateVote(
           lastName
           profilePicKey
           phoneNumber
+          email
           groupID
           votesReceived {
             items {
@@ -213,6 +215,7 @@ export const deleteVote = /* GraphQL */ `mutation DeleteVote(
           lastName
           profilePicKey
           phoneNumber
+          email
           groupID
           votesReceived {
             items {
@@ -290,6 +293,7 @@ export const createDare = /* GraphQL */ `mutation CreateDare(
               lastName
               profilePicKey
               phoneNumber
+              email
               groupID
               createdAt
               updatedAt
@@ -350,6 +354,7 @@ export const updateDare = /* GraphQL */ `mutation UpdateDare(
               lastName
               profilePicKey
               phoneNumber
+              email
               groupID
               createdAt
               updatedAt
@@ -410,6 +415,7 @@ export const deleteDare = /* GraphQL */ `mutation DeleteDare(
               lastName
               profilePicKey
               phoneNumber
+              email
               groupID
               createdAt
               updatedAt
@@ -453,6 +459,7 @@ export const createGroup = /* GraphQL */ `mutation CreateGroup(
         lastName
         profilePicKey
         phoneNumber
+        email
         groupID
         votesReceived {
           items {
@@ -489,6 +496,7 @@ export const createGroup = /* GraphQL */ `mutation CreateGroup(
               lastName
               profilePicKey
               phoneNumber
+              email
               groupID
               createdAt
               updatedAt
@@ -530,6 +538,7 @@ export const updateGroup = /* GraphQL */ `mutation UpdateGroup(
         lastName
         profilePicKey
         phoneNumber
+        email
         groupID
         votesReceived {
           items {
@@ -566,6 +575,7 @@ export const updateGroup = /* GraphQL */ `mutation UpdateGroup(
               lastName
               profilePicKey
               phoneNumber
+              email
               groupID
               createdAt
               updatedAt
@@ -607,6 +617,7 @@ export const deleteGroup = /* GraphQL */ `mutation DeleteGroup(
         lastName
         profilePicKey
         phoneNumber
+        email
         groupID
         votesReceived {
           items {
@@ -643,6 +654,7 @@ export const deleteGroup = /* GraphQL */ `mutation DeleteGroup(
               lastName
               profilePicKey
               phoneNumber
+              email
               groupID
               createdAt
               updatedAt
@@ -681,6 +693,7 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
     lastName
     profilePicKey
     phoneNumber
+    email
     groupID
     votesReceived {
       items {
@@ -704,6 +717,7 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
               lastName
               profilePicKey
               phoneNumber
+              email
               groupID
               createdAt
               updatedAt
@@ -756,6 +770,7 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
           lastName
           profilePicKey
           phoneNumber
+          email
           groupID
           votesReceived {
             items {
@@ -811,6 +826,7 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
     lastName
     profilePicKey
     phoneNumber
+    email
     groupID
     votesReceived {
       items {
@@ -834,6 +850,7 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
               lastName
               profilePicKey
               phoneNumber
+              email
               groupID
               createdAt
               updatedAt
@@ -886,6 +903,7 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
           lastName
           profilePicKey
           phoneNumber
+          email
           groupID
           votesReceived {
             items {
@@ -941,6 +959,7 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
     lastName
     profilePicKey
     phoneNumber
+    email
     groupID
     votesReceived {
       items {
@@ -964,6 +983,7 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
               lastName
               profilePicKey
               phoneNumber
+              email
               groupID
               createdAt
               updatedAt
@@ -1016,6 +1036,7 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
           lastName
           profilePicKey
           phoneNumber
+          email
           groupID
           votesReceived {
             items {
@@ -1094,6 +1115,7 @@ export const createUserVote = /* GraphQL */ `mutation CreateUserVote(
             lastName
             profilePicKey
             phoneNumber
+            email
             groupID
             votesReceived {
               nextToken
@@ -1126,6 +1148,7 @@ export const createUserVote = /* GraphQL */ `mutation CreateUserVote(
       lastName
       profilePicKey
       phoneNumber
+      email
       groupID
       votesReceived {
         items {
@@ -1174,6 +1197,7 @@ export const createUserVote = /* GraphQL */ `mutation CreateUserVote(
             lastName
             profilePicKey
             phoneNumber
+            email
             groupID
             votesReceived {
               nextToken
@@ -1240,6 +1264,7 @@ export const updateUserVote = /* GraphQL */ `mutation UpdateUserVote(
             lastName
             profilePicKey
             phoneNumber
+            email
             groupID
             votesReceived {
               nextToken
@@ -1272,6 +1297,7 @@ export const updateUserVote = /* GraphQL */ `mutation UpdateUserVote(
       lastName
       profilePicKey
       phoneNumber
+      email
       groupID
       votesReceived {
         items {
@@ -1320,6 +1346,7 @@ export const updateUserVote = /* GraphQL */ `mutation UpdateUserVote(
             lastName
             profilePicKey
             phoneNumber
+            email
             groupID
             votesReceived {
               nextToken
@@ -1386,6 +1413,7 @@ export const deleteUserVote = /* GraphQL */ `mutation DeleteUserVote(
             lastName
             profilePicKey
             phoneNumber
+            email
             groupID
             votesReceived {
               nextToken
@@ -1418,6 +1446,7 @@ export const deleteUserVote = /* GraphQL */ `mutation DeleteUserVote(
       lastName
       profilePicKey
       phoneNumber
+      email
       groupID
       votesReceived {
         items {
@@ -1466,6 +1495,7 @@ export const deleteUserVote = /* GraphQL */ `mutation DeleteUserVote(
             lastName
             profilePicKey
             phoneNumber
+            email
             groupID
             votesReceived {
               nextToken

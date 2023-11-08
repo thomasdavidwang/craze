@@ -9,6 +9,7 @@ import DareCard from "./components/dareCard";
 
 export default function Feed() {
   const [dares, setDares] = useState<Dare[]>([]);
+  const [finished, setFinished] = useState(false);
 
   // Fetch first 20 records
   const variables: ListDaresQueryVariables = {
@@ -24,11 +25,15 @@ export default function Feed() {
 
     const { items: items, nextToken } = res.data?.listDares;
 
-    variables.nextToken = nextToken;
+    if (items.length !== 0){
+      variables.nextToken = nextToken;
 
-    setDares((prevstate: Dare[]) => {
-      return [...prevstate, ...items];
-    });
+      setDares((prevstate: Dare[]) => {
+        return [...prevstate, ...items];
+      });
+    } else {
+      setFinished(true);
+    }
   }
 
   useEffect(() => {
@@ -39,6 +44,7 @@ export default function Feed() {
   return (
     <div>
       {dares.map((dare, idx) => {
+        console.log(dare);
         return (
           <div key={idx}>
             <DareCard dare={dare} />

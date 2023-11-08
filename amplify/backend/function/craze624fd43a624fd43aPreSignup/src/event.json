@@ -1,7 +1,7 @@
 {
   "request": {
     "userAttributes": {
-      "phone_number": "+14806037706"
+      "email": "testEmail@domain.com"
     }
   },
   "response": {}

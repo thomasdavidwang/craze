@@ -7,37 +7,33 @@ import { API, Auth, Storage } from "aws-amplify";
 import * as queries from "../graphql/queries";
 import { GraphQLQuery } from "@aws-amplify/api";
 import { context } from "../components/ContextProvider";
-import { UsersByPhoneNumberQuery } from "../API";
+import { UsersByEmailQuery } from "../API";
 import { useRouter } from "next/navigation";
 
-type SignInParameters = {
-  phoneNumber: string;
-  password: string;
-};
-
 export default function SignIn() {
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { contextData, setContextData } = useContext(context);
   const router = useRouter();
 
-  async function signIn({ phoneNumber, password }: SignInParameters) {
+  async function signIn() {
     try {
-      await Auth.signIn(phoneNumber, password);
+      await Auth.signIn(email, password);
 
-      const user = await API.graphql<GraphQLQuery<UsersByPhoneNumberQuery>>({
-        query: queries.usersByPhoneNumber,
-        variables: { phoneNumber: phoneNumber },
+      const user = await API.graphql<GraphQLQuery<UsersByEmailQuery>>({
+        query: queries.usersByEmail,
+        variables: { email: email },
       });
 
       const pic = await Storage.get(
-        user.data.usersByPhoneNumber.items[0].id + ".png"
+        user.data.usersByEmail.items[0].email.slice(0,-9) + ".png"
       );
 
       setContextData({
-        userID: user.data.usersByPhoneNumber.items[0].id,
-        firstName: user.data.usersByPhoneNumber.items[0].firstName,
-        lastName: user.data.usersByPhoneNumber.items[0].lastName,
+        userID: user.data.usersByEmail.items[0].id,
+        email: email,
+        firstName: user.data.usersByEmail.items[0].firstName,
+        lastName: user.data.usersByEmail.items[0].lastName,
         pic: pic,
       });
 
@@ -51,16 +47,14 @@ export default function SignIn() {
     <div>
       <TextField
         id="outlined-basic"
-        label="Phone Number"
         variant="outlined"
-        value={phoneNumber}
+        value={email}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-          setPhoneNumber(event.target.value);
+          setEmail(event.target.value);
         }}
       />
       <TextField
         id="outlined-basic"
-        label="Password"
         variant="outlined"
         value={password}
         onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,7 +63,7 @@ export default function SignIn() {
       />
       <Button
         variant="outlined"
-        onClick={() => signIn({ phoneNumber, password })}
+        onClick={() => signIn()}
       >
         Sign In
       </Button>

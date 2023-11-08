@@ -42,6 +42,7 @@ export const onCreateVote = /* GraphQL */ `subscription OnCreateVote($filter: Mo
           lastName
           profilePicKey
           phoneNumber
+          email
           groupID
           votesReceived {
             items {
@@ -123,6 +124,7 @@ export const onUpdateVote = /* GraphQL */ `subscription OnUpdateVote($filter: Mo
           lastName
           profilePicKey
           phoneNumber
+          email
           groupID
           votesReceived {
             items {
@@ -204,6 +206,7 @@ export const onDeleteVote = /* GraphQL */ `subscription OnDeleteVote($filter: Mo
           lastName
           profilePicKey
           phoneNumber
+          email
           groupID
           votesReceived {
             items {
@@ -278,6 +281,7 @@ export const onCreateDare = /* GraphQL */ `subscription OnCreateDare($filter: Mo
               lastName
               profilePicKey
               phoneNumber
+              email
               groupID
               createdAt
               updatedAt
@@ -335,6 +339,7 @@ export const onUpdateDare = /* GraphQL */ `subscription OnUpdateDare($filter: Mo
               lastName
               profilePicKey
               phoneNumber
+              email
               groupID
               createdAt
               updatedAt
@@ -392,6 +397,7 @@ export const onDeleteDare = /* GraphQL */ `subscription OnDeleteDare($filter: Mo
               lastName
               profilePicKey
               phoneNumber
+              email
               groupID
               createdAt
               updatedAt
@@ -432,6 +438,7 @@ export const onCreateGroup = /* GraphQL */ `subscription OnCreateGroup($filter: 
         lastName
         profilePicKey
         phoneNumber
+        email
         groupID
         votesReceived {
           items {
@@ -468,6 +475,7 @@ export const onCreateGroup = /* GraphQL */ `subscription OnCreateGroup($filter: 
               lastName
               profilePicKey
               phoneNumber
+              email
               groupID
               createdAt
               updatedAt
@@ -506,6 +514,7 @@ export const onUpdateGroup = /* GraphQL */ `subscription OnUpdateGroup($filter: 
         lastName
         profilePicKey
         phoneNumber
+        email
         groupID
         votesReceived {
           items {
@@ -542,6 +551,7 @@ export const onUpdateGroup = /* GraphQL */ `subscription OnUpdateGroup($filter: 
               lastName
               profilePicKey
               phoneNumber
+              email
               groupID
               createdAt
               updatedAt
@@ -580,6 +590,7 @@ export const onDeleteGroup = /* GraphQL */ `subscription OnDeleteGroup($filter: 
         lastName
         profilePicKey
         phoneNumber
+        email
         groupID
         votesReceived {
           items {
@@ -616,6 +627,7 @@ export const onDeleteGroup = /* GraphQL */ `subscription OnDeleteGroup($filter: 
               lastName
               profilePicKey
               phoneNumber
+              email
               groupID
               createdAt
               updatedAt
@@ -651,6 +663,7 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
     lastName
     profilePicKey
     phoneNumber
+    email
     groupID
     votesReceived {
       items {
@@ -674,6 +687,7 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
               lastName
               profilePicKey
               phoneNumber
+              email
               groupID
               createdAt
               updatedAt
@@ -726,6 +740,7 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
           lastName
           profilePicKey
           phoneNumber
+          email
           groupID
           votesReceived {
             items {
@@ -778,6 +793,7 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
     lastName
     profilePicKey
     phoneNumber
+    email
     groupID
     votesReceived {
       items {
@@ -801,6 +817,7 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
               lastName
               profilePicKey
               phoneNumber
+              email
               groupID
               createdAt
               updatedAt
@@ -853,6 +870,7 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
           lastName
           profilePicKey
           phoneNumber
+          email
           groupID
           votesReceived {
             items {
@@ -905,6 +923,7 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
     lastName
     profilePicKey
     phoneNumber
+    email
     groupID
     votesReceived {
       items {
@@ -928,6 +947,7 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
               lastName
               profilePicKey
               phoneNumber
+              email
               groupID
               createdAt
               updatedAt
@@ -980,6 +1000,7 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
           lastName
           profilePicKey
           phoneNumber
+          email
           groupID
           votesReceived {
             items {
@@ -1055,6 +1076,7 @@ export const onCreateUserVote = /* GraphQL */ `subscription OnCreateUserVote($fi
             lastName
             profilePicKey
             phoneNumber
+            email
             groupID
             votesReceived {
               nextToken
@@ -1087,6 +1109,7 @@ export const onCreateUserVote = /* GraphQL */ `subscription OnCreateUserVote($fi
       lastName
       profilePicKey
       phoneNumber
+      email
       groupID
       votesReceived {
         items {
@@ -1135,6 +1158,7 @@ export const onCreateUserVote = /* GraphQL */ `subscription OnCreateUserVote($fi
             lastName
             profilePicKey
             phoneNumber
+            email
             groupID
             votesReceived {
               nextToken
@@ -1198,6 +1222,7 @@ export const onUpdateUserVote = /* GraphQL */ `subscription OnUpdateUserVote($fi
             lastName
             profilePicKey
             phoneNumber
+            email
             groupID
             votesReceived {
               nextToken
@@ -1230,6 +1255,7 @@ export const onUpdateUserVote = /* GraphQL */ `subscription OnUpdateUserVote($fi
       lastName
       profilePicKey
       phoneNumber
+      email
       groupID
       votesReceived {
         items {
@@ -1278,6 +1304,7 @@ export const onUpdateUserVote = /* GraphQL */ `subscription OnUpdateUserVote($fi
             lastName
             profilePicKey
             phoneNumber
+            email
             groupID
             votesReceived {
               nextToken
@@ -1341,6 +1368,7 @@ export const onDeleteUserVote = /* GraphQL */ `subscription OnDeleteUserVote($fi
             lastName
             profilePicKey
             phoneNumber
+            email
             groupID
             votesReceived {
               nextToken
@@ -1373,6 +1401,7 @@ export const onDeleteUserVote = /* GraphQL */ `subscription OnDeleteUserVote($fi
       lastName
       profilePicKey
       phoneNumber
+      email
       groupID
       votesReceived {
         items {
@@ -1421,6 +1450,7 @@ export const onDeleteUserVote = /* GraphQL */ `subscription OnDeleteUserVote($fi
             lastName
             profilePicKey
             phoneNumber
+            email
             groupID
             votesReceived {
               nextToken

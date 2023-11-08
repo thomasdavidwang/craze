@@ -23,7 +23,7 @@
     }
   },
   "auth": {
-    "craze624fd43a624fd43a": {
+    "craze01d15676": {
       "customAuth": false,
       "dependsOn": [
         {
@@ -32,7 +32,7 @@
             "Name"
           ],
           "category": "function",
-          "resourceName": "craze624fd43a624fd43aPreSignup",
+          "resourceName": "craze01d15676PreSignup",
           "triggerProvider": "Cognito"
         }
       ],
@@ -46,15 +46,15 @@
           "passwordPolicyMinLength": 8
         },
         "signupAttributes": [
-          "EMAIL"
+          "FAMILY_NAME",
+          "GIVEN_NAME"
         ],
         "socialProviders": [],
         "usernameAttributes": [
-          "EMAIL",
           "PHONE_NUMBER"
         ],
         "verificationMechanisms": [
-          "EMAIL"
+          "PHONE_NUMBER"
         ]
       },
       "providerPlugin": "awscloudformation",
@@ -62,26 +62,26 @@
     }
   },
   "function": {
-    "craze624fd43a624fd43aPreSignup": {
+    "craze01d15676PreSignup": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
   },
   "parameters": {
-    "AMPLIFY_function_craze624fd43a624fd43aPreSignup_deploymentBucketName": {
+    "AMPLIFY_function_craze01d15676PreSignup_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "craze624fd43a624fd43aPreSignup"
+          "resourceName": "craze01d15676PreSignup"
         }
       ]
     },
-    "AMPLIFY_function_craze624fd43a624fd43aPreSignup_s3Key": {
+    "AMPLIFY_function_craze01d15676PreSignup_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "craze624fd43a624fd43aPreSignup"
+          "resourceName": "craze01d15676PreSignup"
         }
       ]
     }

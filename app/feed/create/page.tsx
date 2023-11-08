@@ -77,7 +77,7 @@ export default function Create() {
           setRecipient(event.target.value);
         }}
       />**/}
-      <PeopleSearch value={recipient} setValue={setRecipient} />
+      <PeopleSearch selection={recipient} setSelection={setRecipient} />
       <Typography>to</Typography>
       <TextField
         id="outlined-basic"

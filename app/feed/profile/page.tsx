@@ -10,21 +10,7 @@ import { useRouter } from "next/navigation";
 
 export default function Profile() {
   const { contextData, setContextData } = useContext(context);
-  const [pic, setPic] = useState("");
   const router = useRouter();
-
-  async function fetchPic() {
-    const p = await Storage.get(contextData.userID + ".png", {
-      level: "public",
-      validateObjectExistence: true,
-    });
-    setPic(p);
-    console.log(p);
-  }
-
-  useEffect(() => {
-    fetchPic();
-  }, []);
 
   async function signOut() {
     try {
@@ -38,7 +24,7 @@ export default function Profile() {
 
   return (
     <div>
-      {pic && <img src={pic} width={100} height={100} alt="Profile Picture" />}
+      <img src={contextData.pic} width={100} height={100} alt="Profile Picture" />
       <Typography>{contextData.firstName}</Typography>
       <Typography>{contextData.lastName}</Typography>
       <Button variant="outlined" onClick={signOut}>

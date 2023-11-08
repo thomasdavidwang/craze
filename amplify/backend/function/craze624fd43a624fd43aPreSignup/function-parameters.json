@@ -3,14 +3,14 @@
   "modules": [
     "custom"
   ],
-  "parentResource": "craze01d15676",
-  "functionName": "craze01d15676PreSignup",
-  "resourceName": "craze01d15676PreSignup",
+  "parentResource": "craze624fd43a624fd43a",
+  "functionName": "craze624fd43a624fd43aPreSignup",
+  "resourceName": "craze624fd43a624fd43aPreSignup",
   "parentStack": "auth",
   "triggerEnvs": "[]",
   "triggerDir": "/snapshot/amplify-cli/build/node_modules/@aws-amplify/amplify-category-auth/provider-utils/awscloudformation/triggers/PreSignup",
   "triggerTemplate": "PreSignup.json.ejs",
   "triggerEventPath": "PreSignup.event.json",
-  "roleName": "craze01d15676PreSignup",
+  "roleName": "craze624fd43a624fd43aPreSignup",
   "skipEdit": true
 }

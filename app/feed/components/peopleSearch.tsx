@@ -1,16 +1,33 @@
 "use client";
-import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import { useEffect, useState } from "react";
-import { API } from "aws-amplify";
+import { API, Storage } from "aws-amplify";
 import * as queries from "../../graphql/queries";
 import { GraphQLQuery } from "@aws-amplify/api";
 import { SearchUsersQuery, SearchableUserFilterInput } from "@/app/API";
+import useAutocomplete from "@mui/material/useAutocomplete";
 
-export default function PeopleSearch({ value, setValue }) {
+export default function PeopleSearch({ selection, setSelection }) {
   const [options, setOptions] = useState([]);
   const [inputValue, setInputValue] = useState("");
-  const [userIDs, setUserIDs] = useState([]);
+  const [pics, setPics] = useState([]);
+
+  const {
+    getRootProps,
+    getInputProps,
+    getListboxProps,
+    getOptionProps,
+    value,
+    groupedOptions,
+  } = useAutocomplete({
+    id: "use-autocomplete-demo",
+    options: options,
+    getOptionLabel: (option) => option.firstName + " " + option.lastName,
+  });
+
+  useEffect(() => {
+    setSelection(value);
+  }, [value]);
 
   async function searchUsers() {
     const filters: SearchableUserFilterInput[] = [];
@@ -29,13 +46,15 @@ export default function PeopleSearch({ value, setValue }) {
 
     const users = await API.graphql<GraphQLQuery<SearchUsersQuery>>({
       query: queries.searchUsers,
-      variables: { filter: { or: filters } },
+      variables: { filter: { or: filters }, limit: 5 },
     });
 
-    setOptions(
-      users.data.searchUsers.items.map((u) => u.firstName + " " + u.lastName)
-    );
-    setUserIDs(users.data.searchUsers.items.map((u) => u.id));
+    setOptions(users.data.searchUsers.items);
+    Promise.all(
+      users.data.searchUsers.items.map(
+        async (u) => await Storage.get(u.email.slice(0, -9) + ".png")
+      )
+    ).then((picLinks) => setPics(picLinks));
   }
 
   useEffect(() => {
@@ -43,18 +62,25 @@ export default function PeopleSearch({ value, setValue }) {
   }, [inputValue]);
 
   return (
-    <Autocomplete
-      options={options}
-      inputValue={inputValue}
-      onInputChange={(event, newInputValue) => {
-        setInputValue(newInputValue);
-      }}
-      value={value}
-      onChange={(event: any, newValue: string | null) => {
-        setValue(newValue);
-      }}
-      selectOnFocus
-      renderInput={(params) => <TextField {...params} label="Movie" />}
-    />
+    <div>
+      <div {...getRootProps()}>
+        <input {...getInputProps()} />
+      </div>
+      {groupedOptions.length > 0 ? (
+        <ul {...getListboxProps()}>
+          {groupedOptions.map((option, index) => (
+            <li {...getOptionProps({ option, index })}>
+              <p>{option.firstName + " " + option.lastName}</p>
+              <img
+                src={pics[index]}
+                alt="profile pic"
+                width={100}
+                height={100}
+              />
+            </li>
+          ))}
+        </ul>
+      ) : null}
+    </div>
   );
 }

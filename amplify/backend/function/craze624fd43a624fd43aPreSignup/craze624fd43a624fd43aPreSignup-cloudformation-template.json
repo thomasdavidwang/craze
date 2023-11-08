@@ -71,12 +71,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "craze01d15676PreSignup",
+            "craze624fd43a624fd43aPreSignup",
             {
               "Fn::Join": [
                 "",
                 [
-                  "craze01d15676PreSignup",
+                  "craze624fd43a624fd43aPreSignup",
                   "-",
                   {
                     "Ref": "env"
@@ -129,12 +129,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "craze01d15676PreSignup",
+            "craze624fd43a624fd43aPreSignup",
             {
               "Fn::Join": [
                 "",
                 [
-                  "craze01d15676PreSignup",
+                  "craze624fd43a624fd43aPreSignup",
                   "-",
                   {
                     "Ref": "env"

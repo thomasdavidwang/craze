@@ -28,6 +28,7 @@ export default function UserUpdateForm(props) {
     lastName: "",
     profilePicKey: "",
     phoneNumber: "",
+    email: "",
   };
   const [firstName, setFirstName] = React.useState(initialValues.firstName);
   const [lastName, setLastName] = React.useState(initialValues.lastName);
@@ -37,6 +38,7 @@ export default function UserUpdateForm(props) {
   const [phoneNumber, setPhoneNumber] = React.useState(
     initialValues.phoneNumber
   );
+  const [email, setEmail] = React.useState(initialValues.email);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = userRecord
@@ -46,6 +48,7 @@ export default function UserUpdateForm(props) {
     setLastName(cleanValues.lastName);
     setProfilePicKey(cleanValues.profilePicKey);
     setPhoneNumber(cleanValues.phoneNumber);
+    setEmail(cleanValues.email);
     setErrors({});
   };
   const [userRecord, setUserRecord] = React.useState(userModelProp);
@@ -65,10 +68,11 @@ export default function UserUpdateForm(props) {
   }, [idProp, userModelProp]);
   React.useEffect(resetStateValues, [userRecord]);
   const validations = {
-    firstName: [{ type: "Required" }],
-    lastName: [{ type: "Required" }],
+    firstName: [],
+    lastName: [],
     profilePicKey: [],
-    phoneNumber: [{ type: "Required" }, { type: "Phone" }],
+    phoneNumber: [{ type: "Phone" }],
+    email: [{ type: "Required" }, { type: "Email" }],
   };
   const runValidationTasks = async (
     fieldName,
@@ -96,10 +100,11 @@ export default function UserUpdateForm(props) {
       onSubmit={async (event) => {
         event.preventDefault();
         let modelFields = {
-          firstName,
-          lastName,
+          firstName: firstName ?? null,
+          lastName: lastName ?? null,
           profilePicKey: profilePicKey ?? null,
-          phoneNumber,
+          phoneNumber: phoneNumber ?? null,
+          email,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -153,7 +158,7 @@ export default function UserUpdateForm(props) {
     >
       <TextField
         label="First name"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
         value={firstName}
         onChange={(e) => {
@@ -164,6 +169,7 @@ export default function UserUpdateForm(props) {
               lastName,
               profilePicKey,
               phoneNumber,
+              email,
             };
             const result = onChange(modelFields);
             value = result?.firstName ?? value;
@@ -180,7 +186,7 @@ export default function UserUpdateForm(props) {
       ></TextField>
       <TextField
         label="Last name"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
         value={lastName}
         onChange={(e) => {
@@ -191,6 +197,7 @@ export default function UserUpdateForm(props) {
               lastName: value,
               profilePicKey,
               phoneNumber,
+              email,
             };
             const result = onChange(modelFields);
             value = result?.lastName ?? value;
@@ -218,6 +225,7 @@ export default function UserUpdateForm(props) {
               lastName,
               profilePicKey: value,
               phoneNumber,
+              email,
             };
             const result = onChange(modelFields);
             value = result?.profilePicKey ?? value;
@@ -234,7 +242,7 @@ export default function UserUpdateForm(props) {
       ></TextField>
       <TextField
         label="Phone number"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
         type="tel"
         value={phoneNumber}
@@ -246,6 +254,7 @@ export default function UserUpdateForm(props) {
               lastName,
               profilePicKey,
               phoneNumber: value,
+              email,
             };
             const result = onChange(modelFields);
             value = result?.phoneNumber ?? value;
@@ -259,6 +268,34 @@ export default function UserUpdateForm(props) {
         errorMessage={errors.phoneNumber?.errorMessage}
         hasError={errors.phoneNumber?.hasError}
         {...getOverrideProps(overrides, "phoneNumber")}
+      ></TextField>
+      <TextField
+        label="Email"
+        isRequired={true}
+        isReadOnly={false}
+        value={email}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              firstName,
+              lastName,
+              profilePicKey,
+              phoneNumber,
+              email: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.email ?? value;
+          }
+          if (errors.email?.hasError) {
+            runValidationTasks("email", value);
+          }
+          setEmail(value);
+        }}
+        onBlur={() => runValidationTasks("email", email)}
+        errorMessage={errors.email?.errorMessage}
+        hasError={errors.email?.hasError}
+        {...getOverrideProps(overrides, "email")}
       ></TextField>
       <Flex
         justifyContent="space-between"

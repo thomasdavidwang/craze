@@ -13,16 +13,16 @@
       "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-amplifybaf655fedb444-staging-35113-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
-      "auth": {
-        "craze01d15676": {}
-      },
       "api": {
         "craze": {}
       },
+      "auth": {
+        "craze624fd43a624fd43a": {}
+      },
       "function": {
-        "craze01d15676PreSignup": {
+        "craze624fd43a624fd43aPreSignup": {
           "deploymentBucketName": "amplify-amplifybaf655fedb444-staging-35113-deployment",
-          "s3Key": "amplify-builds/craze01d15676PreSignup-547a30584e3269486d65-build.zip"
+          "s3Key": "amplify-builds/craze624fd43a624fd43aPreSignup-48654f686e6d53584852-build.zip"
         }
       },
       "storage": {

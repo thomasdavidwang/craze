@@ -37,12 +37,12 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "AppSync",
-      "lastPushTimeStamp": "2023-11-06T08:16:26.829Z",
+      "lastPushTimeStamp": "2023-11-06T19:44:51.748Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplifybaf655fedb444-staging-35113-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apicraze"
       },
-      "lastPushDirHash": "+Xq5D/Wrrwq2OH4yU/cWtK5+GeE="
+      "lastPushDirHash": "RIT3bLg4DpkQ83STSzhLKzyvAQQ="
     }
   },
   "auth": {
@@ -86,7 +86,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplifybaf655fedb444-staging-35113-deployment/amplify-cfn-templates/auth/craze01d15676-cloudformation-template.json",
         "logicalId": "authcraze01d15676"
       },
-      "lastPushTimeStamp": "2023-11-06T08:16:25.636Z",
+      "lastPushTimeStamp": "2023-11-06T19:34:03.900Z",
       "output": {
         "CreatedSNSRole": "arn:aws:iam::450904514466:role/sns01d1567635113-staging",
         "UserPoolId": "us-east-1_RrNJEYnGI",
@@ -117,7 +117,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplifybaf655fedb444-staging-35113-deployment/amplify-cfn-templates/function/craze01d15676PreSignup-cloudformation-template.json",
         "logicalId": "functioncraze01d15676PreSignup"
       },
-      "lastPushTimeStamp": "2023-11-06T08:16:25.638Z",
+      "lastPushTimeStamp": "2023-11-06T19:34:03.901Z",
       "output": {
         "LambdaExecutionRoleArn": "arn:aws:iam::450904514466:role/craze01d15676PreSignup-staging",
         "Region": "us-east-1",

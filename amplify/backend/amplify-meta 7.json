@@ -37,12 +37,12 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "AppSync",
-      "lastPushTimeStamp": "2023-11-06T08:16:26.829Z",
+      "lastPushTimeStamp": "2023-11-07T03:27:24.596Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplifybaf655fedb444-staging-35113-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apicraze"
       },
-      "lastPushDirHash": "+Xq5D/Wrrwq2OH4yU/cWtK5+GeE="
+      "lastPushDirHash": "HNERJWxdqUjPGKAX9p8E8C5XRgM="
     }
   },
   "auth": {
@@ -86,7 +86,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplifybaf655fedb444-staging-35113-deployment/amplify-cfn-templates/auth/craze01d15676-cloudformation-template.json",
         "logicalId": "authcraze01d15676"
       },
-      "lastPushTimeStamp": "2023-11-06T08:16:25.636Z",
+      "lastPushTimeStamp": "2023-11-07T03:27:22.842Z",
       "output": {
         "CreatedSNSRole": "arn:aws:iam::450904514466:role/sns01d1567635113-staging",
         "UserPoolId": "us-east-1_RrNJEYnGI",
@@ -97,7 +97,7 @@
         "IdentityPoolName": "craze01d15676_identitypool_01d15676__staging",
         "UserPoolName": "craze01d15676_userpool_01d15676"
       },
-      "lastPushDirHash": "dGnho6quUV+ZvlBmtbHqnD9la+U="
+      "lastPushDirHash": "rU5YY2E7yNbFj7adQAVLiYJijdE="
     }
   },
   "function": {
@@ -117,7 +117,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplifybaf655fedb444-staging-35113-deployment/amplify-cfn-templates/function/craze01d15676PreSignup-cloudformation-template.json",
         "logicalId": "functioncraze01d15676PreSignup"
       },
-      "lastPushTimeStamp": "2023-11-06T08:16:25.638Z",
+      "lastPushTimeStamp": "2023-11-07T03:27:22.845Z",
       "output": {
         "LambdaExecutionRoleArn": "arn:aws:iam::450904514466:role/craze01d15676PreSignup-staging",
         "Region": "us-east-1",
@@ -126,6 +126,23 @@
         "LambdaExecutionRole": "craze01d15676PreSignup-staging"
       },
       "lastPushDirHash": "lPKI96qM0LovO0g1h2m6rKkJ6XU="
+    }
+  },
+  "storage": {
+    "crazeProfiles": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "lastPushTimeStamp": "2023-11-07T03:27:22.846Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplifybaf655fedb444-staging-35113-deployment/amplify-cfn-templates/storage/cloudformation-template.json",
+        "logicalId": "storagecrazeProfiles"
+      },
+      "output": {
+        "BucketName": "crazeb76557f6f8834017a26f1cf7f76dc9a435113-staging",
+        "Region": "us-east-1"
+      },
+      "lastPushDirHash": "HCBjemXhluD8JO7BYpJDW7xlBaI="
     }
   }
 }
