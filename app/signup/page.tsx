@@ -63,6 +63,29 @@ export default function SignUp() {
         router.push("/feed");
       } catch (error) {
         console.log("error signing up:", error);
+
+        try {
+          await Auth.signIn(email + "@yale.edu", password);
+
+          const user = await API.graphql<GraphQLQuery<UsersByEmailQuery>>({
+            query: queries.usersByEmail,
+            variables: { email: email + "@yale.edu" },
+          });
+
+          const pic = await Storage.get(user.data.usersByEmail.items[0].email);
+
+          setContextData({
+            userID: user.data.usersByEmail.items[0].id,
+            email: email + "@yale.edu",
+            firstName: user.data.usersByEmail.items[0].firstName,
+            lastName: user.data.usersByEmail.items[0].lastName,
+            pic: pic,
+          });
+
+          router.push("/feed");
+        } catch (error) {
+          console.log("error signing in", error);
+        }
       }
     } else {
       setIsPassword(true);
@@ -71,10 +94,12 @@ export default function SignUp() {
 
   return (
     <Stack spacing={2} sx={{ width: 1, p: 2 }} alignItems="center">
-      <Typography variant="h1">Sign Up</Typography>
+      <Typography variant="h1">Welcome</Typography>
       <motion.div animate={{ x: !isPassword ? center : left }}>
         <Box sx={{ display: !isPassword ? "block" : "none" }}>
-          <Typography variant="h2">What's your email?</Typography>
+          <Typography variant="h2" sx={{ my: 2 }}>
+            What's your email?
+          </Typography>
           <TextField
             id="email"
             variant="outlined"
@@ -94,7 +119,9 @@ export default function SignUp() {
       </motion.div>
       <motion.div animate={{ x: !isPassword ? right : center }}>
         <Box sx={{ display: !isPassword ? "none" : "block" }}>
-          <Typography variant="h2">What's your password?</Typography>
+          <Typography variant="h2" sx={{ my: 2 }}>
+            What's your password?
+          </Typography>
           <TextField
             id="password"
             variant="outlined"
@@ -107,7 +134,7 @@ export default function SignUp() {
           />
         </Box>
       </motion.div>
-      <Button onClick={() => signUp()}>
+      <Button onClick={() => signUp()} sx={{ alignSelf: "flex-end" }}>
         <ArrowForwardIcon />
       </Button>
     </Stack>

@@ -65,7 +65,7 @@ export default function SignIn() {
       sx={{ width: 1, height: "100%", p: 2 }}
       alignItems="center"
     >
-      <Typography variant="h1">Sign In</Typography>
+      <Typography variant="h1">Welcome</Typography>
       <motion.div animate={{ x: !isPassword ? center : left }}>
         <Stack
           sx={{ display: !isPassword ? "block" : "none", height: 1 }}
