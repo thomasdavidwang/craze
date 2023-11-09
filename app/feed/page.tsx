@@ -9,7 +9,7 @@ import DareCard from "./components/dareCard";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Link from "next/link";
-import { Typography } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import { context } from "../components/ContextProvider";
 import { useRouter } from "next/navigation";
 
@@ -46,8 +46,13 @@ export default function Feed() {
   }, [touch]);
 
   return (
-    <>
-      <Stack alignItems="center" spacing={2} padding={2}>
+    <Grid container justifyContent="center">
+      <Stack
+        alignItems="center"
+        spacing={2}
+        padding={2}
+        className="max-w-[800px]"
+      >
         {dares.map((dare, idx) => {
           return (
             <DareCard
@@ -68,6 +73,7 @@ export default function Feed() {
           py: 1,
           px: 10,
           width: 1,
+          maxWidth: 500,
         }}
         onClick={() => {
           if (contextData && contextData.userID) {
@@ -85,6 +91,6 @@ export default function Feed() {
           Dare a friend 😈
         </Typography>
       </Box>
-    </>
+    </Grid>
   );
 }
