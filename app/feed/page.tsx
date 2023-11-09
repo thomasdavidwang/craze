@@ -1,8 +1,8 @@
 "use client";
 
 import { useContext, useEffect, useState } from "react";
-import * as queries from "../graphql/queries";
-import { Dare, ListDaresQuery, ListDaresQueryVariables } from "../API";
+import * as queries from "@/src/graphql/queries";
+import { Dare, ListDaresQuery, ListDaresQueryVariables } from "@/src/API";
 import { API } from "aws-amplify";
 import { GraphQLQuery } from "@aws-amplify/api";
 import DareCard from "./components/dareCard";
@@ -73,6 +73,7 @@ export default function Feed() {
           bottom: 10,
           py: 1,
           px: 10,
+          my: 1,
           width: 1,
           maxWidth: 500,
         }}

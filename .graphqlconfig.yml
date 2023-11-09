@@ -2,14 +2,14 @@ projects:
   craze:
     schemaPath: amplify/backend/api/craze/build/schema.graphql
     includes:
-      - app/graphql/**/*.ts
+      - src/graphql/**/*.ts
     excludes:
       - ./amplify/**
     extensions:
       amplify:
         codeGenTarget: typescript
-        generatedFileName: app/API.ts
-        docsFilePath: app/graphql
+        generatedFileName: src/API.ts
+        docsFilePath: src/graphql
         region: us-east-1
         apiId: null
         maxDepth: 6

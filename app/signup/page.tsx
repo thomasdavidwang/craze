@@ -12,9 +12,9 @@ import {
 } from "@mui/material";
 import { Auth, Storage } from "aws-amplify";
 import { API } from "aws-amplify";
-import * as queries from "../graphql/queries";
+import * as queries from "@/src/graphql/queries";
 import { GraphQLQuery } from "@aws-amplify/api";
-import { UsersByEmailQuery } from "../API";
+import { UsersByEmailQuery } from "@/src/API";
 import { context } from "../components/ContextProvider";
 import { useRouter } from "next/navigation";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";

@@ -1,14 +1,14 @@
 "use client";
 
-import { CreateUserVoteInput, CreateUserVoteMutation, Dare } from "@/app/API";
+import { CreateUserVoteInput, CreateUserVoteMutation, Dare } from "@/src/API";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import IconButton from "@mui/material/IconButton";
-import * as mutations from "../../graphql/mutations";
-import * as queries from "../../graphql/queries";
+import * as mutations from "@/src/graphql/mutations";
+import * as queries from "@/src/graphql/queries";
 import { GraphQLQuery } from "@aws-amplify/api";
-import { GetUserQuery } from "../../API";
+import { GetUserQuery } from "@/src/API";
 import { API, Storage } from "aws-amplify";
 import { useContext, useEffect, useState } from "react";
 import { context } from "@/app/components/ContextProvider";

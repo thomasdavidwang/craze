@@ -5,8 +5,8 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { API, Storage } from "aws-amplify";
 import { useContext, useEffect, useState } from "react";
-import * as mutations from "../graphql/mutations";
-import * as queries from "../graphql/queries";
+import * as mutations from "@/src/graphql/mutations";
+import * as queries from "@/src/graphql/queries";
 import { GraphQLQuery } from "@aws-amplify/api";
 import { useRouter } from "next/navigation";
 import {
@@ -17,7 +17,7 @@ import {
   SearchUsersQuery,
   SearchableUserFilterInput,
   User,
-} from "../API";
+} from "@/src/API";
 import { ContextData, context } from "../components/ContextProvider";
 import {
   Box,
