@@ -52,7 +52,7 @@ export default function Feed() {
         justifyContent="center"
         spacing={2}
         padding={2}
-        sx={{ width: 1, maxWidth: 800 }}
+        sx={{ width: 1, maxWidth: 600 }}
       >
         {dares.map((dare, idx) => {
           return (

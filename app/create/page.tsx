@@ -139,7 +139,7 @@ export default function Create() {
       </Stack>
       {!recipient && (
         <Grid container justifyContent="center">
-          <Stack sx={{ px: 2, width: 1, maxWidth: 800 }} spacing={2}>
+          <Stack sx={{ px: 2, width: 1, maxWidth: 600 }} spacing={2}>
             <TextField
               value={textLabel}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
@@ -197,11 +197,11 @@ export default function Create() {
             value={description}
             placeholder="Ex. Ask out their crush"
             multiline
-            minRows={3}
+            minRows={5}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               setDescription(event.target.value);
             }}
-            sx={{ width: 1, px: 2, maxWidth: 800 }}
+            sx={{ width: 1, px: 2, maxWidth: 600 }}
             InputProps={{
               endAdornment: (
                 <Button
