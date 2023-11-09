@@ -24,6 +24,7 @@ import {
   Card,
   CardActionArea,
   CardContent,
+  Grid,
   InputAdornment,
   Stack,
 } from "@mui/material";
@@ -137,8 +138,8 @@ export default function Create() {
         </Link>
       </Stack>
       {!recipient && (
-        <div>
-          <Stack sx={{ px: 2 }} spacing={2}>
+        <Grid container justifyContent="center">
+          <Stack sx={{ px: 2, width: 1, maxWidth: 800 }} spacing={2}>
             <TextField
               value={textLabel}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
@@ -186,10 +187,10 @@ export default function Create() {
               );
             })}
           </Stack>
-        </div>
+        </Grid>
       )}
       {recipient && (
-        <>
+        <Stack alignItems="center" sx={{ width: 1 }}>
           <TextField
             id="outlined-basic"
             variant="outlined"
@@ -200,7 +201,7 @@ export default function Create() {
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               setDescription(event.target.value);
             }}
-            sx={{ width: 1, px: 2 }}
+            sx={{ width: 1, px: 2, maxWidth: 800 }}
             InputProps={{
               endAdornment: (
                 <Button
@@ -213,7 +214,7 @@ export default function Create() {
               ),
             }}
           />
-        </>
+        </Stack>
       )}
     </>
   );
