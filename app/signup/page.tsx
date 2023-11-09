@@ -50,14 +50,14 @@ export default function SignUp() {
           },
         });
 
-        const pic = await Storage.get(email + ".png");
+        //const pic = await Storage.get(email + ".png");
 
         setContextData({
           userID: user.data.usersByEmail.items[0].id,
           firstName: user.data.usersByEmail.items[0].firstName,
           lastName: user.data.usersByEmail.items[0].lastName,
           email: email + "@yale.edu",
-          pic: pic,
+          pic: user.data.usersByEmail.items[0].profilePicKey,
         });
 
         router.push("/feed");
@@ -72,14 +72,14 @@ export default function SignUp() {
             variables: { email: email + "@yale.edu" },
           });
 
-          const pic = await Storage.get(user.data.usersByEmail.items[0].email);
+          //const pic = await Storage.get(user.data.usersByEmail.items[0].email);
 
           setContextData({
             userID: user.data.usersByEmail.items[0].id,
             email: email + "@yale.edu",
             firstName: user.data.usersByEmail.items[0].firstName,
             lastName: user.data.usersByEmail.items[0].lastName,
-            pic: pic,
+            pic: user.data.usersByEmail.items[0].profilePicKey,
           });
 
           router.push("/feed");

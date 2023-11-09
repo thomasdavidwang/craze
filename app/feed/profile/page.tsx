@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import { Auth, Storage } from "aws-amplify";
 import { StorageImage } from "@aws-amplify/ui-react-storage";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function Profile() {
   const { contextData, setContextData } = useContext(context);
@@ -24,7 +25,9 @@ export default function Profile() {
 
   return (
     <div>
-      <img src={contextData.pic} width={100} height={100} alt="Profile Picture" />
+      {contextData.pic && (
+        <Image src={contextData.pic} width={100} height={100} alt="😃" />
+      )}
       <Typography>{contextData.firstName}</Typography>
       <Typography>{contextData.lastName}</Typography>
       <Button variant="outlined" onClick={signOut}>

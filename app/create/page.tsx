@@ -61,11 +61,11 @@ export default function Create() {
     });
 
     setOptions(users.data.searchUsers.items);
-    Promise.all(
+    /**Promise.all(
       users.data.searchUsers.items.map(
         async (u) => await Storage.get(u.email.slice(0, -9) + ".png")
       )
-    ).then((picLinks) => setPics(picLinks));
+    ).then((picLinks) => setPics(picLinks));*/
   }
 
   useEffect(() => {
@@ -154,30 +154,37 @@ export default function Create() {
                 ),
               }}
             />
-            {options.map((option, index) => (
-              <Card key={index}>
-                <CardActionArea>
-                  <CardContent
-                    onClick={() => {
-                      setRecipient(option);
-                    }}
-                  >
-                    <Stack direction="row" alignItems="center" spacing={2}>
-                      <Image
-                        src={pics[index]}
-                        alt="profile pic"
-                        width={48}
-                        height={48}
-                        className="rounded-full object-cover max-h-12 max-w-12"
-                      />
-                      <Typography variant="h1" sx={{ fontWeight: 500 }}>
-                        {option.firstName + " " + option.lastName}
-                      </Typography>
-                    </Stack>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
-            ))}
+            {options.map((option, index) => {
+              console.log(option);
+              return (
+                <Card key={index}>
+                  <CardActionArea>
+                    <CardContent
+                      onClick={() => {
+                        setRecipient(option);
+                      }}
+                    >
+                      <Stack direction="row" alignItems="center" spacing={2}>
+                        {option.profilePicKey ? (
+                          <Image
+                            src={option.profilePicKey}
+                            alt="profile pic"
+                            width={48}
+                            height={48}
+                            className="rounded-full object-cover max-h-12 max-w-12"
+                          />
+                        ) : (
+                          <Typography fontSize={48}>😃</Typography>
+                        )}
+                        <Typography variant="h1" sx={{ fontWeight: 500 }}>
+                          {option.firstName + " " + option.lastName}
+                        </Typography>
+                      </Stack>
+                    </CardContent>
+                  </CardActionArea>
+                </Card>
+              );
+            })}
           </Stack>
         </div>
       )}

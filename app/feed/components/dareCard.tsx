@@ -26,6 +26,7 @@ type Votee = {
   lastName: string;
   email: string;
   id: string;
+  pic: string;
 };
 
 type Voter = {
@@ -37,7 +38,6 @@ type Voter = {
 export default function DareCard({ dare, index, setTouch, voteCount }) {
   const [votee, setVotee] = useState<Votee>();
   const [voters, setVoters] = useState([]);
-  const [pic, setPic] = useState("");
   const { contextData, setContextData } = useContext(context);
   const [open, setOpen] = useState(false);
   const router = useRouter();
@@ -49,17 +49,16 @@ export default function DareCard({ dare, index, setTouch, voteCount }) {
         variables: { id: dare.Votes.items[0].votee },
       });
 
-      const picLink = await Storage.get(
+      /**const picLink = await Storage.get(
         user.data.getUser.email.slice(0, -9) + ".png"
-      );
-
-      setPic(picLink);
+      );*/
 
       setVotee({
         firstName: user.data.getUser.firstName,
         lastName: user.data.getUser.lastName,
         email: user.data.getUser.email,
         id: user.data.getUser.id,
+        pic: user.data.getUser.profilePicKey,
       });
     } catch (error) {
       console.log(error);
@@ -101,14 +100,14 @@ export default function DareCard({ dare, index, setTouch, voteCount }) {
             variables: { id: voterID },
           });
 
-          const picLink = await Storage.get(
+          /**const picLink = await Storage.get(
             user.data.getUser.email.slice(0, -9) + ".png"
-          );
+          );*/
 
           return {
             firstName: user.data.getUser.firstName,
             lastName: user.data.getUser.lastName,
-            pic: picLink,
+            pic: user.data.getUser.profilePicKey,
           };
         } catch (error) {
           console.log(error);
@@ -138,17 +137,21 @@ export default function DareCard({ dare, index, setTouch, voteCount }) {
                 justifyContent="space-between"
                 alignItems="center"
               >
-                <Stack spacing={2}>
+                <Stack spacing={2} sx={{ flexGrow: 1 }}>
                   <CardActionArea>
                     <CardContent onClick={() => setOpen((value) => !value)}>
                       <Stack direction="row" spacing={1} alignItems="center">
-                        <Image
-                          src={pic}
-                          alt="profile pic"
-                          width={48}
-                          height={48}
-                          className="rounded-full object-cover max-h-12 max-w-12"
-                        />
+                        {votee.pic ? (
+                          <Image
+                            src={votee.pic}
+                            alt="profile pic"
+                            width={48}
+                            height={48}
+                            className="rounded-full object-cover max-h-12 max-w-12"
+                          />
+                        ) : (
+                          <Typography fontSize={48}>😃</Typography>
+                        )}
                         <Typography variant="h2">
                           {votee.firstName + " " + votee.lastName}
                         </Typography>
@@ -186,13 +189,17 @@ export default function DareCard({ dare, index, setTouch, voteCount }) {
                               key={idx}
                               spacing={1}
                             >
-                              <Image
-                                src={voter.pic}
-                                alt="profile pic"
-                                width={36}
-                                height={36}
-                                className="rounded-full object-cover max-h-8 max-w-8"
-                              />
+                              {voter.pic ? (
+                                <Image
+                                  src={voter.pic}
+                                  alt="profile pic"
+                                  width={36}
+                                  height={36}
+                                  className="rounded-full object-cover max-h-8 max-w-8"
+                                />
+                              ) : (
+                                <Typography fontSize={36}>😃</Typography>
+                              )}
                               <Typography variant="h4">
                                 {voter.firstName + " " + voter.lastName}
                               </Typography>
