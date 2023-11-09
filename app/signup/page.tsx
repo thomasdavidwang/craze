@@ -93,10 +93,15 @@ export default function SignUp() {
   }
 
   return (
-    <Stack spacing={2} sx={{ width: 1, p: 2 }} alignItems="center">
+    <Stack
+      spacing={2}
+      sx={{ width: 1, p: 2, height: 1 }}
+      alignItems="center"
+      justifyContent="space-between"
+    >
       <Typography variant="h1">Welcome</Typography>
-      <motion.div animate={{ x: !isPassword ? center : left }}>
-        <Box sx={{ display: !isPassword ? "block" : "none" }}>
+      {!isPassword && (
+        <motion.div animate={{ x: !isPassword ? center : left }}>
           <Typography variant="h2" sx={{ my: 2 }}>
             What&apos;s your email?
           </Typography>
@@ -115,10 +120,10 @@ export default function SignUp() {
             }}
             sx={{ bgcolor: "action.hover", width: 1 }}
           />
-        </Box>
-      </motion.div>
-      <motion.div animate={{ x: !isPassword ? right : center }}>
-        <Box sx={{ display: !isPassword ? "none" : "block" }}>
+        </motion.div>
+      )}
+      {isPassword && (
+        <motion.div animate={{ x: !isPassword ? right : center }}>
           <Typography variant="h2" sx={{ my: 2 }}>
             What&apos;s your password?
           </Typography>
@@ -132,8 +137,8 @@ export default function SignUp() {
             }}
             sx={{ bgcolor: "action.hover", width: 1 }}
           />
-        </Box>
-      </motion.div>
+        </motion.div>
+      )}
       <Button onClick={() => signUp()} sx={{ alignSelf: "flex-end" }}>
         <ArrowForwardIcon />
       </Button>

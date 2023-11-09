@@ -49,9 +49,11 @@ export default function Feed() {
     <Grid container justifyContent="center">
       <Stack
         alignItems="center"
+        justifyContent="center"
         spacing={2}
         padding={2}
         className="max-w-[800px]"
+        sx={{ h: 1 }}
       >
         {dares.map((dare, idx) => {
           return (
