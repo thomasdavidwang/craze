@@ -215,7 +215,7 @@ export default function Create() {
                     createDare();
                   }}
                 >
-                  {"Create new dare ->"}
+                  {"Post->"}
                 </Button>
               ),
             }}
