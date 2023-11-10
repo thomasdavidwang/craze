@@ -32,6 +32,7 @@ import Image from "next/image";
 import Link from "next/link";
 import SearchIcon from "@mui/icons-material/Search";
 import { groupIDs } from "../utils/group-enum";
+import ProfileImage from "../feed/components/profileImage";
 
 export default function Create() {
   const [description, setDescription] = useState("");
@@ -173,17 +174,13 @@ export default function Create() {
                         }}
                       >
                         <Stack direction="row" alignItems="center" spacing={2}>
-                          {option.profilePicKey ? (
-                            <Image
-                              src={option.profilePicKey}
-                              alt="profile pic"
-                              width={48}
-                              height={48}
-                              className="rounded-full object-cover max-h-12 max-w-12"
-                            />
-                          ) : (
-                            <Typography fontSize={48}>😃</Typography>
-                          )}
+                          <ProfileImage
+                            src={option}
+                            alt="profile pic"
+                            width={48}
+                            height={48}
+                            className="rounded-full object-cover max-h-12 max-w-12"
+                          />
                           <Typography variant="h1" sx={{ fontWeight: 500 }}>
                             {option.firstName + " " + option.lastName}
                           </Typography>

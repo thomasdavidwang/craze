@@ -9,30 +9,29 @@ import * as mutations from "@/src/graphql/mutations";
 import * as queries from "@/src/graphql/queries";
 import { GraphQLQuery } from "@aws-amplify/api";
 import { GetUserQuery } from "@/src/API";
-import { API, Storage } from "aws-amplify";
+import { API } from "aws-amplify";
 import { useContext, useEffect, useState } from "react";
 import { context } from "@/app/components/ContextProvider";
-import Link from "next/link";
 import Stack from "@mui/material/Stack";
-import Image from "next/image";
 import CardContent from "@mui/material/CardContent";
 import CardActionArea from "@mui/material/CardActionArea";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Grid } from "@mui/material";
+import ProfileImage from "./profileImage";
 
 type Votee = {
   firstName: string;
   lastName: string;
   email: string;
   id: string;
-  pic: string;
+  profilePicKey: string;
 };
 
 type Voter = {
   firstName: string;
   lastName: string;
-  pic: string;
+  profilePicKey: string;
 };
 
 export default function DareCard({ dare, index, setTouch, voteCount }) {
@@ -58,7 +57,7 @@ export default function DareCard({ dare, index, setTouch, voteCount }) {
         lastName: user.data.getUser.lastName,
         email: user.data.getUser.email,
         id: user.data.getUser.id,
-        pic: user.data.getUser.profilePicKey,
+        profilePicKey: user.data.getUser.profilePicKey,
       });
     } catch (error) {
       console.log(error);
@@ -107,7 +106,7 @@ export default function DareCard({ dare, index, setTouch, voteCount }) {
           return {
             firstName: user.data.getUser.firstName,
             lastName: user.data.getUser.lastName,
-            pic: user.data.getUser.profilePicKey,
+            profilePicKey: user.data.getUser.profilePicKey,
           };
         } catch (error) {
           console.log(error);
@@ -141,17 +140,12 @@ export default function DareCard({ dare, index, setTouch, voteCount }) {
                   <CardActionArea>
                     <CardContent onClick={() => setOpen((value) => !value)}>
                       <Stack direction="row" spacing={1} alignItems="center">
-                        {votee.pic ? (
-                          <Image
-                            src={votee.pic}
-                            alt="profile pic"
-                            width={48}
-                            height={48}
-                            className="rounded-full object-cover max-h-12 max-w-12"
-                          />
-                        ) : (
-                          <Typography fontSize={48}>😃</Typography>
-                        )}
+                        <ProfileImage
+                          src={votee}
+                          width={48}
+                          height={48}
+                          className="rounded-full object-cover max-h-12 max-w-12"
+                        />
                         <Typography variant="h2">
                           {votee.firstName + " " + votee.lastName}
                         </Typography>
@@ -189,17 +183,12 @@ export default function DareCard({ dare, index, setTouch, voteCount }) {
                               key={idx}
                               spacing={1}
                             >
-                              {voter.pic ? (
-                                <Image
-                                  src={voter.pic}
-                                  alt="profile pic"
-                                  width={36}
-                                  height={36}
-                                  className="rounded-full object-cover max-h-8 max-w-8"
-                                />
-                              ) : (
-                                <Typography fontSize={36}>😃</Typography>
-                              )}
+                              <ProfileImage
+                                src={voter}
+                                width={36}
+                                height={36}
+                                className="rounded-full object-cover max-h-8 max-w-8"
+                              />
                               <Typography variant="h4">
                                 {voter.firstName + " " + voter.lastName}
                               </Typography>
