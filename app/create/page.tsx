@@ -152,7 +152,7 @@ export default function Create() {
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 setTextLabel(event.target.value);
               }}
-              placeholder="search"
+              placeholder="search for a 2027 Yalie"
               sx={{ bgcolor: "action.hover" }}
               InputProps={{
                 startAdornment: (
@@ -162,36 +162,37 @@ export default function Create() {
                 ),
               }}
             />
-            {options.map((option, index) => {
-              return (
-                <Card key={index}>
-                  <CardActionArea>
-                    <CardContent
-                      onClick={() => {
-                        setRecipient(option);
-                      }}
-                    >
-                      <Stack direction="row" alignItems="center" spacing={2}>
-                        {option.profilePicKey ? (
-                          <Image
-                            src={option.profilePicKey}
-                            alt="profile pic"
-                            width={48}
-                            height={48}
-                            className="rounded-full object-cover max-h-12 max-w-12"
-                          />
-                        ) : (
-                          <Typography fontSize={48}>😃</Typography>
-                        )}
-                        <Typography variant="h1" sx={{ fontWeight: 500 }}>
-                          {option.firstName + " " + option.lastName}
-                        </Typography>
-                      </Stack>
-                    </CardContent>
-                  </CardActionArea>
-                </Card>
-              );
-            })}
+            {textLabel.length > 0 &&
+              options.map((option, index) => {
+                return (
+                  <Card key={index}>
+                    <CardActionArea>
+                      <CardContent
+                        onClick={() => {
+                          setRecipient(option);
+                        }}
+                      >
+                        <Stack direction="row" alignItems="center" spacing={2}>
+                          {option.profilePicKey ? (
+                            <Image
+                              src={option.profilePicKey}
+                              alt="profile pic"
+                              width={48}
+                              height={48}
+                              className="rounded-full object-cover max-h-12 max-w-12"
+                            />
+                          ) : (
+                            <Typography fontSize={48}>😃</Typography>
+                          )}
+                          <Typography variant="h1" sx={{ fontWeight: 500 }}>
+                            {option.firstName + " " + option.lastName}
+                          </Typography>
+                        </Stack>
+                      </CardContent>
+                    </CardActionArea>
+                  </Card>
+                );
+              })}
           </Stack>
         </Grid>
       )}
