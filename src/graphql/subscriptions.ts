@@ -437,6 +437,7 @@ export const onDeleteDare = /* GraphQL */ `subscription OnDeleteDare($filter: Mo
 export const onCreateGroup = /* GraphQL */ `subscription OnCreateGroup($filter: ModelSubscriptionGroupFilterInput) {
   onCreateGroup(filter: $filter) {
     id
+    description
     Users {
       items {
         id
@@ -515,6 +516,7 @@ export const onCreateGroup = /* GraphQL */ `subscription OnCreateGroup($filter: 
 export const onUpdateGroup = /* GraphQL */ `subscription OnUpdateGroup($filter: ModelSubscriptionGroupFilterInput) {
   onUpdateGroup(filter: $filter) {
     id
+    description
     Users {
       items {
         id
@@ -593,6 +595,7 @@ export const onUpdateGroup = /* GraphQL */ `subscription OnUpdateGroup($filter: 
 export const onDeleteGroup = /* GraphQL */ `subscription OnDeleteGroup($filter: ModelSubscriptionGroupFilterInput) {
   onDeleteGroup(filter: $filter) {
     id
+    description
     Users {
       items {
         id

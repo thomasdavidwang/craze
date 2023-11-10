@@ -76,7 +76,7 @@ export default function SignUp() {
             router.push("/feed");
           } catch (error) {
             console.log(error);
-            setError("Wrong password");
+            setError("Wrong email or password");
           }
         } else {
           try {
@@ -173,7 +173,11 @@ export default function SignUp() {
         </motion.div>
       )}
       <Button
-        onClick={() => signUp()}
+        onClick={(e) => {
+          e.preventDefault();
+          signUp();
+        }}
+        type="submit"
         disabled={!inputIsValid}
         sx={{ alignSelf: "flex-end" }}
       >

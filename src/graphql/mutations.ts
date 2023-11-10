@@ -458,6 +458,7 @@ export const createGroup = /* GraphQL */ `mutation CreateGroup(
 ) {
   createGroup(input: $input, condition: $condition) {
     id
+    description
     Users {
       items {
         id
@@ -539,6 +540,7 @@ export const updateGroup = /* GraphQL */ `mutation UpdateGroup(
 ) {
   updateGroup(input: $input, condition: $condition) {
     id
+    description
     Users {
       items {
         id
@@ -620,6 +622,7 @@ export const deleteGroup = /* GraphQL */ `mutation DeleteGroup(
 ) {
   deleteGroup(input: $input, condition: $condition) {
     id
+    description
     Users {
       items {
         id

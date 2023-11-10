@@ -1,7 +1,6 @@
 "use client";
 
 import { useContext, useEffect, useState } from "react";
-import * as queries from "@/src/graphql/queries";
 import { Dare, ListDaresQuery, ListDaresQueryVariables } from "@/src/API";
 import { API } from "aws-amplify";
 import { GraphQLQuery } from "@aws-amplify/api";
@@ -13,6 +12,55 @@ import { Container, Grid, Typography } from "@mui/material";
 import { context } from "../components/ContextProvider";
 import { useRouter } from "next/navigation";
 
+type GeneratedQuery<InputType, OutputType> = string & {
+  __generatedQueryInput: InputType;
+  __generatedQueryOutput: OutputType;
+};
+
+const listDares = /* GraphQL */ `query ListDares(
+  $filter: ModelDareFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listDares(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      description
+      emoji
+      Votes {
+        items {
+          id
+          voters {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          dareID
+          votee
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<ListDaresQueryVariables, ListDaresQuery>;
+
 export default function Feed() {
   const [dares, setDares] = useState<Dare[]>([]);
   const { contextData, setContextData } = useContext(context);
@@ -23,10 +71,12 @@ export default function Feed() {
   async function fetchDares() {
     console.log("Fetching...");
     const res = await API.graphql<GraphQLQuery<ListDaresQuery>>({
-      query: queries.listDares,
+      query: listDares,
     });
 
     const { items: items } = res.data?.listDares;
+
+    console.log(items);
 
     items.sort(
       (item1, item2) =>

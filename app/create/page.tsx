@@ -31,6 +31,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import SearchIcon from "@mui/icons-material/Search";
+import { groupIDs } from "../utils/group-enum";
 
 export default function Create() {
   const [description, setDescription] = useState("");
@@ -44,21 +45,27 @@ export default function Create() {
   async function searchUsers() {
     const filters: SearchableUserFilterInput[] = [];
 
-    textLabel.split(" ").map((word) => {
-      const firstNameFilter: SearchableUserFilterInput = {
-        firstName: { wildcard: "*" + word + "*" },
-      };
+    const words = textLabel.split(" ");
 
+    const firstNameFilter: SearchableUserFilterInput = {
+      firstName: { wildcard: "*" + words[0] + "*" },
+    };
+    filters.push(firstNameFilter);
+
+    if (words.length > 1) {
       const lastNameFilter: SearchableUserFilterInput = {
-        lastName: { wildcard: "*" + word + "*" },
+        lastName: { wildcard: "*" + words[1] + "*" },
       };
 
-      filters.push(firstNameFilter, lastNameFilter);
-    });
+      filters.push(lastNameFilter);
+    }
 
     const users = await API.graphql<GraphQLQuery<SearchUsersQuery>>({
       query: queries.searchUsers,
-      variables: { filter: { or: filters }, limit: 5 },
+      variables: {
+        filter: { groupID: { eq: groupIDs["Yale-2027"] }, and: filters },
+        limit: 5,
+      },
     });
 
     setOptions(users.data.searchUsers.items);
@@ -156,7 +163,6 @@ export default function Create() {
               }}
             />
             {options.map((option, index) => {
-              console.log(option);
               return (
                 <Card key={index}>
                   <CardActionArea>

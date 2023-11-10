@@ -404,6 +404,7 @@ export const listDares = /* GraphQL */ `query ListDares(
 export const getGroup = /* GraphQL */ `query GetGroup($id: ID!) {
   getGroup(id: $id) {
     id
+    description
     Users {
       items {
         id
@@ -484,6 +485,7 @@ export const listGroups = /* GraphQL */ `query ListGroups(
   listGroups(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      description
       Users {
         items {
           id

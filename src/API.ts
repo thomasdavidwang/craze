@@ -167,9 +167,11 @@ export type DeleteDareInput = {
 
 export type CreateGroupInput = {
   id?: string | null,
+  description?: string | null,
 };
 
 export type ModelGroupConditionInput = {
+  description?: ModelStringInput | null,
   and?: Array< ModelGroupConditionInput | null > | null,
   or?: Array< ModelGroupConditionInput | null > | null,
   not?: ModelGroupConditionInput | null,
@@ -178,6 +180,7 @@ export type ModelGroupConditionInput = {
 export type Group = {
   __typename: "Group",
   id: string,
+  description?: string | null,
   Users?: ModelUserConnection | null,
   createdAt: string,
   updatedAt: string,
@@ -191,6 +194,7 @@ export type ModelUserConnection = {
 
 export type UpdateGroupInput = {
   id: string,
+  description?: string | null,
 };
 
 export type DeleteGroupInput = {
@@ -299,6 +303,7 @@ export type ModelDareConnection = {
 
 export type ModelGroupFilterInput = {
   id?: ModelIDInput | null,
+  description?: ModelStringInput | null,
   and?: Array< ModelGroupFilterInput | null > | null,
   or?: Array< ModelGroupFilterInput | null > | null,
   not?: ModelGroupFilterInput | null,
@@ -523,6 +528,7 @@ export type ModelSubscriptionStringInput = {
 
 export type ModelSubscriptionGroupFilterInput = {
   id?: ModelSubscriptionIDInput | null,
+  description?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionGroupFilterInput | null > | null,
   or?: Array< ModelSubscriptionGroupFilterInput | null > | null,
 };
@@ -1000,6 +1006,7 @@ export type CreateGroupMutation = {
   createGroup?:  {
     __typename: "Group",
     id: string,
+    description?: string | null,
     Users?:  {
       __typename: "ModelUserConnection",
       items:  Array< {
@@ -1080,6 +1087,7 @@ export type UpdateGroupMutation = {
   updateGroup?:  {
     __typename: "Group",
     id: string,
+    description?: string | null,
     Users?:  {
       __typename: "ModelUserConnection",
       items:  Array< {
@@ -1160,6 +1168,7 @@ export type DeleteGroupMutation = {
   deleteGroup?:  {
     __typename: "Group",
     id: string,
+    description?: string | null,
     Users?:  {
       __typename: "ModelUserConnection",
       items:  Array< {
@@ -2488,6 +2497,7 @@ export type GetGroupQuery = {
   getGroup?:  {
     __typename: "Group",
     id: string,
+    description?: string | null,
     Users?:  {
       __typename: "ModelUserConnection",
       items:  Array< {
@@ -2571,6 +2581,7 @@ export type ListGroupsQuery = {
     items:  Array< {
       __typename: "Group",
       id: string,
+      description?: string | null,
       Users?:  {
         __typename: "ModelUserConnection",
         items:  Array< {
@@ -4123,6 +4134,7 @@ export type OnCreateGroupSubscription = {
   onCreateGroup?:  {
     __typename: "Group",
     id: string,
+    description?: string | null,
     Users?:  {
       __typename: "ModelUserConnection",
       items:  Array< {
@@ -4202,6 +4214,7 @@ export type OnUpdateGroupSubscription = {
   onUpdateGroup?:  {
     __typename: "Group",
     id: string,
+    description?: string | null,
     Users?:  {
       __typename: "ModelUserConnection",
       items:  Array< {
@@ -4281,6 +4294,7 @@ export type OnDeleteGroupSubscription = {
   onDeleteGroup?:  {
     __typename: "Group",
     id: string,
+    description?: string | null,
     Users?:  {
       __typename: "ModelUserConnection",
       items:  Array< {

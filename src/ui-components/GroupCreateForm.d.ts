@@ -5,7 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps } from "@aws-amplify/ui-react";
+import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
 export declare type EscapeHatchProps = {
     [elementHierarchy: string]: Record<string, unknown>;
 } | null;
@@ -21,11 +21,16 @@ export declare type ValidationResponse = {
     errorMessage?: string;
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
-export declare type GroupCreateFormInputValues = {};
-export declare type GroupCreateFormValidationValues = {};
+export declare type GroupCreateFormInputValues = {
+    description?: string;
+};
+export declare type GroupCreateFormValidationValues = {
+    description?: ValidationFunction<string>;
+};
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type GroupCreateFormOverridesProps = {
     GroupCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
+    description?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
 export declare type GroupCreateFormProps = React.PropsWithChildren<{
     overrides?: GroupCreateFormOverridesProps | undefined | null;
