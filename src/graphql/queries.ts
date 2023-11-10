@@ -68,6 +68,7 @@ export const getVote = /* GraphQL */ `query GetVote($id: ID!) {
             nextToken
             __typename
           }
+          hasSignedUp
           createdAt
           updatedAt
           __typename
@@ -128,6 +129,7 @@ export const listVotes = /* GraphQL */ `query ListVotes(
               nextToken
               __typename
             }
+            hasSignedUp
             createdAt
             updatedAt
             __typename
@@ -199,6 +201,7 @@ export const votesByDareID = /* GraphQL */ `query VotesByDareID(
               nextToken
               __typename
             }
+            hasSignedUp
             createdAt
             updatedAt
             __typename
@@ -273,6 +276,7 @@ export const votesByVotee = /* GraphQL */ `query VotesByVotee(
               nextToken
               __typename
             }
+            hasSignedUp
             createdAt
             updatedAt
             __typename
@@ -327,6 +331,7 @@ export const getDare = /* GraphQL */ `query GetDare($id: ID!) {
               phoneNumber
               email
               groupID
+              hasSignedUp
               createdAt
               updatedAt
               __typename
@@ -445,6 +450,7 @@ export const getGroup = /* GraphQL */ `query GetGroup($id: ID!) {
               phoneNumber
               email
               groupID
+              hasSignedUp
               createdAt
               updatedAt
               __typename
@@ -456,6 +462,7 @@ export const getGroup = /* GraphQL */ `query GetGroup($id: ID!) {
           nextToken
           __typename
         }
+        hasSignedUp
         createdAt
         updatedAt
         __typename
@@ -510,6 +517,7 @@ export const listGroups = /* GraphQL */ `query ListGroups(
             nextToken
             __typename
           }
+          hasSignedUp
           createdAt
           updatedAt
           __typename
@@ -562,6 +570,7 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
               phoneNumber
               email
               groupID
+              hasSignedUp
               createdAt
               updatedAt
               __typename
@@ -639,6 +648,7 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
             nextToken
             __typename
           }
+          hasSignedUp
           createdAt
           updatedAt
           __typename
@@ -650,6 +660,7 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
       nextToken
       __typename
     }
+    hasSignedUp
     createdAt
     updatedAt
     __typename
@@ -727,6 +738,7 @@ export const listUsers = /* GraphQL */ `query ListUsers(
               nextToken
               __typename
             }
+            hasSignedUp
             createdAt
             updatedAt
             __typename
@@ -738,6 +750,7 @@ export const listUsers = /* GraphQL */ `query ListUsers(
         nextToken
         __typename
       }
+      hasSignedUp
       createdAt
       updatedAt
       __typename
@@ -826,6 +839,7 @@ export const usersByEmail = /* GraphQL */ `query UsersByEmail(
               nextToken
               __typename
             }
+            hasSignedUp
             createdAt
             updatedAt
             __typename
@@ -837,6 +851,7 @@ export const usersByEmail = /* GraphQL */ `query UsersByEmail(
         nextToken
         __typename
       }
+      hasSignedUp
       createdAt
       updatedAt
       __typename
@@ -928,6 +943,7 @@ export const usersByGroupID = /* GraphQL */ `query UsersByGroupID(
               nextToken
               __typename
             }
+            hasSignedUp
             createdAt
             updatedAt
             __typename
@@ -939,6 +955,7 @@ export const usersByGroupID = /* GraphQL */ `query UsersByGroupID(
         nextToken
         __typename
       }
+      hasSignedUp
       createdAt
       updatedAt
       __typename
@@ -1032,6 +1049,7 @@ export const searchUsers = /* GraphQL */ `query SearchUsers(
               nextToken
               __typename
             }
+            hasSignedUp
             createdAt
             updatedAt
             __typename
@@ -1043,6 +1061,7 @@ export const searchUsers = /* GraphQL */ `query SearchUsers(
         nextToken
         __typename
       }
+      hasSignedUp
       createdAt
       updatedAt
       __typename
@@ -1112,6 +1131,7 @@ export const getUserVote = /* GraphQL */ `query GetUserVote($id: ID!) {
               nextToken
               __typename
             }
+            hasSignedUp
             createdAt
             updatedAt
             __typename
@@ -1194,6 +1214,7 @@ export const getUserVote = /* GraphQL */ `query GetUserVote($id: ID!) {
               nextToken
               __typename
             }
+            hasSignedUp
             createdAt
             updatedAt
             __typename
@@ -1205,6 +1226,7 @@ export const getUserVote = /* GraphQL */ `query GetUserVote($id: ID!) {
         nextToken
         __typename
       }
+      hasSignedUp
       createdAt
       updatedAt
       __typename
@@ -1251,6 +1273,7 @@ export const listUserVotes = /* GraphQL */ `query ListUserVotes(
               phoneNumber
               email
               groupID
+              hasSignedUp
               createdAt
               updatedAt
               __typename
@@ -1313,6 +1336,7 @@ export const listUserVotes = /* GraphQL */ `query ListUserVotes(
               phoneNumber
               email
               groupID
+              hasSignedUp
               createdAt
               updatedAt
               __typename
@@ -1324,6 +1348,7 @@ export const listUserVotes = /* GraphQL */ `query ListUserVotes(
           nextToken
           __typename
         }
+        hasSignedUp
         createdAt
         updatedAt
         __typename
@@ -1381,6 +1406,7 @@ export const userVotesByVoteId = /* GraphQL */ `query UserVotesByVoteId(
               phoneNumber
               email
               groupID
+              hasSignedUp
               createdAt
               updatedAt
               __typename
@@ -1443,6 +1469,7 @@ export const userVotesByVoteId = /* GraphQL */ `query UserVotesByVoteId(
               phoneNumber
               email
               groupID
+              hasSignedUp
               createdAt
               updatedAt
               __typename
@@ -1454,6 +1481,7 @@ export const userVotesByVoteId = /* GraphQL */ `query UserVotesByVoteId(
           nextToken
           __typename
         }
+        hasSignedUp
         createdAt
         updatedAt
         __typename
@@ -1511,6 +1539,7 @@ export const userVotesByUserId = /* GraphQL */ `query UserVotesByUserId(
               phoneNumber
               email
               groupID
+              hasSignedUp
               createdAt
               updatedAt
               __typename
@@ -1573,6 +1602,7 @@ export const userVotesByUserId = /* GraphQL */ `query UserVotesByUserId(
               phoneNumber
               email
               groupID
+              hasSignedUp
               createdAt
               updatedAt
               __typename
@@ -1584,6 +1614,7 @@ export const userVotesByUserId = /* GraphQL */ `query UserVotesByUserId(
           nextToken
           __typename
         }
+        hasSignedUp
         createdAt
         updatedAt
         __typename

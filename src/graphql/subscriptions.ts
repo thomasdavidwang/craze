@@ -68,6 +68,7 @@ export const onCreateVote = /* GraphQL */ `subscription OnCreateVote($filter: Mo
             nextToken
             __typename
           }
+          hasSignedUp
           createdAt
           updatedAt
           __typename
@@ -150,6 +151,7 @@ export const onUpdateVote = /* GraphQL */ `subscription OnUpdateVote($filter: Mo
             nextToken
             __typename
           }
+          hasSignedUp
           createdAt
           updatedAt
           __typename
@@ -232,6 +234,7 @@ export const onDeleteVote = /* GraphQL */ `subscription OnDeleteVote($filter: Mo
             nextToken
             __typename
           }
+          hasSignedUp
           createdAt
           updatedAt
           __typename
@@ -283,6 +286,7 @@ export const onCreateDare = /* GraphQL */ `subscription OnCreateDare($filter: Mo
               phoneNumber
               email
               groupID
+              hasSignedUp
               createdAt
               updatedAt
               __typename
@@ -341,6 +345,7 @@ export const onUpdateDare = /* GraphQL */ `subscription OnUpdateDare($filter: Mo
               phoneNumber
               email
               groupID
+              hasSignedUp
               createdAt
               updatedAt
               __typename
@@ -399,6 +404,7 @@ export const onDeleteDare = /* GraphQL */ `subscription OnDeleteDare($filter: Mo
               phoneNumber
               email
               groupID
+              hasSignedUp
               createdAt
               updatedAt
               __typename
@@ -477,6 +483,7 @@ export const onCreateGroup = /* GraphQL */ `subscription OnCreateGroup($filter: 
               phoneNumber
               email
               groupID
+              hasSignedUp
               createdAt
               updatedAt
               __typename
@@ -488,6 +495,7 @@ export const onCreateGroup = /* GraphQL */ `subscription OnCreateGroup($filter: 
           nextToken
           __typename
         }
+        hasSignedUp
         createdAt
         updatedAt
         __typename
@@ -553,6 +561,7 @@ export const onUpdateGroup = /* GraphQL */ `subscription OnUpdateGroup($filter: 
               phoneNumber
               email
               groupID
+              hasSignedUp
               createdAt
               updatedAt
               __typename
@@ -564,6 +573,7 @@ export const onUpdateGroup = /* GraphQL */ `subscription OnUpdateGroup($filter: 
           nextToken
           __typename
         }
+        hasSignedUp
         createdAt
         updatedAt
         __typename
@@ -629,6 +639,7 @@ export const onDeleteGroup = /* GraphQL */ `subscription OnDeleteGroup($filter: 
               phoneNumber
               email
               groupID
+              hasSignedUp
               createdAt
               updatedAt
               __typename
@@ -640,6 +651,7 @@ export const onDeleteGroup = /* GraphQL */ `subscription OnDeleteGroup($filter: 
           nextToken
           __typename
         }
+        hasSignedUp
         createdAt
         updatedAt
         __typename
@@ -689,6 +701,7 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
               phoneNumber
               email
               groupID
+              hasSignedUp
               createdAt
               updatedAt
               __typename
@@ -766,6 +779,7 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
             nextToken
             __typename
           }
+          hasSignedUp
           createdAt
           updatedAt
           __typename
@@ -777,6 +791,7 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
       nextToken
       __typename
     }
+    hasSignedUp
     createdAt
     updatedAt
     __typename
@@ -819,6 +834,7 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
               phoneNumber
               email
               groupID
+              hasSignedUp
               createdAt
               updatedAt
               __typename
@@ -896,6 +912,7 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
             nextToken
             __typename
           }
+          hasSignedUp
           createdAt
           updatedAt
           __typename
@@ -907,6 +924,7 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
       nextToken
       __typename
     }
+    hasSignedUp
     createdAt
     updatedAt
     __typename
@@ -949,6 +967,7 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
               phoneNumber
               email
               groupID
+              hasSignedUp
               createdAt
               updatedAt
               __typename
@@ -1026,6 +1045,7 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
             nextToken
             __typename
           }
+          hasSignedUp
           createdAt
           updatedAt
           __typename
@@ -1037,6 +1057,7 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
       nextToken
       __typename
     }
+    hasSignedUp
     createdAt
     updatedAt
     __typename
@@ -1086,6 +1107,7 @@ export const onCreateUserVote = /* GraphQL */ `subscription OnCreateUserVote($fi
               nextToken
               __typename
             }
+            hasSignedUp
             createdAt
             updatedAt
             __typename
@@ -1168,6 +1190,7 @@ export const onCreateUserVote = /* GraphQL */ `subscription OnCreateUserVote($fi
               nextToken
               __typename
             }
+            hasSignedUp
             createdAt
             updatedAt
             __typename
@@ -1179,6 +1202,7 @@ export const onCreateUserVote = /* GraphQL */ `subscription OnCreateUserVote($fi
         nextToken
         __typename
       }
+      hasSignedUp
       createdAt
       updatedAt
       __typename
@@ -1232,6 +1256,7 @@ export const onUpdateUserVote = /* GraphQL */ `subscription OnUpdateUserVote($fi
               nextToken
               __typename
             }
+            hasSignedUp
             createdAt
             updatedAt
             __typename
@@ -1314,6 +1339,7 @@ export const onUpdateUserVote = /* GraphQL */ `subscription OnUpdateUserVote($fi
               nextToken
               __typename
             }
+            hasSignedUp
             createdAt
             updatedAt
             __typename
@@ -1325,6 +1351,7 @@ export const onUpdateUserVote = /* GraphQL */ `subscription OnUpdateUserVote($fi
         nextToken
         __typename
       }
+      hasSignedUp
       createdAt
       updatedAt
       __typename
@@ -1378,6 +1405,7 @@ export const onDeleteUserVote = /* GraphQL */ `subscription OnDeleteUserVote($fi
               nextToken
               __typename
             }
+            hasSignedUp
             createdAt
             updatedAt
             __typename
@@ -1460,6 +1488,7 @@ export const onDeleteUserVote = /* GraphQL */ `subscription OnDeleteUserVote($fi
               nextToken
               __typename
             }
+            hasSignedUp
             createdAt
             updatedAt
             __typename
@@ -1471,6 +1500,7 @@ export const onDeleteUserVote = /* GraphQL */ `subscription OnDeleteUserVote($fi
         nextToken
         __typename
       }
+      hasSignedUp
       createdAt
       updatedAt
       __typename

@@ -71,6 +71,7 @@ export const createVote = /* GraphQL */ `mutation CreateVote(
             nextToken
             __typename
           }
+          hasSignedUp
           createdAt
           updatedAt
           __typename
@@ -156,6 +157,7 @@ export const updateVote = /* GraphQL */ `mutation UpdateVote(
             nextToken
             __typename
           }
+          hasSignedUp
           createdAt
           updatedAt
           __typename
@@ -241,6 +243,7 @@ export const deleteVote = /* GraphQL */ `mutation DeleteVote(
             nextToken
             __typename
           }
+          hasSignedUp
           createdAt
           updatedAt
           __typename
@@ -295,6 +298,7 @@ export const createDare = /* GraphQL */ `mutation CreateDare(
               phoneNumber
               email
               groupID
+              hasSignedUp
               createdAt
               updatedAt
               __typename
@@ -356,6 +360,7 @@ export const updateDare = /* GraphQL */ `mutation UpdateDare(
               phoneNumber
               email
               groupID
+              hasSignedUp
               createdAt
               updatedAt
               __typename
@@ -417,6 +422,7 @@ export const deleteDare = /* GraphQL */ `mutation DeleteDare(
               phoneNumber
               email
               groupID
+              hasSignedUp
               createdAt
               updatedAt
               __typename
@@ -498,6 +504,7 @@ export const createGroup = /* GraphQL */ `mutation CreateGroup(
               phoneNumber
               email
               groupID
+              hasSignedUp
               createdAt
               updatedAt
               __typename
@@ -509,6 +516,7 @@ export const createGroup = /* GraphQL */ `mutation CreateGroup(
           nextToken
           __typename
         }
+        hasSignedUp
         createdAt
         updatedAt
         __typename
@@ -577,6 +585,7 @@ export const updateGroup = /* GraphQL */ `mutation UpdateGroup(
               phoneNumber
               email
               groupID
+              hasSignedUp
               createdAt
               updatedAt
               __typename
@@ -588,6 +597,7 @@ export const updateGroup = /* GraphQL */ `mutation UpdateGroup(
           nextToken
           __typename
         }
+        hasSignedUp
         createdAt
         updatedAt
         __typename
@@ -656,6 +666,7 @@ export const deleteGroup = /* GraphQL */ `mutation DeleteGroup(
               phoneNumber
               email
               groupID
+              hasSignedUp
               createdAt
               updatedAt
               __typename
@@ -667,6 +678,7 @@ export const deleteGroup = /* GraphQL */ `mutation DeleteGroup(
           nextToken
           __typename
         }
+        hasSignedUp
         createdAt
         updatedAt
         __typename
@@ -719,6 +731,7 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
               phoneNumber
               email
               groupID
+              hasSignedUp
               createdAt
               updatedAt
               __typename
@@ -796,6 +809,7 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
             nextToken
             __typename
           }
+          hasSignedUp
           createdAt
           updatedAt
           __typename
@@ -807,6 +821,7 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
       nextToken
       __typename
     }
+    hasSignedUp
     createdAt
     updatedAt
     __typename
@@ -852,6 +867,7 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
               phoneNumber
               email
               groupID
+              hasSignedUp
               createdAt
               updatedAt
               __typename
@@ -929,6 +945,7 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
             nextToken
             __typename
           }
+          hasSignedUp
           createdAt
           updatedAt
           __typename
@@ -940,6 +957,7 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
       nextToken
       __typename
     }
+    hasSignedUp
     createdAt
     updatedAt
     __typename
@@ -985,6 +1003,7 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
               phoneNumber
               email
               groupID
+              hasSignedUp
               createdAt
               updatedAt
               __typename
@@ -1062,6 +1081,7 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
             nextToken
             __typename
           }
+          hasSignedUp
           createdAt
           updatedAt
           __typename
@@ -1073,6 +1093,7 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
       nextToken
       __typename
     }
+    hasSignedUp
     createdAt
     updatedAt
     __typename
@@ -1125,6 +1146,7 @@ export const createUserVote = /* GraphQL */ `mutation CreateUserVote(
               nextToken
               __typename
             }
+            hasSignedUp
             createdAt
             updatedAt
             __typename
@@ -1207,6 +1229,7 @@ export const createUserVote = /* GraphQL */ `mutation CreateUserVote(
               nextToken
               __typename
             }
+            hasSignedUp
             createdAt
             updatedAt
             __typename
@@ -1218,6 +1241,7 @@ export const createUserVote = /* GraphQL */ `mutation CreateUserVote(
         nextToken
         __typename
       }
+      hasSignedUp
       createdAt
       updatedAt
       __typename
@@ -1274,6 +1298,7 @@ export const updateUserVote = /* GraphQL */ `mutation UpdateUserVote(
               nextToken
               __typename
             }
+            hasSignedUp
             createdAt
             updatedAt
             __typename
@@ -1356,6 +1381,7 @@ export const updateUserVote = /* GraphQL */ `mutation UpdateUserVote(
               nextToken
               __typename
             }
+            hasSignedUp
             createdAt
             updatedAt
             __typename
@@ -1367,6 +1393,7 @@ export const updateUserVote = /* GraphQL */ `mutation UpdateUserVote(
         nextToken
         __typename
       }
+      hasSignedUp
       createdAt
       updatedAt
       __typename
@@ -1423,6 +1450,7 @@ export const deleteUserVote = /* GraphQL */ `mutation DeleteUserVote(
               nextToken
               __typename
             }
+            hasSignedUp
             createdAt
             updatedAt
             __typename
@@ -1505,6 +1533,7 @@ export const deleteUserVote = /* GraphQL */ `mutation DeleteUserVote(
               nextToken
               __typename
             }
+            hasSignedUp
             createdAt
             updatedAt
             __typename
@@ -1516,6 +1545,7 @@ export const deleteUserVote = /* GraphQL */ `mutation DeleteUserVote(
         nextToken
         __typename
       }
+      hasSignedUp
       createdAt
       updatedAt
       __typename

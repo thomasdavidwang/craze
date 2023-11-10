@@ -27,4 +27,5 @@ type User @model @searchable @auth(rules: [{ allow: public }]) {
   groupID: ID @index(name: "byGroup")
   votesReceived: [Vote] @hasMany(indexName: "byUser", fields: ["id"])
   votesGiven: [Vote] @manyToMany(relationName: "UserVote")
+  hasSignedUp: Boolean
 }
