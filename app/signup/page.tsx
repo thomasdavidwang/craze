@@ -20,7 +20,6 @@ import { context } from "../components/ContextProvider";
 import { useRouter } from "next/navigation";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { motion } from "framer-motion";
-import { red } from "@mui/material/colors";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");

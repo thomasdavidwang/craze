@@ -105,7 +105,17 @@ export default function DareCard({ dare, index, setTouch }) {
   }, [dare]);
 
   return (
-    <Card variant="outlined" sx={{ width: 1, padding: 1 }}>
+    <Card
+      variant="outlined"
+      sx={{
+        width: 1,
+        padding: 1,
+        borderRadius: 0,
+        border: 0,
+        borderBottom: 1,
+        borderColor: "grey.700",
+      }}
+    >
       <SignUpModal open={openModal} setOpen={setOpenModal} />
       <Stack direction="row" spacing={1} alignItems="center">
         <CardActionArea>
