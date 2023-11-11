@@ -1,16 +1,22 @@
 "use client";
 
 import { useContext, useEffect, useState } from "react";
-import { Dare, ListDaresQuery, ListDaresQueryVariables } from "@/src/API";
-import { API } from "aws-amplify";
+import {
+  Dare,
+  ListDaresQuery,
+  ListDaresQueryVariables,
+  UsersByEmailQuery,
+} from "@/src/API";
+import { API, Auth } from "aws-amplify";
 import { GraphQLQuery } from "@aws-amplify/api";
 import DareCard from "./components/dareCard";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
-import Link from "next/link";
-import { Container, Grid, Typography } from "@mui/material";
+import * as queries from "@/src/graphql/queries";
+import { Container, Grid, Modal, Typography } from "@mui/material";
 import { context } from "../components/ContextProvider";
 import { useRouter } from "next/navigation";
+import SignUpModal from "./components/signUpModal";
 
 type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryInput: InputType;
@@ -66,6 +72,7 @@ export default function Feed() {
   const { contextData, setContextData } = useContext(context);
   const [touch, setTouch] = useState(0);
   const [voteCounts, setVoteCounts] = useState<number[]>([]);
+  const [openModal, setOpenModal] = useState(false);
   const router = useRouter();
 
   async function fetchDares() {
@@ -75,8 +82,6 @@ export default function Feed() {
     });
 
     const { items: items } = res.data?.listDares;
-
-    console.log(items);
 
     items.sort(
       (item1, item2) =>
@@ -95,8 +100,29 @@ export default function Feed() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [touch]);
 
+  useEffect(() => {
+    Auth.currentAuthenticatedUser({
+      bypassCache: false, // Optional and is false by default. If set to true, this call
+      // will send a request to Cognito to get the latest user data.
+    }).then(async (user) => {
+      const userDetails = await API.graphql<GraphQLQuery<UsersByEmailQuery>>({
+        query: queries.usersByEmail,
+        variables: { email: user.attributes.email },
+      });
+
+      setContextData({
+        userID: userDetails.data.usersByEmail.items[0].id,
+        email: user.attributes.email,
+        firstName: userDetails.data.usersByEmail.items[0].firstName,
+        lastName: userDetails.data.usersByEmail.items[0].lastName,
+        profilePicKey: userDetails.data.usersByEmail.items[0].profilePicKey,
+      });
+    });
+  }, []);
+
   return (
     <Grid container justifyContent="center">
+      <SignUpModal open={openModal} />
       <Stack
         alignItems="center"
         justifyContent="center"
@@ -131,7 +157,8 @@ export default function Feed() {
           if (contextData && contextData.userID) {
             router.push("/create");
           } else {
-            router.push("/signup");
+            console.log("Feed open modal");
+            setOpenModal(true);
           }
         }}
       >

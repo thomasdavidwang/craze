@@ -19,6 +19,8 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Grid } from "@mui/material";
 import ProfileImage from "./profileImage";
+import SignUpModal from "./signUpModal";
+import VoterList from "./voterList";
 
 type Votee = {
   firstName: string;
@@ -28,18 +30,12 @@ type Votee = {
   profilePicKey: string;
 };
 
-type Voter = {
-  firstName: string;
-  lastName: string;
-  profilePicKey: string;
-};
-
 export default function DareCard({ dare, index, setTouch, voteCount }) {
   const [votee, setVotee] = useState<Votee>();
-  const [voters, setVoters] = useState([]);
   const { contextData, setContextData } = useContext(context);
   const [open, setOpen] = useState(false);
   const router = useRouter();
+  const [openModal, setOpenModal] = useState(false);
 
   async function getVotee() {
     try {
@@ -82,47 +78,19 @@ export default function DareCard({ dare, index, setTouch, voteCount }) {
         console.log(error);
       }
     } else {
-      router.push("/signup");
+      console.log("Dare card open modal");
+      setOpenModal(true);
     }
-  }
-
-  async function getVoters() {
-    const voterList = dare.Votes.items[0].voters.items.map(
-      (userVotes) => userVotes.userId
-    );
-
-    Promise.all(
-      voterList.map(async (voterID) => {
-        try {
-          const user = await API.graphql<GraphQLQuery<GetUserQuery>>({
-            query: queries.getUser,
-            variables: { id: voterID },
-          });
-
-          /**const picLink = await Storage.get(
-            user.data.getUser.email.slice(0, -9) + ".png"
-          );*/
-
-          return {
-            firstName: user.data.getUser.firstName,
-            lastName: user.data.getUser.lastName,
-            profilePicKey: user.data.getUser.profilePicKey,
-          };
-        } catch (error) {
-          console.log(error);
-        }
-      })
-    ).then((votersData) => setVoters(votersData));
   }
 
   useEffect(() => {
     getVotee();
-    getVoters();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <Card variant="outlined" sx={{ width: 1, padding: 1 }}>
+      <SignUpModal open={openModal} />
       <Stack direction="row" spacing={1} alignItems="start">
         <Typography sx={{ pt: 1, pr: 1 }} fontWeight="700">
           {"#" + (index + 1)}
@@ -164,42 +132,7 @@ export default function DareCard({ dare, index, setTouch, voteCount }) {
               </Stack>
             )}
           </div>
-          <motion.div>
-            {open
-              ? voters && (
-                  <Grid
-                    container
-                    mt={1}
-                    spacing={1}
-                    sx={{ borderTop: 1, borderColor: "grey.800" }}
-                  >
-                    {voters.map(
-                      (voter, idx) =>
-                        voter && (
-                          <Grid item key={idx}>
-                            <Stack
-                              direction="row"
-                              alignItems="center"
-                              key={idx}
-                              spacing={1}
-                            >
-                              <ProfileImage
-                                src={voter}
-                                width={36}
-                                height={36}
-                                className="rounded-full object-cover max-h-8 max-w-8"
-                              />
-                              <Typography variant="h4">
-                                {voter.firstName + " " + voter.lastName}
-                              </Typography>
-                            </Stack>
-                          </Grid>
-                        )
-                    )}
-                  </Grid>
-                )
-              : null}
-          </motion.div>
+          <motion.div>{open ? <VoterList dare={dare} /> : null}</motion.div>
         </Stack>
       </Stack>
     </Card>
