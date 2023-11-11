@@ -30,7 +30,7 @@ type Votee = {
   profilePicKey: string;
 };
 
-export default function DareCard({ dare, index, setTouch, voteCount }) {
+export default function DareCard({ dare, index, setTouch }) {
   const [votee, setVotee] = useState<Votee>();
   const { contextData, setContextData } = useContext(context);
   const [open, setOpen] = useState(false);
@@ -61,6 +61,16 @@ export default function DareCard({ dare, index, setTouch, voteCount }) {
     }
   }
 
+  async function checkIfVoted() {
+    let temp = false;
+    for (let vote of dare.Votes.items[0].voters.items) {
+      if (vote.userId === contextData.userID) {
+        temp = true;
+      }
+    }
+    setHasVoted(temp);
+  }
+
   async function vote() {
     if (contextData && contextData.userID) {
       if (!hasVoted) {
@@ -76,7 +86,6 @@ export default function DareCard({ dare, index, setTouch, voteCount }) {
           });
 
           setTouch((prevState) => prevState + 1);
-          setHasVoted(true);
         } catch (error) {
           console.log(error);
         }
@@ -89,6 +98,7 @@ export default function DareCard({ dare, index, setTouch, voteCount }) {
 
   useEffect(() => {
     getVotee();
+    checkIfVoted();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dare]);
 
@@ -140,7 +150,7 @@ export default function DareCard({ dare, index, setTouch, voteCount }) {
             <FavoriteIcon />
           </IconButton>
           <Typography variant="h3" fontWeight="medium">
-            {voteCount}
+            {dare.Votes.items[0].voters.items.length}
           </Typography>
         </Stack>
       </Stack>

@@ -71,7 +71,6 @@ export default function Feed() {
   const [dares, setDares] = useState<Dare[]>([]);
   const { contextData, setContextData } = useContext(context);
   const [touch, setTouch] = useState(0);
-  const [voteCounts, setVoteCounts] = useState<number[]>([]);
   const [openModal, setOpenModal] = useState(false);
   const router = useRouter();
 
@@ -91,8 +90,6 @@ export default function Feed() {
 
     // @ts-ignore: lol i still hate setState
     setDares(items);
-
-    setVoteCounts(items.map((dare) => dare.Votes.items[0].voters.items.length));
   }
 
   useEffect(() => {
@@ -132,13 +129,7 @@ export default function Feed() {
       >
         {dares.map((dare, idx) => {
           return (
-            <DareCard
-              dare={dare}
-              index={idx}
-              key={idx}
-              setTouch={setTouch}
-              voteCount={voteCounts[idx]}
-            />
+            <DareCard dare={dare} index={idx} key={idx} setTouch={setTouch} />
           );
         })}
       </Stack>
