@@ -9,6 +9,7 @@ import * as mutations from "@/src/graphql/mutations";
 import * as queries from "@/src/graphql/queries";
 import { GraphQLQuery } from "@aws-amplify/api";
 import { useRouter } from "next/navigation";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import {
   CreateDareInput,
   CreateDareMutation,
@@ -40,6 +41,7 @@ export default function Create() {
   const [recipient, setRecipient] = useState<User>();
   const { contextData, setContextData } = useContext(context);
   const [options, setOptions] = useState([]);
+  const [disableButton, setDisableButton] = useState(true);
   const [pics, setPics] = useState([]);
   const [textLabel, setTextLabel] = useState("");
   const [loading, setLoading] = useState(false);
@@ -128,6 +130,14 @@ export default function Create() {
     }
   }
 
+  useEffect(() => {
+    if (description.length > 0) {
+      setDisableButton(false);
+    } else {
+      setDisableButton(true);
+    }
+  }, [description]);
+
   return (
     <>
       <Stack
@@ -143,12 +153,19 @@ export default function Create() {
           borderColor: "grey.500",
         }}
       >
-        <Link
-          href="/feed"
-          className="text-base font-bold no-underline text-white"
+        <Button
+          onClick={() => {
+            if (recipient) {
+              setRecipient(null);
+            } else {
+              router.push("/feed");
+            }
+          }}
+          sx={{ color: "white" }}
+          className="text-base font-bold no-underline"
         >
-          Cancel
-        </Link>
+          {recipient ? <ArrowBackIosIcon /> : "Cancel"}
+        </Button>
         <Typography variant="h1" align="center">
           {recipient ? "I dare " + recipient.firstName + " to..." : "I dare..."}
         </Typography>
@@ -221,6 +238,7 @@ export default function Create() {
               endAdornment: (
                 <LoadingButton
                   loading={loading}
+                  disabled={disableButton}
                   onClick={() => {
                     createDare();
                   }}
