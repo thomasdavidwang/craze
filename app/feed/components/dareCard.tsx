@@ -110,14 +110,16 @@ export default function DareCard({ dare, index, setTouch, voteCount }) {
                   />
                   <Stack spacing={2} sx={{ flexGrow: 1 }}>
                     <Stack direction="row" spacing={0.5} alignItems="center">
-                      <Typography variant="h2">
+                      <Typography variant="h2" fontWeight={800}>
                         {votee.firstName + " " + votee.lastName}
                       </Typography>
                       <Typography variant="h2" fontWeight="medium">
                         should
                       </Typography>
                     </Stack>
-                    <Typography variant="h2">{dare.description}</Typography>
+                    <Typography variant="h2" fontWeight="medium">
+                      {dare.description}
+                    </Typography>
                   </Stack>
                 </>
               )}
@@ -135,7 +137,9 @@ export default function DareCard({ dare, index, setTouch, voteCount }) {
           >
             <FavoriteIcon />
           </IconButton>
-          <Typography variant="h3">{voteCount}</Typography>
+          <Typography variant="h3" fontWeight="medium">
+            {voteCount}
+          </Typography>
         </Stack>
       </Stack>
       <motion.div>{open ? <VoterList dare={dare} /> : null}</motion.div>
