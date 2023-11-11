@@ -90,7 +90,7 @@ export default function DareCard({ dare, index, setTouch, voteCount }) {
   useEffect(() => {
     getVotee();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dare]);
 
   return (
     <Card variant="outlined" sx={{ width: 1, padding: 1 }}>
