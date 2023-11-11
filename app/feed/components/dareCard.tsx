@@ -17,7 +17,6 @@ import CardContent from "@mui/material/CardContent";
 import CardActionArea from "@mui/material/CardActionArea";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { Grid } from "@mui/material";
 import ProfileImage from "./profileImage";
 import SignUpModal from "./signUpModal";
 import VoterList from "./voterList";

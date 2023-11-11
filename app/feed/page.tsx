@@ -4,7 +4,6 @@ import { useContext, useEffect, useState } from "react";
 import {
   Dare,
   ListDaresQuery,
-  ListDaresQueryVariables,
   SearchUsersQuery,
   SearchableUserFilterInput,
   UsersByEmailQuery,
@@ -13,25 +12,18 @@ import { API, Auth } from "aws-amplify";
 import { GraphQLQuery } from "@aws-amplify/api";
 import DareCard from "./components/dareCard";
 import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Box from "@mui/material/Box";
 import SearchIcon from "@mui/icons-material/Search";
 import * as queries from "@/src/graphql/queries";
-import {
-  Button,
-  Card,
-  CardActionArea,
-  CardContent,
-  Container,
-  Grid,
-  InputAdornment,
-  Modal,
-  TextField,
-  Typography,
-} from "@mui/material";
 import { context } from "../components/ContextProvider";
 import { useRouter } from "next/navigation";
 import SignUpModal from "./components/signUpModal";
 import { groupIDs } from "../utils/group-enum";
+import { TextField } from "@mui/material";
 
 type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryInput: InputType;
@@ -45,6 +37,8 @@ export default function Feed() {
   const [openModal, setOpenModal] = useState(false);
   const [textLabel, setTextLabel] = useState("");
   const [options, setOptions] = useState([]);
+  const [searchBy, setSearchBy] = useState("dare");
+
   const router = useRouter();
 
   async function fetchDares() {
@@ -54,8 +48,6 @@ export default function Feed() {
     });
 
     const { items: items } = res.data?.listDares;
-
-    console.log(items);
 
     items.sort(
       (item1, item2) =>
@@ -133,9 +125,30 @@ export default function Feed() {
       .catch(() => console.log("Not signed in."));
   }, []);
 
+  function handleSearchToggle(
+    event: React.MouseEvent<HTMLElement>,
+    newSearchBy: string
+  ) {
+    console.log(newSearchBy);
+    setSearchBy(newSearchBy);
+  }
+
   return (
-    <Grid container justifyContent="center">
+    <Stack alignItems="center">
       <SignUpModal open={openModal} setOpen={setOpenModal} />
+      <Stack direction="row">
+        <TextField></TextField>
+        <ToggleButtonGroup
+          color="primary"
+          value={searchBy}
+          exclusive
+          onChange={handleSearchToggle}
+          aria-label="Platform"
+        >
+          <ToggleButton value="dare">by Dare</ToggleButton>
+          <ToggleButton value="user">by User</ToggleButton>
+        </ToggleButtonGroup>
+      </Stack>
       {/**<Grid container justifyContent="center">
         <TextField
           value={textLabel}
@@ -197,6 +210,6 @@ export default function Feed() {
       >
         Dare a friend 😈
       </Button>
-    </Grid>
+    </Stack>
   );
 }
