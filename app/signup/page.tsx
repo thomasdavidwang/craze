@@ -66,7 +66,7 @@ export default function SignUp() {
     if (isPassword) {
       const user = await API.graphql<GraphQLQuery<UsersByEmailQuery>>({
         query: queries.usersByEmail,
-        variables: { email: email + "@yale.edu" },
+        variables: { email: email.toLowerCase() + "@yale.edu" },
       });
 
       if (user.data.usersByEmail.items.length == 0) {
@@ -74,13 +74,13 @@ export default function SignUp() {
       } else {
         if (user.data.usersByEmail.items[0].hasSignedUp === true) {
           try {
-            await Auth.signIn(email + "@yale.edu", password);
+            await Auth.signIn(email.toLowerCase() + "@yale.edu", password);
 
             //const pic = await Storage.get(user.data.usersByEmail.items[0].email);
 
             setContextData({
               userID: user.data.usersByEmail.items[0].id,
-              email: email + "@yale.edu",
+              email: email.toLowerCase() + "@yale.edu",
               firstName: user.data.usersByEmail.items[0].firstName,
               lastName: user.data.usersByEmail.items[0].lastName,
               pic: user.data.usersByEmail.items[0].profilePicKey,
@@ -94,7 +94,7 @@ export default function SignUp() {
         } else {
           try {
             const newUser = await Auth.signUp({
-              username: email + "@yale.edu",
+              username: email.toLowerCase() + "@yale.edu",
               password: password,
               autoSignIn: {
                 enabled: true,
@@ -118,7 +118,7 @@ export default function SignUp() {
               userID: user.data.usersByEmail.items[0].id,
               firstName: user.data.usersByEmail.items[0].firstName,
               lastName: user.data.usersByEmail.items[0].lastName,
-              email: email + "@yale.edu",
+              email: email.toLowerCase() + "@yale.edu",
               pic: user.data.usersByEmail.items[0].profilePicKey,
             });
 
