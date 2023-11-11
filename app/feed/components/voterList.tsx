@@ -57,7 +57,7 @@ export default function VoterList({ dare }) {
       {voters.map(
         (voter, idx) =>
           voter && (
-            <Grid item key={idx}>
+            <Grid item key={idx} xs={4}>
               <Stack direction="row" alignItems="center" key={idx} spacing={1}>
                 <ProfileImage
                   src={voter}

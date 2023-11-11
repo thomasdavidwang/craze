@@ -63,21 +63,23 @@ export default function DareCard({ dare, index, setTouch, voteCount }) {
 
   async function vote() {
     if (contextData && contextData.userID) {
-      try {
-        const userVoteDetails: CreateUserVoteInput = {
-          voteId: dare.Votes.items[0].id,
-          userId: contextData.userID,
-        };
+      if (!hasVoted) {
+        try {
+          const userVoteDetails: CreateUserVoteInput = {
+            voteId: dare.Votes.items[0].id,
+            userId: contextData.userID,
+          };
 
-        const vote = await API.graphql<GraphQLQuery<CreateUserVoteMutation>>({
-          query: mutations.createUserVote,
-          variables: { input: userVoteDetails },
-        });
+          const vote = await API.graphql<GraphQLQuery<CreateUserVoteMutation>>({
+            query: mutations.createUserVote,
+            variables: { input: userVoteDetails },
+          });
 
-        setTouch((prevState) => prevState + 1);
-        setHasVoted(true);
-      } catch (error) {
-        console.log(error);
+          setTouch((prevState) => prevState + 1);
+          setHasVoted(true);
+        } catch (error) {
+          console.log(error);
+        }
       }
     } else {
       console.log("Dare card open modal");
