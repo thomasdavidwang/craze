@@ -137,7 +137,12 @@ export default function Create() {
           borderColor: "grey.500",
         }}
       >
-        <Link href="/feed">Cancel</Link>
+        <Link
+          href="/feed"
+          className="text-base font-bold no-underline text-white"
+        >
+          Cancel
+        </Link>
         <Typography variant="h1" align="center">
           {recipient ? "I dare " + recipient.firstName + " to..." : "I dare..."}
         </Typography>
@@ -212,8 +217,10 @@ export default function Create() {
                   onClick={() => {
                     createDare();
                   }}
+                  size="large"
+                  sx={{ fontWeight: "bold", fontSize: 18 }}
                 >
-                  {"Post->"}
+                  {"Post"}
                 </Button>
               ),
             }}
