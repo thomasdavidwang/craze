@@ -110,7 +110,7 @@ export default function DareCard({ dare, index, setTouch, voteCount }) {
                     height={48}
                     className="rounded-full object-cover max-h-12 max-w-12"
                   />
-                  <Stack spacing={2} sx={{ flexGrow: 1 }}>
+                  <Stack spacing={0.5} sx={{ flexGrow: 1 }}>
                     <Stack direction="row" spacing={0.5} alignItems="center">
                       <Typography variant="h2" fontWeight={800}>
                         {votee.firstName + " " + votee.lastName}
