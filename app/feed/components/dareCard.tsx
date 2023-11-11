@@ -3,7 +3,7 @@
 import { CreateUserVoteInput, CreateUserVoteMutation, Dare } from "@/src/API";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import IconButton from "@mui/material/IconButton";
 import * as mutations from "@/src/graphql/mutations";
 import * as queries from "@/src/graphql/queries";
@@ -36,6 +36,7 @@ export default function DareCard({ dare, index, setTouch, voteCount }) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const [openModal, setOpenModal] = useState(false);
+  const [hasVoted, setHasVoted] = useState(false);
 
   async function getVotee() {
     try {
@@ -74,6 +75,7 @@ export default function DareCard({ dare, index, setTouch, voteCount }) {
         });
 
         setTouch((prevState) => prevState + 1);
+        setHasVoted(true);
       } catch (error) {
         console.log(error);
       }
@@ -91,50 +93,52 @@ export default function DareCard({ dare, index, setTouch, voteCount }) {
   return (
     <Card variant="outlined" sx={{ width: 1, padding: 1 }}>
       <SignUpModal open={openModal} />
-      <Stack direction="row" spacing={1} alignItems="start">
-        <Typography sx={{ pt: 1, pr: 1 }} fontWeight="700">
-          {"#" + (index + 1)}
-        </Typography>
-        <Stack spacing={2} alignItems="left" sx={{ flexGrow: 1 }}>
-          <div>
-            {votee && (
-              <Stack
-                direction="row"
-                spacing={1}
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                <Stack spacing={2} sx={{ flexGrow: 1 }}>
-                  <CardActionArea>
-                    <CardContent onClick={() => setOpen((value) => !value)}>
-                      <Stack direction="row" spacing={1} alignItems="center">
-                        <ProfileImage
-                          src={votee}
-                          width={48}
-                          height={48}
-                          className="rounded-full object-cover max-h-12 max-w-12"
-                        />
-                        <Typography variant="h2">
-                          {votee.firstName + " " + votee.lastName}
-                        </Typography>
-                        <Typography variant="h4">should</Typography>
-                      </Stack>
-                      <Typography variant="h2">{dare.description}</Typography>
-                    </CardContent>
-                  </CardActionArea>
-                </Stack>
-                <Stack alignItems="center" sx={{ mx: 1, my: 2 }}>
-                  <Typography variant="h3">{voteCount}</Typography>
-                  <IconButton onClick={vote}>
-                    <ArrowUpwardIcon />
-                  </IconButton>
-                </Stack>
-              </Stack>
-            )}
-          </div>
-          <motion.div>{open ? <VoterList dare={dare} /> : null}</motion.div>
+      <Stack direction="row" spacing={1} alignItems="center">
+        <CardActionArea>
+          <CardContent onClick={() => setOpen((value) => !value)}>
+            <Stack direction="row" spacing={1}>
+              <Typography sx={{ pt: 1, pr: 1 }} fontWeight="700">
+                {"#" + (index + 1)}
+              </Typography>
+              {votee && (
+                <>
+                  <ProfileImage
+                    src={votee}
+                    width={48}
+                    height={48}
+                    className="rounded-full object-cover max-h-12 max-w-12"
+                  />
+                  <Stack spacing={2} sx={{ flexGrow: 1 }}>
+                    <Stack direction="row" spacing={0.5} alignItems="center">
+                      <Typography variant="h2">
+                        {votee.firstName + " " + votee.lastName}
+                      </Typography>
+                      <Typography variant="h2" fontWeight="medium">
+                        should
+                      </Typography>
+                    </Stack>
+                    <Typography variant="h2">{dare.description}</Typography>
+                  </Stack>
+                </>
+              )}
+            </Stack>
+          </CardContent>
+        </CardActionArea>
+        <Stack
+          alignItems="center"
+          sx={{ mx: 1, my: 2 }}
+          color={hasVoted ? "secondary.main" : "white"}
+        >
+          <IconButton
+            onClick={vote}
+            sx={{ color: hasVoted ? "secondary.main" : "white" }}
+          >
+            <FavoriteIcon />
+          </IconButton>
+          <Typography variant="h3">{voteCount}</Typography>
         </Stack>
       </Stack>
+      <motion.div>{open ? <VoterList dare={dare} /> : null}</motion.div>
     </Card>
   );
 }
