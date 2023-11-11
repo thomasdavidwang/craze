@@ -144,8 +144,7 @@ export default function Feed() {
       </Stack>
       <Button
         variant="contained"
-        color="secondary"
-        className="bg-fuchsia-500"
+        className="bg-fuchsia-500 hover:bg-fuchsia-400"
         onClick={() => {
           if (contextData && contextData.userID) {
             router.push("/create");
@@ -155,6 +154,7 @@ export default function Feed() {
         }}
         sx={{
           position: "fixed",
+          color: "white",
           borderRadius: "9999px",
           p: 2,
           fontWeight: "bold",

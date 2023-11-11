@@ -33,8 +33,7 @@ export default function SignUpModal({ open, setOpen }) {
         />
         <Typography variant="h2">Sign in to dare a friend 😈</Typography>
         <Button
-          color="secondary"
-          className="bg-fuchsia-500"
+          className="bg-fuchsia-500 hover:bg-fuchsia-400"
           sx={{
             color: "white",
             borderRadius: "9999px",
