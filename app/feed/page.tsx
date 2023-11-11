@@ -70,7 +70,7 @@ export default function Feed() {
         },
       });
 
-      console.log(users);
+      console.log(users.data.searchUsers.items);
 
       for (let user of users.data.searchUsers.items) {
         let temp = user.votesReceived.items.map((vote) => {
@@ -79,6 +79,8 @@ export default function Feed() {
 
         dareFilters.push(...temp);
       }
+
+      console.log(dareFilters);
     }
 
     const res = await API.graphql<GraphQLQuery<ListDaresQuery>>({
@@ -88,7 +90,7 @@ export default function Feed() {
 
     const { items: items } = res.data?.listDares;
 
-    console.log(items);
+    console.log(res);
 
     items.sort(
       (item1, item2) =>
