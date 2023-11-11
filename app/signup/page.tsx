@@ -30,6 +30,13 @@ export default function SignUp() {
   const [error, setError] = useState("");
   const router = useRouter();
   const [isPassword, setIsPassword] = useState(false);
+  const [user, setUser] = useState({
+    id: "",
+    firstName: "",
+    lastName: "",
+    profilePicKey: null,
+    hasSignedUp: true,
+  });
 
   const left = -1000;
   const center = 0;
@@ -60,82 +67,92 @@ export default function SignUp() {
     return () => {
       document.removeEventListener("keydown", listener);
     };
-  }, []);
+  }, [user, isPassword, email, password]);
 
   async function signUp() {
     console.log("Sign up called");
     console.log(isPassword);
     if (isPassword) {
-      const user = await API.graphql<GraphQLQuery<UsersByEmailQuery>>({
-        query: queries.usersByEmail,
-        variables: { email: email.toLowerCase() + "@yale.edu" },
-      });
+      if (user.hasSignedUp === true) {
+        try {
+          await Auth.signIn(email.toLowerCase() + "@yale.edu", password);
 
-      console.log("Checking if user exists...");
-      if (user.data.usersByEmail.items.length == 0) {
-        setError("Please enter your @yale.edu email.");
+          console.log("Signing in...");
+
+          //const pic = await Storage.get(user.data.usersByEmail.items[0].email);
+
+          setContextData({
+            userID: user.id,
+            email: email.toLowerCase() + "@yale.edu",
+            firstName: user.firstName,
+            lastName: user.lastName,
+            pic: user.profilePicKey,
+          });
+
+          router.push("/feed");
+        } catch (error) {
+          console.log(error);
+          setError("Wrong email or password");
+        }
       } else {
-        if (user.data.usersByEmail.items[0].hasSignedUp === true) {
-          try {
-            await Auth.signIn(email.toLowerCase() + "@yale.edu", password);
+        try {
+          const newUser = await Auth.signUp({
+            username: email.toLowerCase() + "@yale.edu",
+            password: password,
+            autoSignIn: {
+              enabled: true,
+            },
+          });
+          console.log(newUser.user);
 
-            console.log("Signing in...");
-
-            //const pic = await Storage.get(user.data.usersByEmail.items[0].email);
-
-            setContextData({
-              userID: user.data.usersByEmail.items[0].id,
-              email: email.toLowerCase() + "@yale.edu",
-              firstName: user.data.usersByEmail.items[0].firstName,
-              lastName: user.data.usersByEmail.items[0].lastName,
-              pic: user.data.usersByEmail.items[0].profilePicKey,
-            });
-
-            router.push("/feed");
-          } catch (error) {
-            console.log(error);
-            setError("Wrong email or password");
-          }
-        } else {
-          try {
-            const newUser = await Auth.signUp({
-              username: email.toLowerCase() + "@yale.edu",
-              password: password,
-              autoSignIn: {
-                enabled: true,
+          await API.graphql<GraphQLQuery<UpdateUserMutation>>({
+            query: mutations.updateUser,
+            variables: {
+              input: {
+                id: user.id,
+                hasSignedUp: true,
               },
-            });
-            console.log(newUser.user);
+            },
+          });
 
-            await API.graphql<GraphQLQuery<UpdateUserMutation>>({
-              query: mutations.updateUser,
-              variables: {
-                input: {
-                  id: user.data.usersByEmail.items[0].id,
-                  hasSignedUp: true,
-                },
-              },
-            });
+          //const pic = await Storage.get(email + ".png");
 
-            //const pic = await Storage.get(email + ".png");
+          setContextData({
+            userID: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: email.toLowerCase() + "@yale.edu",
+            pic: user.profilePicKey,
+          });
 
-            setContextData({
-              userID: user.data.usersByEmail.items[0].id,
-              firstName: user.data.usersByEmail.items[0].firstName,
-              lastName: user.data.usersByEmail.items[0].lastName,
-              email: email.toLowerCase() + "@yale.edu",
-              pic: user.data.usersByEmail.items[0].profilePicKey,
-            });
-
-            router.push("/feed");
-          } catch (error) {
-            console.log(error);
-          }
+          router.push("/feed");
+        } catch (error) {
+          console.log(error);
         }
       }
     } else {
-      setIsPassword(true);
-      setInputIsValid(false);
+      console.log("Checking if user exists...");
+      try {
+        console.log(email.toLowerCase() + "@yale.edu");
+        const retrievedUser = await API.graphql<
+          GraphQLQuery<UsersByEmailQuery>
+        >({
+          query: queries.usersByEmail,
+          variables: { email: email.toLowerCase() + "@yale.edu" },
+        });
+
+        if (retrievedUser.data.usersByEmail.items.length == 0) {
+          setError("Please enter your @yale.edu email.");
+        } else {
+          // @ts-ignore: lol i still hate setState
+          setUser(retrievedUser.data.usersByEmail.items[0]);
+          setIsPassword(true);
+          setInputIsValid(false);
+          setError("");
+        }
+      } catch (e) {
+        console.log(e);
+      }
     }
   }
 
@@ -179,6 +196,9 @@ export default function SignUp() {
               <ArrowForwardIcon />
             </Button>
           </Stack>
+          <Typography variant="h4" sx={{ py: 1 }} color="error.main">
+            {error}
+          </Typography>
         </motion.div>
       )}
       {isPassword && (
@@ -197,9 +217,6 @@ export default function SignUp() {
               }}
               sx={{ bgcolor: "action.hover", width: 1 }}
             />
-            <Typography variant="h4" sx={{ py: 1 }} color="error.main">
-              {error}
-            </Typography>
             <Button
               onClick={(e) => {
                 e.preventDefault();
@@ -210,6 +227,9 @@ export default function SignUp() {
               <ArrowForwardIcon />
             </Button>
           </Stack>
+          <Typography variant="h4" sx={{ py: 1 }} color="error.main">
+            {error}
+          </Typography>
         </motion.div>
       )}
       <Typography sx={{ opacity: 0 }}>Text</Typography>
