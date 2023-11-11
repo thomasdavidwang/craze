@@ -189,7 +189,7 @@ export default function Feed() {
           zIndex: "modal",
           bottom: 10,
           py: 2,
-          my: 1,
+          m: 1,
           width: 1,
           maxWidth: 500,
           fontSize: 18,

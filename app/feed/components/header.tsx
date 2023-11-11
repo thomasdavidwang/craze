@@ -8,7 +8,10 @@ export default function Header() {
   return (
     <Container sx={{ width: 1, my: 2 }}>
       <Stack spacing={2} alignItems="center">
-        <Link href="/feed" className="text-base font-bold">
+        <Link
+          href="/feed"
+          className="text-base font-bold no-underline text-white"
+        >
           Nerve @ Yale
         </Link>
       </Stack>
