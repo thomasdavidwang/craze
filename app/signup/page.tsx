@@ -20,6 +20,7 @@ import { context } from "../components/ContextProvider";
 import { useRouter } from "next/navigation";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { motion } from "framer-motion";
+import { groupIDs } from "../utils/group-enum";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
@@ -143,11 +144,20 @@ export default function SignUp() {
         if (retrievedUser.data.usersByEmail.items.length == 0) {
           setError("Please enter your @yale.edu email.");
         } else {
-          // @ts-ignore: lol i still hate setState
-          setUser(retrievedUser.data.usersByEmail.items[0]);
-          setIsPassword(true);
-          setInputIsValid(false);
-          setError("Must be 6 characters or more");
+          if (
+            retrievedUser.data.usersByEmail.items[0].groupID !==
+            groupIDs["Yale-2027"]
+          ) {
+            setError("Must be in the Class of 2027");
+          } else {
+            // @ts-ignore: lol i still hate setState
+            setUser(retrievedUser.data.usersByEmail.items[0]);
+            setIsPassword(true);
+            setInputIsValid(false);
+            if (!retrievedUser.data.usersByEmail.items[0].hasSignedUp) {
+              setError("Must be 6 characters or more");
+            }
+          }
         }
       } catch (e) {
         console.log(e);
