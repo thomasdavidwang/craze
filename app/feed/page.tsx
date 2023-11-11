@@ -150,37 +150,42 @@ export default function Feed() {
   return (
     <Stack alignItems="center">
       <SignUpModal open={openModal} setOpen={setOpenModal} />
-      <Stack direction="row" spacing={1} sx={{ maxWidth: 1 }}>
-        <ToggleButtonGroup
-          color="primary"
-          value={searchBy}
-          exclusive
-          onChange={handleSearchToggle}
-          aria-label="Platform"
-        >
-          <ToggleButton size="small" value="dare" sx={{ fontWeight: "bold" }}>
-            by Dare
-          </ToggleButton>
-          <ToggleButton size="small" value="user" sx={{ fontWeight: "bold" }}>
-            by User
-          </ToggleButton>
-        </ToggleButtonGroup>
-        <TextField
-          value={textLabel}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            setTextLabel(event.target.value);
-          }}
-          placeholder={searchBy ? "search for dares" : "search by user"}
-          sx={{ bgcolor: "action.hover" }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
-      </Stack>
+      <TextField
+        value={textLabel}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          setTextLabel(event.target.value);
+        }}
+        placeholder={searchBy ? "search for dares..." : "search by user..."}
+        sx={{ bgcolor: "action.hover", width: 1, maxWidth: 600 }}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <ToggleButtonGroup
+                color="primary"
+                value={searchBy}
+                exclusive
+                onChange={handleSearchToggle}
+                aria-label="Platform"
+              >
+                <ToggleButton
+                  size="small"
+                  value="dare"
+                  sx={{ fontWeight: "bold", px: 2 }}
+                >
+                  by Dare
+                </ToggleButton>
+                <ToggleButton
+                  size="small"
+                  value="user"
+                  sx={{ fontWeight: "bold", px: 2 }}
+                >
+                  by User
+                </ToggleButton>
+              </ToggleButtonGroup>
+            </InputAdornment>
+          ),
+        }}
+      />
 
       <Stack
         alignItems="center"
