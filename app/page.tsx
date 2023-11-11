@@ -8,6 +8,7 @@ import {
   CreateGroupMutation,
   CreateUserMutation,
   DeleteUserMutation,
+  DeleteUserVoteMutation,
   UpdateUserMutation,
   UsersByEmailQuery,
 } from "@/src/API";
@@ -15,6 +16,7 @@ import * as queries from "@/src/graphql/queries";
 import * as mutations from "@/src/graphql/mutations";
 import { API } from "aws-amplify";
 import { groupIDs } from "./utils/group-enum";
+import { out } from "./utils/temp-data";
 
 const api = new yalies.API(
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTkyODU2NjgsInN1YiI6InJ4NDUifQ.DWfBvTXm_sN2ynhRsB-JKoycpoH8H1WRbbzvBstqz00"
@@ -89,9 +91,31 @@ export default function Home() {
       });
   }
 
+  function clean() {
+    console.log("Running...");
+    for (let i = 0; i < out.length; i++) {
+      for (let j = i + 1; j < out.length; j++) {
+        if (
+          out[i].userId === out[j].userId &&
+          out[i].voteId === out[j].voteId
+        ) {
+          j === out.length;
+          API.graphql<GraphQLQuery<DeleteUserVoteMutation>>({
+            query: mutations.deleteUserVote,
+            variables: { input: { id: out[i].id } },
+          })
+            .then(() => {
+              console.log("Deleted.");
+            })
+            .catch((e) => console.log(e));
+        }
+      }
+    }
+  }
+
   return (
     <div>
-      <Button onClick={run}>Click me</Button>
+      <Button onClick={clean}>Click me</Button>
     </div>
   );
 }

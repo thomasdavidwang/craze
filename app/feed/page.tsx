@@ -13,7 +13,7 @@ import DareCard from "./components/dareCard";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import * as queries from "@/src/graphql/queries";
-import { Container, Grid, Modal, Typography } from "@mui/material";
+import { Button, Container, Grid, Modal, Typography } from "@mui/material";
 import { context } from "../components/ContextProvider";
 import { useRouter } from "next/navigation";
 import SignUpModal from "./components/signUpModal";
@@ -120,6 +120,15 @@ export default function Feed() {
   return (
     <Grid container justifyContent="center">
       <SignUpModal open={openModal} setOpen={setOpenModal} />
+      <Button
+        onClick={() =>
+          setDares((prevState) => {
+            return prevState.toReversed();
+          })
+        }
+      >
+        Click me
+      </Button>
       <Stack
         alignItems="center"
         justifyContent="center"
@@ -129,7 +138,12 @@ export default function Feed() {
       >
         {dares.map((dare, idx) => {
           return (
-            <DareCard dare={dare} index={idx} key={idx} setTouch={setTouch} />
+            <DareCard
+              dare={dare}
+              index={idx}
+              key={dare.id}
+              setTouch={setTouch}
+            />
           );
         })}
       </Stack>
@@ -148,7 +162,6 @@ export default function Feed() {
           if (contextData && contextData.userID) {
             router.push("/create");
           } else {
-            console.log("Feed open modal");
             setOpenModal(true);
           }
         }}
