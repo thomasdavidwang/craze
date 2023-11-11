@@ -32,8 +32,8 @@ export default function SignUp() {
   const [isPassword, setIsPassword] = useState(false);
   const [user, setUser] = useState({
     id: "",
-    firstName: "",
-    lastName: "",
+    firstName: null,
+    lastName: null,
     profilePicKey: null,
     hasSignedUp: true,
   });
@@ -204,7 +204,7 @@ export default function SignUp() {
       {isPassword && (
         <motion.div animate={{ x: !isPassword ? right : center }}>
           <Typography variant="h2" sx={{ my: 2 }}>
-            What&apos;s your password
+            {user.hasSignedUp ? "Enter your password" : "Create a password"}
           </Typography>
           <Stack direction="row" alignItems="center">
             <TextField
