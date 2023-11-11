@@ -103,20 +103,22 @@ export default function Feed() {
     Auth.currentAuthenticatedUser({
       bypassCache: false, // Optional and is false by default. If set to true, this call
       // will send a request to Cognito to get the latest user data.
-    }).then(async (user) => {
-      const userDetails = await API.graphql<GraphQLQuery<UsersByEmailQuery>>({
-        query: queries.usersByEmail,
-        variables: { email: user.attributes.email },
-      });
+    })
+      .then(async (user) => {
+        const userDetails = await API.graphql<GraphQLQuery<UsersByEmailQuery>>({
+          query: queries.usersByEmail,
+          variables: { email: user.attributes.email },
+        });
 
-      setContextData({
-        userID: userDetails.data.usersByEmail.items[0].id,
-        email: user.attributes.email,
-        firstName: userDetails.data.usersByEmail.items[0].firstName,
-        lastName: userDetails.data.usersByEmail.items[0].lastName,
-        profilePicKey: userDetails.data.usersByEmail.items[0].profilePicKey,
-      });
-    });
+        setContextData({
+          userID: userDetails.data.usersByEmail.items[0].id,
+          email: user.attributes.email,
+          firstName: userDetails.data.usersByEmail.items[0].firstName,
+          lastName: userDetails.data.usersByEmail.items[0].lastName,
+          profilePicKey: userDetails.data.usersByEmail.items[0].profilePicKey,
+        });
+      })
+      .catch(() => console.log("Not signed in."));
   }, []);
 
   return (

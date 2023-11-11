@@ -62,13 +62,15 @@ export default function DareCard({ dare, index, setTouch }) {
   }
 
   async function checkIfVoted() {
-    let temp = false;
-    for (let vote of dare.Votes.items[0].voters.items) {
-      if (vote.userId === contextData.userID) {
-        temp = true;
+    if (contextData && contextData.userID !== null) {
+      let temp = false;
+      for (let vote of dare.Votes.items[0].voters.items) {
+        if (vote.userId === contextData.userID) {
+          temp = true;
+        }
       }
+      setHasVoted(temp);
     }
-    setHasVoted(temp);
   }
 
   async function vote() {
