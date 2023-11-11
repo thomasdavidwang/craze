@@ -6,8 +6,8 @@ import ContextProvider from "./components/ContextProvider";
 import MUIProvider from "./components/MUIProvider";
 
 export const metadata: Metadata = {
-  title: "Craze @ Yale",
-  description: "Dares",
+  title: "Nerve @ Yale",
+  description: "Dare Your Friends",
 };
 
 export default function RootLayout({
