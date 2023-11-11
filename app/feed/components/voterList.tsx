@@ -9,6 +9,7 @@ import { GetUserQuery } from "@/src/API";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import { API } from "aws-amplify";
+import Box from "@mui/material/Box";
 
 export default function VoterList({ dare }) {
   const [voters, setVoters] = useState([]);
@@ -48,30 +49,35 @@ export default function VoterList({ dare }) {
   }, []);
 
   return (
-    <Grid
-      container
-      mt={1}
-      spacing={1}
-      sx={{ borderTop: 1, borderColor: "grey.800" }}
-    >
-      {voters.map(
-        (voter, idx) =>
-          voter && (
-            <Grid item key={idx} xs={4}>
-              <Stack direction="row" alignItems="center" key={idx} spacing={1}>
-                <ProfileImage
-                  src={voter}
-                  width={36}
-                  height={36}
-                  className="rounded-full object-cover max-h-8 max-w-8"
-                />
-                <Typography variant="h4">
-                  {voter.firstName + " " + voter.lastName}
-                </Typography>
-              </Stack>
-            </Grid>
-          )
-      )}
-    </Grid>
+    <Box sx={{ borderTop: 1, borderColor: "grey.800", py: 2 }}>
+      <Typography variant="h4" fontWeight="bold">
+        Dared by:
+      </Typography>
+      <Grid container mt={1} spacing={1}>
+        {voters.map(
+          (voter, idx) =>
+            voter && (
+              <Grid item key={idx} xs={4}>
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  key={idx}
+                  spacing={1}
+                >
+                  <ProfileImage
+                    src={voter}
+                    width={36}
+                    height={36}
+                    className="rounded-full object-cover max-h-8 max-w-8"
+                  />
+                  <Typography variant="h4">
+                    {voter.firstName + " " + voter.lastName}
+                  </Typography>
+                </Stack>
+              </Grid>
+            )
+        )}
+      </Grid>
+    </Box>
   );
 }

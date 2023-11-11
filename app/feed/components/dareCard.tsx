@@ -112,7 +112,7 @@ export default function DareCard({ dare, index, setTouch }) {
         padding: 1,
         borderRadius: 0,
         border: 0,
-        borderBottom: 1,
+        borderBottom: 2,
         borderColor: "grey.700",
       }}
     >
