@@ -135,21 +135,33 @@ export default function SignUp() {
           <Typography variant="h2" sx={{ my: 2 }}>
             What&apos;s your email?
           </Typography>
-          <TextField
-            id="email"
-            variant="outlined"
-            value={email}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              setEmail(event.target.value);
-            }}
-            placeholder="first.last"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">@yale.edu</InputAdornment>
-              ),
-            }}
-            sx={{ bgcolor: "action.hover", width: 1 }}
-          />
+          <Stack direction="row" alignItems="center">
+            <TextField
+              id="email"
+              variant="outlined"
+              value={email}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                setEmail(event.target.value);
+              }}
+              placeholder="first.last"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">@yale.edu</InputAdornment>
+                ),
+              }}
+              sx={{ bgcolor: "action.hover", width: 1 }}
+            />
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                signUp();
+              }}
+              type="submit"
+              disabled={!inputIsValid}
+            >
+              <ArrowForwardIcon />
+            </Button>
+          </Stack>
         </motion.div>
       )}
       {isPassword && (
@@ -157,32 +169,34 @@ export default function SignUp() {
           <Typography variant="h2" sx={{ my: 2 }}>
             What&apos;s your password?
           </Typography>
-          <TextField
-            id="password"
-            variant="outlined"
-            value={password}
-            placeholder="password"
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              setPassword(event.target.value);
-            }}
-            sx={{ bgcolor: "action.hover", width: 1 }}
-          />
-          <Typography variant="h4" sx={{ py: 1 }} color="error.main">
-            {error}
-          </Typography>
+          <Stack direction="row" alignItems="center">
+            <TextField
+              id="password"
+              variant="outlined"
+              value={password}
+              placeholder="password"
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                setPassword(event.target.value);
+              }}
+              sx={{ bgcolor: "action.hover", width: 1 }}
+            />
+            <Typography variant="h4" sx={{ py: 1 }} color="error.main">
+              {error}
+            </Typography>
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                signUp();
+              }}
+              type="submit"
+              disabled={!inputIsValid}
+            >
+              <ArrowForwardIcon />
+            </Button>
+          </Stack>
         </motion.div>
       )}
-      <Button
-        onClick={(e) => {
-          e.preventDefault();
-          signUp();
-        }}
-        type="submit"
-        disabled={!inputIsValid}
-        sx={{ alignSelf: "flex-end" }}
-      >
-        <ArrowForwardIcon />
-      </Button>
+      <Typography sx={{ opacity: 0 }}>Text</Typography>
     </Stack>
   );
 }
