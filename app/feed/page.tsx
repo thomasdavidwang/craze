@@ -70,8 +70,6 @@ export default function Feed() {
         },
       });
 
-      console.log(users.data.searchUsers.items);
-
       for (let user of users.data.searchUsers.items) {
         let temp = user.votesReceived.items.map((vote) => {
           return { id: { eq: vote.dareID } };
@@ -79,17 +77,20 @@ export default function Feed() {
 
         dareFilters.push(...temp);
       }
-
-      console.log(dareFilters);
     }
 
     const res = await API.graphql<GraphQLQuery<ListDaresQuery>>({
       query: queries.listDares,
-      variables: { filters: { or: dareFilters } },
+      variables: {
+        filter: {
+          or: dareFilters,
+        },
+      },
     });
 
     const { items: items } = res.data?.listDares;
 
+    console.log(dareFilters);
     console.log(res);
 
     items.sort(
@@ -133,7 +134,6 @@ export default function Feed() {
     event: React.MouseEvent<HTMLElement>,
     newSearchBy: string
   ) {
-    console.log(newSearchBy);
     setSearchBy(newSearchBy);
   }
 
