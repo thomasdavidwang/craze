@@ -156,15 +156,14 @@ export default function Feed() {
           position: "fixed",
           color: "white",
           borderRadius: "9999px",
-          p: 2,
           fontWeight: "bold",
           zIndex: "modal",
           bottom: 10,
-          py: 1,
-          px: 10,
+          py: 2,
           my: 1,
           width: 1,
           maxWidth: 500,
+          fontSize: 18,
         }}
       >
         Dare a friend 😈
