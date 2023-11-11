@@ -72,7 +72,7 @@ export default function SignUp() {
 
   async function signUp() {
     console.log("Sign up called");
-    console.log(isPassword);
+    console.log("Is current screen password? " + isPassword);
     setLoading(true);
     if (isPassword) {
       if (user.hasSignedUp === true) {

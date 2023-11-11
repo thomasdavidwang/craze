@@ -4,9 +4,8 @@ import { useContext, useEffect, useState } from "react";
 import {
   Dare,
   ListDaresQuery,
-  SearchDaresQuery,
+  ModelDareFilterInput,
   SearchUsersQuery,
-  SearchableDareFilterInput,
   SearchableUserFilterInput,
   UsersByEmailQuery,
 } from "@/src/API";
@@ -15,10 +14,8 @@ import { GraphQLQuery } from "@aws-amplify/api";
 import DareCard from "./components/dareCard";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
-import Grid from "@mui/material/Grid";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import Box from "@mui/material/Box";
 import SearchIcon from "@mui/icons-material/Search";
 import * as queries from "@/src/graphql/queries";
 import { context } from "../components/ContextProvider";
@@ -27,7 +24,6 @@ import SignUpModal from "./components/signUpModal";
 import { groupIDs } from "../utils/group-enum";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
-import { text } from "stream/consumers";
 
 export default function Feed() {
   const [dares, setDares] = useState<Dare[]>([]);
@@ -107,9 +103,6 @@ export default function Feed() {
 
     const { items: items } = res.data?.listDares;
 
-    console.log(dareFilters);
-    console.log(res);
-
     items.sort(
       (item1, item2) =>
         item2.Votes.items[0].voters.items.length -
@@ -158,6 +151,20 @@ export default function Feed() {
     <Stack alignItems="center">
       <SignUpModal open={openModal} setOpen={setOpenModal} />
       <Stack direction="row" spacing={1} sx={{ maxWidth: 1 }}>
+        <ToggleButtonGroup
+          color="primary"
+          value={searchBy}
+          exclusive
+          onChange={handleSearchToggle}
+          aria-label="Platform"
+        >
+          <ToggleButton size="small" value="dare" sx={{ fontWeight: "bold" }}>
+            by Dare
+          </ToggleButton>
+          <ToggleButton size="small" value="user" sx={{ fontWeight: "bold" }}>
+            by User
+          </ToggleButton>
+        </ToggleButtonGroup>
         <TextField
           value={textLabel}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
@@ -173,20 +180,6 @@ export default function Feed() {
             ),
           }}
         />
-        <ToggleButtonGroup
-          color="primary"
-          value={searchBy}
-          exclusive
-          onChange={handleSearchToggle}
-          aria-label="Platform"
-        >
-          <ToggleButton size="small" value="dare">
-            by Dare
-          </ToggleButton>
-          <ToggleButton size="small" value="user">
-            by User
-          </ToggleButton>
-        </ToggleButtonGroup>
       </Stack>
 
       <Stack
