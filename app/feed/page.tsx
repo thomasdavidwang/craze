@@ -5,6 +5,7 @@ import {
   Dare,
   ListDaresQuery,
   SearchUsersQuery,
+  SearchableDareFilterInput,
   SearchableUserFilterInput,
   UsersByEmailQuery,
 } from "@/src/API";
@@ -23,12 +24,9 @@ import { context } from "../components/ContextProvider";
 import { useRouter } from "next/navigation";
 import SignUpModal from "./components/signUpModal";
 import { groupIDs } from "../utils/group-enum";
-import { TextField } from "@mui/material";
-
-type GeneratedQuery<InputType, OutputType> = string & {
-  __generatedQueryInput: InputType;
-  __generatedQueryOutput: OutputType;
-};
+import TextField from "@mui/material/TextField";
+import InputAdornment from "@mui/material/InputAdornment";
+import { text } from "stream/consumers";
 
 export default function Feed() {
   const [dares, setDares] = useState<Dare[]>([]);
@@ -43,11 +41,54 @@ export default function Feed() {
 
   async function fetchDares() {
     console.log("Fetching...");
+
+    let dareFilters: SearchableDareFilterInput[] = [];
+
+    if (textLabel !== "") {
+      const filters: SearchableUserFilterInput[] = [];
+
+      const words = textLabel.split(" ");
+
+      const firstNameFilter: SearchableUserFilterInput = {
+        firstName: { wildcard: "*" + words[0] + "*" },
+      };
+      filters.push(firstNameFilter);
+
+      if (words.length > 1) {
+        const lastNameFilter: SearchableUserFilterInput = {
+          lastName: { wildcard: "*" + words[1] + "*" },
+        };
+
+        filters.push(lastNameFilter);
+      }
+
+      const users = await API.graphql<GraphQLQuery<SearchUsersQuery>>({
+        query: queries.searchUsers,
+        variables: {
+          filter: { groupID: { eq: groupIDs["Yale-2027"] }, and: filters },
+          limit: 20,
+        },
+      });
+
+      console.log(users);
+
+      for (let user of users.data.searchUsers.items) {
+        let temp = user.votesReceived.items.map((vote) => {
+          return { id: { eq: vote.dareID } };
+        });
+
+        dareFilters.push(...temp);
+      }
+    }
+
     const res = await API.graphql<GraphQLQuery<ListDaresQuery>>({
       query: queries.listDares,
+      variables: { filters: { or: dareFilters } },
     });
 
     const { items: items } = res.data?.listDares;
+
+    console.log(items);
 
     items.sort(
       (item1, item2) =>
@@ -62,46 +103,7 @@ export default function Feed() {
   useEffect(() => {
     fetchDares();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [touch]);
-
-  async function searchUsers() {
-    const filters: SearchableUserFilterInput[] = [];
-
-    const words = textLabel.split(" ");
-
-    const firstNameFilter: SearchableUserFilterInput = {
-      firstName: { wildcard: "*" + words[0] + "*" },
-    };
-    filters.push(firstNameFilter);
-
-    if (words.length > 1) {
-      const lastNameFilter: SearchableUserFilterInput = {
-        lastName: { wildcard: "*" + words[1] + "*" },
-      };
-
-      filters.push(lastNameFilter);
-    }
-
-    const users = await API.graphql<GraphQLQuery<SearchUsersQuery>>({
-      query: queries.searchUsers,
-      variables: {
-        filter: { groupID: { eq: groupIDs["Yale-2027"] }, and: filters },
-        limit: 5,
-      },
-    });
-
-    setOptions(users.data.searchUsers.items);
-    /**Promise.all(
-      users.data.searchUsers.items.map(
-        async (u) => await Storage.get(u.email.slice(0, -9) + ".png")
-      )
-    ).then((picLinks) => setPics(picLinks));*/
-  }
-
-  useEffect(() => {
-    searchUsers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [textLabel]);
+  }, [touch, textLabel]);
 
   useEffect(() => {
     Auth.currentAuthenticatedUser({
@@ -136,8 +138,22 @@ export default function Feed() {
   return (
     <Stack alignItems="center">
       <SignUpModal open={openModal} setOpen={setOpenModal} />
-      <Stack direction="row">
-        <TextField></TextField>
+      <Stack direction="row" spacing={1}>
+        <TextField
+          value={textLabel}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            setTextLabel(event.target.value);
+          }}
+          placeholder="search for dares"
+          sx={{ bgcolor: "action.hover" }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
         <ToggleButtonGroup
           color="primary"
           value={searchBy}
@@ -149,23 +165,7 @@ export default function Feed() {
           <ToggleButton value="user">by User</ToggleButton>
         </ToggleButtonGroup>
       </Stack>
-      {/**<Grid container justifyContent="center">
-        <TextField
-          value={textLabel}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            setTextLabel(event.target.value);
-          }}
-          placeholder="search for your friend's dares"
-          sx={{ bgcolor: "action.hover" }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
-        </Grid>**/}
+
       <Stack
         alignItems="center"
         justifyContent="center"

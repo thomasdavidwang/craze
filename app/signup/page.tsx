@@ -156,6 +156,8 @@ export default function SignUp() {
             setInputIsValid(false);
             if (!retrievedUser.data.usersByEmail.items[0].hasSignedUp) {
               setError("Must be 6 characters or more");
+            } else {
+              setError("");
             }
           }
         }
