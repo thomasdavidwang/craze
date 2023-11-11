@@ -49,6 +49,19 @@ export default function SignUp() {
     [password]
   );
 
+  useEffect(() => {
+    const listener = (event) => {
+      if (event.code === "Enter" || event.code === "NumpadEnter") {
+        event.preventDefault();
+        signUp();
+      }
+    };
+    document.addEventListener("keydown", listener);
+    return () => {
+      document.removeEventListener("keydown", listener);
+    };
+  }, []);
+
   async function signUp() {
     if (isPassword) {
       const user = await API.graphql<GraphQLQuery<UsersByEmailQuery>>({
@@ -156,7 +169,6 @@ export default function SignUp() {
                 e.preventDefault();
                 signUp();
               }}
-              type="submit"
               disabled={!inputIsValid}
             >
               <ArrowForwardIcon />
@@ -188,7 +200,6 @@ export default function SignUp() {
                 e.preventDefault();
                 signUp();
               }}
-              type="submit"
               disabled={!inputIsValid}
             >
               <ArrowForwardIcon />
