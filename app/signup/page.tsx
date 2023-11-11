@@ -195,6 +195,8 @@ export default function SignUp() {
             <Typography variant="h2">@yale.edu</Typography>
             <Button
               size="large"
+              className="bg-fuchsia-500 hover:bg-fuchsia-400 text-white"
+              variant="contained"
               onClick={(e) => {
                 e.preventDefault();
                 signUp();
@@ -227,6 +229,8 @@ export default function SignUp() {
             />
             <Button
               size="large"
+              className="bg-fuchsia-500 hover:bg-fuchsia-400 text-white"
+              variant="contained"
               onClick={(e) => {
                 e.preventDefault();
                 signUp();
