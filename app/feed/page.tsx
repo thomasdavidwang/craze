@@ -120,15 +120,6 @@ export default function Feed() {
   return (
     <Grid container justifyContent="center">
       <SignUpModal open={openModal} setOpen={setOpenModal} />
-      <Button
-        onClick={() =>
-          setDares((prevState) => {
-            return prevState.toReversed();
-          })
-        }
-      >
-        Click me
-      </Button>
       <Stack
         alignItems="center"
         justifyContent="center"
