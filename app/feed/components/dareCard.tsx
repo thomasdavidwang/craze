@@ -137,7 +137,11 @@ export default function DareCard({ dare, index, setTouch }) {
                       <Typography variant="h2" fontWeight={800}>
                         {votee.firstName + " " + votee.lastName}
                       </Typography>
-                      <Typography variant="h2" fontWeight="medium">
+                      <Typography
+                        variant="h2"
+                        fontWeight="medium"
+                        color="grey.500"
+                      >
                         should
                       </Typography>
                     </Stack>
