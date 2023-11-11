@@ -35,7 +35,7 @@ export default function Feed() {
   const [touch, setTouch] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [textLabel, setTextLabel] = useState("");
-  const [searchBy, setSearchBy] = useState("dare");
+  const [searchBy, setSearchBy] = useState("user");
 
   const router = useRouter();
 
@@ -157,13 +157,13 @@ export default function Feed() {
   return (
     <Stack alignItems="center">
       <SignUpModal open={openModal} setOpen={setOpenModal} />
-      <Stack direction="row" spacing={1}>
+      <Stack direction="row" spacing={1} sx={{ maxWidth: 1 }}>
         <TextField
           value={textLabel}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             setTextLabel(event.target.value);
           }}
-          placeholder="search for dares"
+          placeholder={searchBy ? "search for dares" : "search by user"}
           sx={{ bgcolor: "action.hover" }}
           InputProps={{
             startAdornment: (
@@ -180,8 +180,12 @@ export default function Feed() {
           onChange={handleSearchToggle}
           aria-label="Platform"
         >
-          <ToggleButton value="dare">by Dare</ToggleButton>
-          <ToggleButton value="user">by User</ToggleButton>
+          <ToggleButton size="small" value="dare">
+            by Dare
+          </ToggleButton>
+          <ToggleButton size="small" value="user">
+            by User
+          </ToggleButton>
         </ToggleButtonGroup>
       </Stack>
 
