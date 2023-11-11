@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import {
   Dare,
   ListDaresQuery,
+  SearchDaresQuery,
   SearchUsersQuery,
   SearchableDareFilterInput,
   SearchableUserFilterInput,
@@ -34,7 +35,6 @@ export default function Feed() {
   const [touch, setTouch] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [textLabel, setTextLabel] = useState("");
-  const [options, setOptions] = useState([]);
   const [searchBy, setSearchBy] = useState("dare");
 
   const router = useRouter();
@@ -42,40 +42,57 @@ export default function Feed() {
   async function fetchDares() {
     console.log("Fetching...");
 
-    let dareFilters: SearchableDareFilterInput[] = [];
+    let dareFilters: ModelDareFilterInput[] = [];
 
     if (textLabel !== "") {
-      const filters: SearchableUserFilterInput[] = [];
+      if (searchBy === "user") {
+        const userFilters: SearchableUserFilterInput[] = [];
 
-      const words = textLabel.split(" ");
+        const words = textLabel.split(" ");
 
-      const firstNameFilter: SearchableUserFilterInput = {
-        firstName: { wildcard: "*" + words[0] + "*" },
-      };
-      filters.push(firstNameFilter);
-
-      if (words.length > 1) {
-        const lastNameFilter: SearchableUserFilterInput = {
-          lastName: { wildcard: "*" + words[1] + "*" },
+        const firstNameFilter: SearchableUserFilterInput = {
+          firstName: { wildcard: "*" + words[0] + "*" },
         };
+        userFilters.push(firstNameFilter);
 
-        filters.push(lastNameFilter);
-      }
+        if (words.length > 1) {
+          const lastNameFilter: SearchableUserFilterInput = {
+            lastName: { wildcard: "*" + words[1] + "*" },
+          };
 
-      const users = await API.graphql<GraphQLQuery<SearchUsersQuery>>({
-        query: queries.searchUsers,
-        variables: {
-          filter: { groupID: { eq: groupIDs["Yale-2027"] }, and: filters },
-          limit: 20,
-        },
-      });
+          userFilters.push(lastNameFilter);
+        }
 
-      for (let user of users.data.searchUsers.items) {
-        let temp = user.votesReceived.items.map((vote) => {
-          return { id: { eq: vote.dareID } };
+        const users = await API.graphql<GraphQLQuery<SearchUsersQuery>>({
+          query: queries.searchUsers,
+          variables: {
+            filter: {
+              groupID: { eq: groupIDs["Yale-2027"] },
+              and: userFilters,
+            },
+            limit: 20,
+          },
         });
 
-        dareFilters.push(...temp);
+        for (let user of users.data.searchUsers.items) {
+          let temp = user.votesReceived.items.map((vote) => {
+            return { id: { eq: vote.dareID } };
+          });
+
+          dareFilters.push(...temp);
+        }
+      } else {
+        const words = textLabel.split(" ");
+
+        console.log(words);
+
+        for (let word of words) {
+          const tempFilter = {
+            description: { contains: word },
+          };
+
+          dareFilters.push(tempFilter);
+        }
       }
     }
 
@@ -106,7 +123,7 @@ export default function Feed() {
   useEffect(() => {
     fetchDares();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [touch, textLabel]);
+  }, [touch, textLabel, searchBy]);
 
   useEffect(() => {
     Auth.currentAuthenticatedUser({
