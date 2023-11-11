@@ -140,9 +140,22 @@ export default function Feed() {
           );
         })}
       </Stack>
-      <Box
-        position="fixed"
+      <Button
+        variant="contained"
+        color="secondary"
+        className="bg-fuchsia-500"
+        onClick={() => {
+          if (contextData && contextData.userID) {
+            router.push("/create");
+          } else {
+            setOpenModal(true);
+          }
+        }}
         sx={{
+          position: "fixed",
+          borderRadius: "9999px",
+          p: 2,
+          fontWeight: "bold",
           zIndex: "modal",
           bottom: 10,
           py: 1,
@@ -151,22 +164,9 @@ export default function Feed() {
           width: 1,
           maxWidth: 500,
         }}
-        onClick={() => {
-          if (contextData && contextData.userID) {
-            router.push("/create");
-          } else {
-            setOpenModal(true);
-          }
-        }}
       >
-        <Typography
-          fontWeight="bold"
-          align="center"
-          sx={{ bgcolor: "secondary.main", borderRadius: "9999px", p: 2 }}
-        >
-          Dare a friend 😈
-        </Typography>
-      </Box>
+        Dare a friend 😈
+      </Button>
     </Grid>
   );
 }

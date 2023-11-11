@@ -63,18 +63,23 @@ export default function SignUp() {
   }, []);
 
   async function signUp() {
+    console.log("Sign up called");
+    console.log(isPassword);
     if (isPassword) {
       const user = await API.graphql<GraphQLQuery<UsersByEmailQuery>>({
         query: queries.usersByEmail,
         variables: { email: email.toLowerCase() + "@yale.edu" },
       });
 
+      console.log("Checking if user exists...");
       if (user.data.usersByEmail.items.length == 0) {
         setError("Please enter your @yale.edu email.");
       } else {
         if (user.data.usersByEmail.items[0].hasSignedUp === true) {
           try {
             await Auth.signIn(email.toLowerCase() + "@yale.edu", password);
+
+            console.log("Signing in...");
 
             //const pic = await Storage.get(user.data.usersByEmail.items[0].email);
 
@@ -179,7 +184,7 @@ export default function SignUp() {
       {isPassword && (
         <motion.div animate={{ x: !isPassword ? right : center }}>
           <Typography variant="h2" sx={{ my: 2 }}>
-            What&apos;s your password?
+            What&apos;s your password
           </Typography>
           <Stack direction="row" alignItems="center">
             <TextField

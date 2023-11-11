@@ -1,8 +1,11 @@
-import { Box, Grid, Modal, Typography } from "@mui/material";
+import { Box, Button, Grid, Modal, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function SignUpModal({ open, setOpen }) {
+  const router = useRouter();
+
   return (
     <Modal open={open} onClose={() => setOpen(false)}>
       <Grid
@@ -29,18 +32,22 @@ export default function SignUpModal({ open, setOpen }) {
           height={100}
         />
         <Typography variant="h2">Sign in to dare a friend 😈</Typography>
-        <Box
+        <Button
+          color="secondary"
+          className="bg-fuchsia-500"
           sx={{
-            bgcolor: "secondary.main",
             color: "white",
             borderRadius: "9999px",
             fontWeight: "bold",
             px: 10,
             py: 2,
           }}
+          onClick={() => {
+            router.push("/signup");
+          }}
         >
-          <Link href="/signup">Sign in</Link>
-        </Box>
+          Sign in
+        </Button>
       </Grid>
     </Modal>
   );
