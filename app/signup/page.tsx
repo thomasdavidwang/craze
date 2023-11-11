@@ -170,7 +170,7 @@ export default function SignUp() {
           <Typography variant="h2" sx={{ my: 2 }}>
             What&apos;s your email?
           </Typography>
-          <Stack direction="row" alignItems="center">
+          <Stack direction="row" spacing={0.5} alignItems="center">
             <TextField
               id="email"
               variant="outlined"
@@ -179,14 +179,11 @@ export default function SignUp() {
                 setEmail(event.target.value);
               }}
               placeholder="first.last"
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">@yale.edu</InputAdornment>
-                ),
-              }}
-              sx={{ bgcolor: "action.hover", width: 1 }}
+              sx={{ bgcolor: "action.hover", width: 0.35 }}
             />
+            <Typography variant="h2">@yale.edu</Typography>
             <Button
+              size="large"
               onClick={(e) => {
                 e.preventDefault();
                 signUp();
@@ -206,7 +203,7 @@ export default function SignUp() {
           <Typography variant="h2" sx={{ my: 2 }}>
             {user.hasSignedUp ? "Enter your password." : "Create a password."}
           </Typography>
-          <Stack direction="row" alignItems="center">
+          <Stack direction="row" spacing={0.5} alignItems="center">
             <TextField
               id="password"
               variant="outlined"
@@ -218,6 +215,7 @@ export default function SignUp() {
               sx={{ bgcolor: "action.hover", width: 1 }}
             />
             <Button
+              size="large"
               onClick={(e) => {
                 e.preventDefault();
                 signUp();
