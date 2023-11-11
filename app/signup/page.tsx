@@ -4,7 +4,6 @@ import TextField from "@mui/material/TextField";
 import { useContext, useEffect, useState } from "react";
 import {
   Box,
-  Button,
   Container,
   InputAdornment,
   Stack,
@@ -21,6 +20,7 @@ import { useRouter } from "next/navigation";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { motion } from "framer-motion";
 import { groupIDs } from "../utils/group-enum";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
@@ -29,6 +29,7 @@ export default function SignUp() {
   const [inputIsValid, setInputIsValid] = useState(true);
   const [error, setError] = useState("");
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [user, setUser] = useState({
     id: "",
@@ -72,6 +73,7 @@ export default function SignUp() {
   async function signUp() {
     console.log("Sign up called");
     console.log(isPassword);
+    setLoading(true);
     if (isPassword) {
       if (user.hasSignedUp === true) {
         try {
@@ -165,6 +167,7 @@ export default function SignUp() {
         console.log(e);
       }
     }
+    setLoading(false);
   }
 
   return (
@@ -193,7 +196,8 @@ export default function SignUp() {
               sx={{ bgcolor: "action.hover", width: 0.35 }}
             />
             <Typography variant="h2">@yale.edu</Typography>
-            <Button
+            <LoadingButton
+              loading={loading}
               size="large"
               className="bg-fuchsia-500 hover:bg-fuchsia-400 text-white"
               variant="contained"
@@ -204,7 +208,7 @@ export default function SignUp() {
               disabled={!inputIsValid}
             >
               <ArrowForwardIcon />
-            </Button>
+            </LoadingButton>
           </Stack>
           <Typography variant="h4" sx={{ py: 1 }} color="error.main">
             {error}
@@ -227,8 +231,9 @@ export default function SignUp() {
               }}
               sx={{ bgcolor: "action.hover", width: 1 }}
             />
-            <Button
+            <LoadingButton
               size="large"
+              loading={loading}
               className="bg-fuchsia-500 hover:bg-fuchsia-400 text-white"
               variant="contained"
               onClick={(e) => {
@@ -238,7 +243,7 @@ export default function SignUp() {
               disabled={!inputIsValid}
             >
               <ArrowForwardIcon />
-            </Button>
+            </LoadingButton>
           </Stack>
           <Typography variant="h4" sx={{ py: 1 }} color="error.main">
             {error}
