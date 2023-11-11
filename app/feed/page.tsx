@@ -5,6 +5,8 @@ import {
   Dare,
   ListDaresQuery,
   ListDaresQueryVariables,
+  SearchUsersQuery,
+  SearchableUserFilterInput,
   UsersByEmailQuery,
 } from "@/src/API";
 import { API, Auth } from "aws-amplify";
@@ -12,72 +14,43 @@ import { GraphQLQuery } from "@aws-amplify/api";
 import DareCard from "./components/dareCard";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
+import SearchIcon from "@mui/icons-material/Search";
 import * as queries from "@/src/graphql/queries";
-import { Button, Container, Grid, Modal, Typography } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardActionArea,
+  CardContent,
+  Container,
+  Grid,
+  InputAdornment,
+  Modal,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { context } from "../components/ContextProvider";
 import { useRouter } from "next/navigation";
 import SignUpModal from "./components/signUpModal";
+import { groupIDs } from "../utils/group-enum";
 
 type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryInput: InputType;
   __generatedQueryOutput: OutputType;
 };
 
-const listDares = /* GraphQL */ `query ListDares(
-  $filter: ModelDareFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listDares(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      description
-      emoji
-      Votes {
-        items {
-          id
-          voters {
-            items {
-              id
-              voteId
-              userId
-              createdAt
-              updatedAt
-              __typename
-            }
-            nextToken
-            __typename
-          }
-          dareID
-          votee
-          createdAt
-          updatedAt
-          __typename
-        }
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<ListDaresQueryVariables, ListDaresQuery>;
-
 export default function Feed() {
   const [dares, setDares] = useState<Dare[]>([]);
   const { contextData, setContextData } = useContext(context);
   const [touch, setTouch] = useState(0);
   const [openModal, setOpenModal] = useState(false);
+  const [textLabel, setTextLabel] = useState("");
+  const [options, setOptions] = useState([]);
   const router = useRouter();
 
   async function fetchDares() {
     console.log("Fetching...");
     const res = await API.graphql<GraphQLQuery<ListDaresQuery>>({
-      query: listDares,
+      query: queries.listDares,
     });
 
     const { items: items } = res.data?.listDares;
@@ -98,6 +71,45 @@ export default function Feed() {
     fetchDares();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [touch]);
+
+  async function searchUsers() {
+    const filters: SearchableUserFilterInput[] = [];
+
+    const words = textLabel.split(" ");
+
+    const firstNameFilter: SearchableUserFilterInput = {
+      firstName: { wildcard: "*" + words[0] + "*" },
+    };
+    filters.push(firstNameFilter);
+
+    if (words.length > 1) {
+      const lastNameFilter: SearchableUserFilterInput = {
+        lastName: { wildcard: "*" + words[1] + "*" },
+      };
+
+      filters.push(lastNameFilter);
+    }
+
+    const users = await API.graphql<GraphQLQuery<SearchUsersQuery>>({
+      query: queries.searchUsers,
+      variables: {
+        filter: { groupID: { eq: groupIDs["Yale-2027"] }, and: filters },
+        limit: 5,
+      },
+    });
+
+    setOptions(users.data.searchUsers.items);
+    /**Promise.all(
+      users.data.searchUsers.items.map(
+        async (u) => await Storage.get(u.email.slice(0, -9) + ".png")
+      )
+    ).then((picLinks) => setPics(picLinks));*/
+  }
+
+  useEffect(() => {
+    searchUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [textLabel]);
 
   useEffect(() => {
     Auth.currentAuthenticatedUser({
@@ -124,6 +136,23 @@ export default function Feed() {
   return (
     <Grid container justifyContent="center">
       <SignUpModal open={openModal} setOpen={setOpenModal} />
+      {/**<Grid container justifyContent="center">
+        <TextField
+          value={textLabel}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            setTextLabel(event.target.value);
+          }}
+          placeholder="search for your friend's dares"
+          sx={{ bgcolor: "action.hover" }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
+        </Grid>**/}
       <Stack
         alignItems="center"
         justifyContent="center"

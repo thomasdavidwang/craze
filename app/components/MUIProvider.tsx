@@ -2,6 +2,7 @@
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import { StyledEngineProvider } from "@mui/material/styles";
 import "../global.css";
 
 interface LayoutProps {
@@ -29,11 +30,11 @@ const theme = createTheme({
 
 export default function MUIProvider(props: LayoutProps) {
   return (
-    <>
+    <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         {props.children}
       </ThemeProvider>
-    </>
+    </StyledEngineProvider>
   );
 }

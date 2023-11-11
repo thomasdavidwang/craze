@@ -301,6 +301,128 @@ export type ModelDareConnection = {
   nextToken?: string | null,
 };
 
+export type SearchableDareFilterInput = {
+  id?: SearchableIDFilterInput | null,
+  description?: SearchableStringFilterInput | null,
+  emoji?: SearchableStringFilterInput | null,
+  createdAt?: SearchableStringFilterInput | null,
+  updatedAt?: SearchableStringFilterInput | null,
+  and?: Array< SearchableDareFilterInput | null > | null,
+  or?: Array< SearchableDareFilterInput | null > | null,
+  not?: SearchableDareFilterInput | null,
+};
+
+export type SearchableIDFilterInput = {
+  ne?: string | null,
+  gt?: string | null,
+  lt?: string | null,
+  gte?: string | null,
+  lte?: string | null,
+  eq?: string | null,
+  match?: string | null,
+  matchPhrase?: string | null,
+  matchPhrasePrefix?: string | null,
+  multiMatch?: string | null,
+  exists?: boolean | null,
+  wildcard?: string | null,
+  regexp?: string | null,
+  range?: Array< string | null > | null,
+};
+
+export type SearchableStringFilterInput = {
+  ne?: string | null,
+  gt?: string | null,
+  lt?: string | null,
+  gte?: string | null,
+  lte?: string | null,
+  eq?: string | null,
+  match?: string | null,
+  matchPhrase?: string | null,
+  matchPhrasePrefix?: string | null,
+  multiMatch?: string | null,
+  exists?: boolean | null,
+  wildcard?: string | null,
+  regexp?: string | null,
+  range?: Array< string | null > | null,
+};
+
+export type SearchableDareSortInput = {
+  field?: SearchableDareSortableFields | null,
+  direction?: SearchableSortDirection | null,
+};
+
+export enum SearchableDareSortableFields {
+  id = "id",
+  description = "description",
+  emoji = "emoji",
+  createdAt = "createdAt",
+  updatedAt = "updatedAt",
+}
+
+
+export enum SearchableSortDirection {
+  asc = "asc",
+  desc = "desc",
+}
+
+
+export type SearchableDareAggregationInput = {
+  name: string,
+  type: SearchableAggregateType,
+  field: SearchableDareAggregateField,
+};
+
+export enum SearchableAggregateType {
+  terms = "terms",
+  avg = "avg",
+  min = "min",
+  max = "max",
+  sum = "sum",
+}
+
+
+export enum SearchableDareAggregateField {
+  id = "id",
+  description = "description",
+  emoji = "emoji",
+  createdAt = "createdAt",
+  updatedAt = "updatedAt",
+}
+
+
+export type SearchableDareConnection = {
+  __typename: "SearchableDareConnection",
+  items:  Array<Dare | null >,
+  nextToken?: string | null,
+  total?: number | null,
+  aggregateItems:  Array<SearchableAggregateResult | null >,
+};
+
+export type SearchableAggregateResult = {
+  __typename: "SearchableAggregateResult",
+  name: string,
+  result?: SearchableAggregateGenericResult | null,
+};
+
+export type SearchableAggregateGenericResult = SearchableAggregateScalarResult | SearchableAggregateBucketResult
+
+
+export type SearchableAggregateScalarResult = {
+  __typename: "SearchableAggregateScalarResult",
+  value: number,
+};
+
+export type SearchableAggregateBucketResult = {
+  __typename: "SearchableAggregateBucketResult",
+  buckets?:  Array<SearchableAggregateBucketResultItem | null > | null,
+};
+
+export type SearchableAggregateBucketResultItem = {
+  __typename: "SearchableAggregateBucketResultItem",
+  key: string,
+  doc_count: number,
+};
+
 export type ModelGroupFilterInput = {
   id?: ModelIDInput | null,
   description?: ModelStringInput | null,
@@ -345,40 +467,6 @@ export type SearchableUserFilterInput = {
   not?: SearchableUserFilterInput | null,
 };
 
-export type SearchableIDFilterInput = {
-  ne?: string | null,
-  gt?: string | null,
-  lt?: string | null,
-  gte?: string | null,
-  lte?: string | null,
-  eq?: string | null,
-  match?: string | null,
-  matchPhrase?: string | null,
-  matchPhrasePrefix?: string | null,
-  multiMatch?: string | null,
-  exists?: boolean | null,
-  wildcard?: string | null,
-  regexp?: string | null,
-  range?: Array< string | null > | null,
-};
-
-export type SearchableStringFilterInput = {
-  ne?: string | null,
-  gt?: string | null,
-  lt?: string | null,
-  gte?: string | null,
-  lte?: string | null,
-  eq?: string | null,
-  match?: string | null,
-  matchPhrase?: string | null,
-  matchPhrasePrefix?: string | null,
-  multiMatch?: string | null,
-  exists?: boolean | null,
-  wildcard?: string | null,
-  regexp?: string | null,
-  range?: Array< string | null > | null,
-};
-
 export type SearchableBooleanFilterInput = {
   eq?: boolean | null,
   ne?: boolean | null,
@@ -403,26 +491,11 @@ export enum SearchableUserSortableFields {
 }
 
 
-export enum SearchableSortDirection {
-  asc = "asc",
-  desc = "desc",
-}
-
-
 export type SearchableUserAggregationInput = {
   name: string,
   type: SearchableAggregateType,
   field: SearchableUserAggregateField,
 };
-
-export enum SearchableAggregateType {
-  terms = "terms",
-  avg = "avg",
-  min = "min",
-  max = "max",
-  sum = "sum",
-}
-
 
 export enum SearchableUserAggregateField {
   id = "id",
@@ -444,31 +517,6 @@ export type SearchableUserConnection = {
   nextToken?: string | null,
   total?: number | null,
   aggregateItems:  Array<SearchableAggregateResult | null >,
-};
-
-export type SearchableAggregateResult = {
-  __typename: "SearchableAggregateResult",
-  name: string,
-  result?: SearchableAggregateGenericResult | null,
-};
-
-export type SearchableAggregateGenericResult = SearchableAggregateScalarResult | SearchableAggregateBucketResult
-
-
-export type SearchableAggregateScalarResult = {
-  __typename: "SearchableAggregateScalarResult",
-  value: number,
-};
-
-export type SearchableAggregateBucketResult = {
-  __typename: "SearchableAggregateBucketResult",
-  buckets?:  Array<SearchableAggregateBucketResultItem | null > | null,
-};
-
-export type SearchableAggregateBucketResultItem = {
-  __typename: "SearchableAggregateBucketResultItem",
-  key: string,
-  doc_count: number,
 };
 
 export type ModelUserVoteFilterInput = {
@@ -2486,6 +2534,71 @@ export type ListDaresQuery = {
       updatedAt: string,
     } | null >,
     nextToken?: string | null,
+  } | null,
+};
+
+export type SearchDaresQueryVariables = {
+  filter?: SearchableDareFilterInput | null,
+  sort?: Array< SearchableDareSortInput | null > | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  from?: number | null,
+  aggregates?: Array< SearchableDareAggregationInput | null > | null,
+};
+
+export type SearchDaresQuery = {
+  searchDares?:  {
+    __typename: "SearchableDareConnection",
+    items:  Array< {
+      __typename: "Dare",
+      id: string,
+      description?: string | null,
+      emoji?: string | null,
+      Votes?:  {
+        __typename: "ModelVoteConnection",
+        items:  Array< {
+          __typename: "Vote",
+          id: string,
+          voters?:  {
+            __typename: "ModelUserVoteConnection",
+            items:  Array< {
+              __typename: "UserVote",
+              id: string,
+              voteId: string,
+              userId: string,
+              createdAt: string,
+              updatedAt: string,
+            } | null >,
+            nextToken?: string | null,
+          } | null,
+          dareID: string,
+          votee: string,
+          createdAt: string,
+          updatedAt: string,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+    total?: number | null,
+    aggregateItems:  Array< {
+      __typename: "SearchableAggregateResult",
+      name: string,
+      result: ( {
+          __typename: "SearchableAggregateScalarResult",
+          value: number,
+        } | {
+          __typename: "SearchableAggregateBucketResult",
+          buckets?:  Array< {
+            __typename: string,
+            key: string,
+            doc_count: number,
+          } | null > | null,
+        }
+      ) | null,
+    } | null >,
   } | null,
 };
 

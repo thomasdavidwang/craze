@@ -401,6 +401,79 @@ export const listDares = /* GraphQL */ `query ListDares(
   }
 }
 ` as GeneratedQuery<APITypes.ListDaresQueryVariables, APITypes.ListDaresQuery>;
+export const searchDares = /* GraphQL */ `query SearchDares(
+  $filter: SearchableDareFilterInput
+  $sort: [SearchableDareSortInput]
+  $limit: Int
+  $nextToken: String
+  $from: Int
+  $aggregates: [SearchableDareAggregationInput]
+) {
+  searchDares(
+    filter: $filter
+    sort: $sort
+    limit: $limit
+    nextToken: $nextToken
+    from: $from
+    aggregates: $aggregates
+  ) {
+    items {
+      id
+      description
+      emoji
+      Votes {
+        items {
+          id
+          voters {
+            items {
+              id
+              voteId
+              userId
+              createdAt
+              updatedAt
+              __typename
+            }
+            nextToken
+            __typename
+          }
+          dareID
+          votee
+          createdAt
+          updatedAt
+          __typename
+        }
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+    nextToken
+    total
+    aggregateItems {
+      name
+      result {
+        ... on SearchableAggregateScalarResult {
+          value
+        }
+        ... on SearchableAggregateBucketResult {
+          buckets {
+            key
+            doc_count
+            __typename
+          }
+        }
+      }
+      __typename
+    }
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.SearchDaresQueryVariables,
+  APITypes.SearchDaresQuery
+>;
 export const getGroup = /* GraphQL */ `query GetGroup($id: ID!) {
   getGroup(id: $id) {
     id
