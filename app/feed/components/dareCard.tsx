@@ -92,7 +92,7 @@ export default function DareCard({ dare, index, setTouch, voteCount }) {
 
   return (
     <Card variant="outlined" sx={{ width: 1, padding: 1 }}>
-      <SignUpModal open={openModal} />
+      <SignUpModal open={openModal} setOpen={setOpenModal} />
       <Stack direction="row" spacing={1} alignItems="center">
         <CardActionArea>
           <CardContent onClick={() => setOpen((value) => !value)}>

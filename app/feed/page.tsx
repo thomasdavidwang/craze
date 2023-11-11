@@ -122,7 +122,7 @@ export default function Feed() {
 
   return (
     <Grid container justifyContent="center">
-      <SignUpModal open={openModal} />
+      <SignUpModal open={openModal} setOpen={setOpenModal} />
       <Stack
         alignItems="center"
         justifyContent="center"

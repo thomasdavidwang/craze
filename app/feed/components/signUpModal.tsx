@@ -2,9 +2,9 @@ import { Box, Grid, Modal, Typography } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function SignUpModal({ open }) {
+export default function SignUpModal({ open, setOpen }) {
   return (
-    <Modal open={open}>
+    <Modal open={open} onClose={() => setOpen(false)}>
       <Grid
         container
         direction="column"
@@ -35,7 +35,8 @@ export default function SignUpModal({ open }) {
             color: "white",
             borderRadius: "9999px",
             fontWeight: "bold",
-            p: 2,
+            px: 10,
+            py: 2,
           }}
         >
           <Link href="/signup">Sign in</Link>
