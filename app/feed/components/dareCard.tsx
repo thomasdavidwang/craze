@@ -103,6 +103,23 @@ export default function DareCard({ dare, index, setTouch }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dare]);
 
+  function getColor(index: number) {
+    switch (index) {
+      case 0:
+        return "text-gold-800";
+        break;
+      case 1:
+        return "text-silver-800";
+        break;
+      case 2:
+        return "text-bronze-800";
+        break;
+      default:
+        return "text-white";
+        break;
+    }
+  }
+
   return (
     <Card
       variant="outlined"
@@ -120,7 +137,11 @@ export default function DareCard({ dare, index, setTouch }) {
         <CardActionArea>
           <CardContent onClick={() => setOpen((value) => !value)}>
             <Stack direction="row" spacing={1}>
-              <Typography sx={{ pt: 1, pr: 1 }} fontWeight="700">
+              <Typography
+                sx={{ pt: 1, pr: 1 }}
+                className={getColor(index)}
+                fontWeight="700"
+              >
                 {"#" + (index + 1)}
               </Typography>
               {votee && (
