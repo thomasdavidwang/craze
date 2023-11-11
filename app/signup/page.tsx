@@ -148,7 +148,7 @@ export default function SignUp() {
           setUser(retrievedUser.data.usersByEmail.items[0]);
           setIsPassword(true);
           setInputIsValid(false);
-          setError("");
+          setError("Must be 6 characters or more");
         }
       } catch (e) {
         console.log(e);
@@ -204,7 +204,7 @@ export default function SignUp() {
       {isPassword && (
         <motion.div animate={{ x: !isPassword ? right : center }}>
           <Typography variant="h2" sx={{ my: 2 }}>
-            {user.hasSignedUp ? "Enter your password" : "Create a password"}
+            {user.hasSignedUp ? "Enter your password." : "Create a password."}
           </Typography>
           <Stack direction="row" alignItems="center">
             <TextField
