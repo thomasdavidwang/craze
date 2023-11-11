@@ -33,6 +33,7 @@ import Link from "next/link";
 import SearchIcon from "@mui/icons-material/Search";
 import { groupIDs } from "../utils/group-enum";
 import ProfileImage from "../feed/components/profileImage";
+import { LoadingButton } from "@mui/lab";
 
 export default function Create() {
   const [description, setDescription] = useState("");
@@ -41,6 +42,7 @@ export default function Create() {
   const [options, setOptions] = useState([]);
   const [pics, setPics] = useState([]);
   const [textLabel, setTextLabel] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   async function searchUsers() {
@@ -83,6 +85,7 @@ export default function Create() {
   }, [textLabel]);
 
   async function createDare() {
+    setLoading(true);
     try {
       const dareDetails: CreateDareInput = {
         description: description,
@@ -116,9 +119,12 @@ export default function Create() {
 
       console.log(newVoter);
 
+      setLoading(false);
+
       router.push("/feed");
     } catch (error) {
       console.log("error creating dare:", error);
+      setLoading(false);
     }
   }
 
@@ -213,7 +219,8 @@ export default function Create() {
             sx={{ width: 1, px: 2, maxWidth: 600 }}
             InputProps={{
               endAdornment: (
-                <Button
+                <LoadingButton
+                  loading={loading}
                   onClick={() => {
                     createDare();
                   }}
@@ -221,7 +228,7 @@ export default function Create() {
                   sx={{ fontWeight: "bold", fontSize: 18 }}
                 >
                   {"Post"}
-                </Button>
+                </LoadingButton>
               ),
             }}
           />
