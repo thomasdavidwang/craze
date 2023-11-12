@@ -173,7 +173,7 @@ export default function SignUp() {
   return (
     <Stack
       spacing={2}
-      sx={{ width: 1, p: 2 }}
+      sx={{ width: 1 }}
       className="h-screen"
       alignItems="center"
       justifyContent="space-between"
@@ -184,7 +184,12 @@ export default function SignUp() {
           <Typography variant="h2" sx={{ my: 2 }}>
             What&apos;s your email?
           </Typography>
-          <Stack direction="row" spacing={0.5} alignItems="center">
+          <Stack
+            direction="row"
+            spacing={1}
+            alignItems="center"
+            sx={{ width: 1, maxWidth: 600 }}
+          >
             <TextField
               id="email"
               variant="outlined"
@@ -220,7 +225,7 @@ export default function SignUp() {
           <Typography variant="h2" sx={{ my: 2 }}>
             {user.hasSignedUp ? "Enter your password." : "Create a password."}
           </Typography>
-          <Stack direction="row" spacing={0.5} alignItems="center">
+          <Stack direction="row" spacing={1} alignItems="center">
             <TextField
               id="password"
               variant="outlined"
