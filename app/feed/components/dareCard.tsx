@@ -35,7 +35,7 @@ export default function DareCard({ dare, index, setTouch }) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const [openModal, setOpenModal] = useState(false);
-  const [hasVoted, setHasVoted] = useState(false);
+  const [hasVoted, setHasVoted] = useState(true);
 
   async function getVotee() {
     try {

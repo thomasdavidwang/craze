@@ -27,6 +27,7 @@ export default function VoterList({ dare }) {
     Promise.all(
       voterList.map(async (voterID) => {
         try {
+          console.log(voterID);
           const user = await API.graphql<GraphQLQuery<GetUserQuery>>({
             query: queries.getUser,
             variables: { id: voterID },
