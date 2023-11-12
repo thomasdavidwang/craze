@@ -7,6 +7,7 @@ import MUIProvider from "./components/MUIProvider";
 import Script from "next/script";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("http://www.trynerve.com"),
   title: "Nerve @ Yale",
   description: "Dare Your Friends",
 };
