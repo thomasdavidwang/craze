@@ -4,6 +4,7 @@ import "./globals.css";
 import AWSProvider from "./components/AWSProvider";
 import ContextProvider from "./components/ContextProvider";
 import MUIProvider from "./components/MUIProvider";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Nerve @ Yale",
@@ -18,6 +19,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <meta property="og:image" content="<generated>" />
+      <Script src="https://www.googletagmanager.com/gtag/js?id=G-6JMN2E1NEF" />
+      <Script id="google-analytics">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+ 
+          gtag('config', 'G-6JMN2E1NEF');
+        `}
+      </Script>
       <AWSProvider>
         <ContextProvider>
           <MUIProvider>
