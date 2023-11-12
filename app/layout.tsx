@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <meta property="og:image" content="/og-preview.jpeg" />
+      <meta property="og:image" content="<generated>" />
       <AWSProvider>
         <ContextProvider>
           <MUIProvider>
