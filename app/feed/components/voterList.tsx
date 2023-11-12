@@ -5,7 +5,7 @@ import Stack from "@mui/material/Stack";
 import ProfileImage from "./profileImage";
 import * as queries from "@/src/graphql/queries";
 import { GraphQLQuery } from "@aws-amplify/api";
-import { GetUserQuery } from "@/src/API";
+import { GetUserQuery, ListUsersQuery, ModelUserFilterInput } from "@/src/API";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import { API } from "aws-amplify";
@@ -22,37 +22,32 @@ export default function VoterList({ dare }) {
       }
     );
 
-    const voterList = sortedList.map((userVotes) => userVotes.userId);
+    const userFilters: ModelUserFilterInput[] = sortedList.map((userVote) => {
+      return {
+        id: {
+          eq: userVote.userId,
+        },
+      };
+    });
 
-    Promise.all(
-      voterList.map(async (voterID) => {
-        try {
-          console.log(voterID);
-          const user = await API.graphql<GraphQLQuery<GetUserQuery>>({
-            query: queries.getUser,
-            variables: { id: voterID },
-          });
+    console.log(userFilters);
 
-          /**const picLink = await Storage.get(
-            user.data.getUser.email.slice(0, -9) + ".png"
-          );*/
+    try {
+      const voterList = await API.graphql<GraphQLQuery<ListUsersQuery>>({
+        query: queries.listUsers,
+        variables: { or: userFilters },
+      });
 
-          return {
-            firstName: user.data.getUser.firstName,
-            lastName: user.data.getUser.lastName,
-            profilePicKey: user.data.getUser.profilePicKey,
-          };
-        } catch (error) {
-          console.log(error);
-        }
-      })
-    ).then((votersData) => setVoters(votersData));
+      setVoters(voterList.data.listUsers.items);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   useEffect(() => {
     getVoters();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dare]);
 
   return (
     <Stack sx={{ borderTop: 1, borderColor: "grey.800", py: 2 }} spacing={1}>

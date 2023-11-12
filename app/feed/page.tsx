@@ -103,8 +103,6 @@ export default function Feed() {
 
     const { items: items } = res.data?.listDares;
 
-    console.log(items);
-
     items.sort(
       (item1, item2) =>
         item2.Votes.items[0].voters.items.length -
