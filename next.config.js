@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
+  metadataBase: new URL("http://www.trynerve.com"),
   images: {
     remotePatterns: [
       {
