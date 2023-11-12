@@ -205,12 +205,15 @@ export default function Secret() {
         >
           {dares.map((dare, idx) => {
             return (
-              <DareCard
-                dare={dare}
-                index={idx}
-                key={dare.id}
-                setTouch={setTouch}
-              />
+              <>
+                <DareCard
+                  dare={dare}
+                  index={idx}
+                  key={dare.id}
+                  setTouch={setTouch}
+                />
+                <Typography>{dare.Votes.items[0].votee}</Typography>
+              </>
             );
           })}
         </Stack>
