@@ -18,7 +18,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <meta property="og:image" content="<generated>" />
       <Script src="https://www.googletagmanager.com/gtag/js?id=G-6JMN2E1NEF" />
       <Script id="google-analytics">
         {`
