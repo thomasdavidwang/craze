@@ -3,12 +3,16 @@
 import { useContext, useEffect, useState } from "react";
 import {
   Dare,
+  DeleteDareMutation,
+  DeleteUserVoteMutation,
+  DeleteVoteMutation,
   ListDaresQuery,
   ModelDareFilterInput,
   SearchUsersQuery,
   SearchableUserFilterInput,
   UsersByEmailQuery,
 } from "@/src/API";
+import CloseIcon from "@mui/icons-material/Close";
 import { API, Auth } from "aws-amplify";
 import { GraphQLQuery } from "@aws-amplify/api";
 import DareCard from "../feed/components/dareCard";
@@ -18,13 +22,15 @@ import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import SearchIcon from "@mui/icons-material/Search";
 import * as queries from "@/src/graphql/queries";
+import * as mutations from "@/src/graphql/mutations";
+
 import { context } from "../components/ContextProvider";
 import { useRouter } from "next/navigation";
 import SignUpModal from "../feed/components/signUpModal";
 import { groupIDs } from "../utils/group-enum";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
-import { Container, Typography } from "@mui/material";
+import { Container, IconButton, Typography } from "@mui/material";
 
 export default function Secret() {
   const [dares, setDares] = useState<Dare[]>([]);
@@ -150,6 +156,32 @@ export default function Secret() {
     setSearchBy(newSearchBy);
   }
 
+  async function deleteData(dareID, voteID, userVotes) {
+    try {
+      for (let userVote of userVotes) {
+        const deleteUserVote = await API.graphql<
+          GraphQLQuery<DeleteUserVoteMutation>
+        >({
+          query: mutations.deleteUserVote,
+          variables: { input: { id: userVote.id } },
+        });
+        console.log(deleteUserVote);
+      }
+      const deleteVote = await API.graphql<GraphQLQuery<DeleteVoteMutation>>({
+        query: mutations.deleteVote,
+        variables: { input: { id: voteID } },
+      });
+      console.log(deleteVote);
+      const deleteDare = await API.graphql<GraphQLQuery<DeleteDareMutation>>({
+        query: mutations.deleteDare,
+        variables: { input: { id: dareID } },
+      });
+      console.log(deleteDare);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <>
       <Container sx={{ width: 1, my: 2 }}>
@@ -209,10 +241,25 @@ export default function Secret() {
                 <DareCard
                   dare={dare}
                   index={idx}
+                  isInternal={true}
                   key={dare.id}
                   setTouch={setTouch}
                 />
-                <Typography>{dare.Votes.items[0].votee}</Typography>
+                <Stack direction="row" alignItems="center">
+                  <Typography>{dare.Votes.items[0].votee}</Typography>
+
+                  <IconButton
+                    onClick={() => {
+                      deleteData(
+                        dare.id,
+                        dare.Votes.items[0].id,
+                        dare.Votes.items[0].voters.items
+                      );
+                    }}
+                  >
+                    <CloseIcon />
+                  </IconButton>
+                </Stack>
               </>
             );
           })}

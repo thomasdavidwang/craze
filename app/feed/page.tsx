@@ -197,6 +197,7 @@ export default function Feed() {
         {dares.map((dare, idx) => {
           return (
             <DareCard
+              isInternal={false}
               dare={dare}
               index={idx}
               key={dare.id}

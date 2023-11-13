@@ -4,18 +4,16 @@ import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import ProfileImage from "./profileImage";
 import * as queries from "@/src/graphql/queries";
+import * as mutations from "@/src/graphql/mutations";
+import CloseIcon from "@mui/icons-material/Close";
 import { GraphQLQuery } from "@aws-amplify/api";
-import {
-  GetUserQuery,
-  GetVoteQuery,
-  ListUsersQuery,
-  ModelUserFilterInput,
-} from "@/src/API";
+import { DeleteUserVoteMutation, GetVoteQuery } from "@/src/API";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import { API } from "aws-amplify";
+import { IconButton } from "@mui/material";
 
-export default function VoterList({ dare }) {
+export default function VoterList({ dare, isInternal, setTouch }) {
   const [voters, setVoters] = useState([]);
 
   async function getVoters(Vote) {
@@ -34,8 +32,25 @@ export default function VoterList({ dare }) {
         }
       );
 
+      console.log(voterList);
+
       // @ts-ignore is not assignable to parameter of type 'SetStateAction<any[]>'
       setVoters(temp);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function deleteUserVote(userVoteID) {
+    try {
+      const deleteMutation = await API.graphql<
+        GraphQLQuery<DeleteUserVoteMutation>
+      >({
+        query: mutations.deleteUserVote,
+        variables: { input: { id: userVoteID } },
+      });
+      console.log(deleteMutation);
+      setTouch((prevState) => prevState + 1);
     } catch (error) {
       console.log(error);
     }
@@ -79,6 +94,15 @@ export default function VoterList({ dare }) {
                   <Typography variant="h4">
                     {voter.user.firstName + " " + voter.user.lastName}
                   </Typography>
+                  {isInternal && (
+                    <IconButton
+                      onClick={() => {
+                        deleteUserVote(voter.id);
+                      }}
+                    >
+                      <CloseIcon />
+                    </IconButton>
+                  )}
                 </Stack>
               </Grid>
             )

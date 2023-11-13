@@ -29,7 +29,7 @@ type Votee = {
   profilePicKey: string;
 };
 
-export default function DareCard({ dare, index, setTouch }) {
+export default function DareCard({ dare, index, setTouch, isInternal }) {
   const [votee, setVotee] = useState<Votee>();
   const { contextData, setContextData } = useContext(context);
   const [open, setOpen] = useState(false);
@@ -190,7 +190,11 @@ export default function DareCard({ dare, index, setTouch }) {
           </Typography>
         </Stack>
       </Stack>
-      <motion.div>{open ? <VoterList dare={dare} /> : null}</motion.div>
+      <motion.div>
+        {open ? (
+          <VoterList dare={dare} isInternal={isInternal} setTouch={setTouch} />
+        ) : null}
+      </motion.div>
     </Card>
   );
 }
